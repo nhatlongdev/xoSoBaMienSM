@@ -82,7 +82,6 @@ import {
             }
             //GOI LENH VAO MAN HOME
             //TO DO
-            alert('toid ay')
             this.props.navigation.replace('HomeComponent');
           return value;
         } catch (error) {
