@@ -8,6 +8,7 @@ import {
     Image
  } from 'react-native';
  import dataInAppPurchase from '../data/ListProductInAppPurchase';
+ import {getDataLottery} from '../network/Server';
 
  export default class SplashComponent extends Component {
 
@@ -54,7 +55,7 @@ import {
             if(isConnected.type === 'wifi' || isConnected.type === 'WIFI'){
                 alert('CO WIFI')
                 //CÓ MẠNG LẤY DATA TỪ SERVER
-                // this.refreshFromServer();
+                this.getDataLottery();
             }else {
                 alert('NO WIFI')
                 //KO CÓ MẠNG LẤY DỮ LIỆU TRONG CAKE
@@ -66,6 +67,14 @@ import {
         }
     }
 
+    //LOAD DATA LOTTERY TO SERVER
+    getDataLottery(){
+        getDataLottery().then((data)=>{
+            console.log(JSON.stringify(data))
+        }).catch((error)=>{
+            console.log(error)
+        });
+    }
 
  }
 
