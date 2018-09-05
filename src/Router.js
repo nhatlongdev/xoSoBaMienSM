@@ -2,14 +2,13 @@ import React, { Component } from 'react';
 import { 
     Dimensions
  } from 'react-native';
-
- import {
-     StackNavigator,
-     DrawerNavigator
+  import {
+    StackNavigator,
+    DrawerNavigator,
   } from 'react-navigation';
 
   import SplashComponent from './components/SplashComponent';
-  import HomeComponent from './components/SplashComponent';
+  import HomeComponent from './components/HomeComponent';
   import SlideMenuComponent from './components/SlideMenuComponent';
 
   export const HomeStack = StackNavigator({

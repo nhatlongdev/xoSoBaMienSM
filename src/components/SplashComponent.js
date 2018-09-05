@@ -26,7 +26,6 @@ import {
                     style={{height:80, width:80}}
                     source={require('../images/ic_launcher.png')}
                 />
-
                 <Text style={styles.text_loading}>Đang tải ...</Text>
              </View>
          );
