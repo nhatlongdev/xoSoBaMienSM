@@ -9,6 +9,7 @@ import {
  } from 'react-native';
  import dataInAppPurchase from '../data/ListProductInAppPurchase';
  import {getDataLottery} from '../network/Server';
+ import {formatDataLotteryToKeyValue} from '../functions/ConvertDataLotteryToKeyValue';
 
  export default class SplashComponent extends Component {
 
@@ -33,7 +34,7 @@ import {
 
     //CHECK STATUS NET
     handler(isConnected) {
-        //KIỂM TRA XEM LIST PROCDUCT ĐÃ CÓ TRONG CAKE CHƯA, CHƯA CÓ THÌ SAVE CAKE
+        //KIỂM TRA MẠNG
         this.getListProduct(isConnected);
      }
 
@@ -53,11 +54,9 @@ import {
                 this.saveListProduct(JSON.stringify(dataInAppPurchase))
             }
             if(isConnected.type === 'wifi' || isConnected.type === 'WIFI'){
-                alert('CO WIFI')
                 //CÓ MẠNG LẤY DATA TỪ SERVER
                 this.getDataLottery();
             }else {
-                alert('NO WIFI')
                 //KO CÓ MẠNG LẤY DỮ LIỆU TRONG CAKE
                 // this.getKey(false); 
             }
@@ -67,10 +66,39 @@ import {
         }
     }
 
+    //FUNCTION SAVE AND GET CAKE REGION SELECTED (AsyncStorage) 
+    async saveRegionSelected(value) {
+        try {
+          await AsyncStorage.setItem('key_region_selected',value);
+        } catch (error) {
+          console.log("Error saving data" + error);
+        }
+    }
+
+    async getRegionSelected() {
+        try {
+          const value = await AsyncStorage.getItem('key_region_selected');
+            if(value === null){
+                this.saveRegionSelected('0');
+            }
+            //GOI LENH VAO MAN HOME
+            //TO DO
+            alert('toid ay')
+            this.props.navigation.replace('HomeComponent');
+          return value;
+        } catch (error) {
+          console.log("Error retrieving data" + error);
+        }
+    }
+
+
     //LOAD DATA LOTTERY TO SERVER
     getDataLottery(){
         getDataLottery().then((data)=>{
-            console.log(JSON.stringify(data))
+            //CONVERT DATA TO FORMAT KEY_VALUE
+            var d = formatDataLotteryToKeyValue(data);
+            // console.log("DATA KEY VALUE: " + JSON.stringify(d))
+            this.getRegionSelected();
         }).catch((error)=>{
             console.log(error)
         });

@@ -7,7 +7,7 @@ import {
  export default class HomeComponent extends Component {
      render() {
          return (
-             <View>
+             <View style={{backgroundColor:'red'}}>
                 <Text>Home</Text>
              </View>
          );
