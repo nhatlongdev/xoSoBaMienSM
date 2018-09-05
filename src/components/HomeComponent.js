@@ -14,7 +14,7 @@ import {
          return (
             <View style = {[styles.container,{marginTop:Platform.OS==='ios'?30:null}]}>
             <View style = {styles.header_style}>
-                <Text style = {styles.text_style}>Xổ số ba miền - Trực tiếp</Text>
+                <Text style = {styles.text_style}>Xổ số 98 - Trực tiếp</Text>
             </View>
             <Text style = {{fontSize: 18, marginHorizontal: 10, marginTop: 15, marginBottom: 20, textAlign:'center'}}>
                 Quý khách vui lòng lựa chọn khu vực muốn xem kết quả xổ số
