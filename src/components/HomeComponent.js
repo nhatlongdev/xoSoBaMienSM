@@ -4,58 +4,73 @@ import {
     Text,
     StyleSheet,
     Platform,
-    ScrollView,
     TouchableOpacity,
     Image
  } from 'react-native';
 
  export default class HomeComponent extends Component {
+
      render() {
          return (
             <View style = {[styles.container,{marginTop:Platform.OS==='ios'?30:null}]}>
-            <View style = {styles.header_style}>
-                <Text style = {styles.text_style}>Xổ số 98 - Trực tiếp</Text>
-            </View>
-            <Text style = {{fontSize: 18, marginHorizontal: 10, marginTop: 15, marginBottom: 20, textAlign:'center'}}>
-                Quý khách vui lòng lựa chọn khu vực muốn xem kết quả xổ số
-            </Text>
-
-            <ScrollView style={{flex:1}}>
-                <View style = {{flex:1, marginHorizontal: 5}}>
-                    <View style = {{flexDirection: 'row', marginBottom: 20, width:'100%'}}>
-                        <TouchableOpacity style={{flex:1,height: 200, width: 180, alignItems:'center'}}
-                            // onPress={()=>{this.clickExit(true,1)}}
-                        >
-                            <Image
-                                style = {{flex:1, height: 200, width: 180}}
-                                source = {require('../images/mien_bac.png')}
-                            />
-                        </TouchableOpacity>
-                        <TouchableOpacity style={{flex:1, height: 200, width: 180, alignItems:'center'}}
-                                onPress={()=>{this.clickExit(true,2)}}
-                        >
-                            <Image
-                                style = {{flex:1, height: 200, width: 180}}
-                                source = {require('../images/mien_trung.png')}
-                            />
-                        </TouchableOpacity>
-                    </View>
-                    <View style = {{flexDirection: 'row', marginBottom: 20, width:'100%'}}>
-                        <TouchableOpacity style={{flex:1, height: 200, width: 180, alignItems:'center'}}
-                                // onPress={()=>{this.clickExit(true,3)}}
-                        >
-                            <Image
-                                style = {{flex:1, height: 200, width: 180}}
-                                source = {require('../images/mien_nam.png')}
-                            />
-                        </TouchableOpacity>
-                        <View style={{flex:1}}>
-                        </View>
-                    </View>
+                <View style = {styles.header_style}>
+                    <Text style = {styles.text_style}>Xổ số 98 - Trực tiếp</Text>
                 </View>
-            </ScrollView>
-        </View>
+                <Text style = {{fontSize: 18, marginHorizontal: 10, marginTop: 15, marginBottom: 20, textAlign:'center'}}>
+                    Quý khách vui lòng lựa chọn khu vực muốn xem kết quả xổ số
+                </Text>
+
+                <View style={{flex:1, marginHorizontal: 10, marginTop: 20}}>
+                    <TouchableOpacity onPress={()=>
+                        this.clickRegion(1)
+                    }>
+                        <Image
+                            style = {styles.image_style}
+                            source = {require('../images/ic_launcher.png')}
+                        />
+                    </TouchableOpacity>
+                    
+
+                    <TouchableOpacity onPress={()=>
+                        this.clickRegion(2)
+                    }>
+                        <Image
+                            style = {styles.image_style}
+                            source = {require('../images/ic_launcher.png')}
+                        />
+                    </TouchableOpacity>
+
+                    <TouchableOpacity onPress={()=>
+                        this.clickRegion(3)
+                    }>
+                        <Image
+                            style = {styles.image_style}
+                            source = {require('../images/ic_launcher.png')}
+                        />
+                    </TouchableOpacity>
+
+                </View>
+                
+            </View>
          );
+     }
+
+     //HÀM XỬ LÝ SỰ KIỆN CLICK VÀO VÙNG MIỀN
+     clickRegion(value_region){
+        switch(value_region){
+            case 1:
+                //Chuyển sang màn xem kết quả miền bắc
+                this.props.navigation.replace('ResultLottery1Component');
+            break;
+
+            case 2:
+                //Chuyển sang màn xem kết quả miền trung
+            break;
+
+            case 3:
+                //Chuyển sang màn xem kết quả miền nam
+            break;
+        }
      }
  }
 
@@ -77,4 +92,8 @@ import {
          color: 'white',
          textAlign: 'center'
      },
+     image_style:{
+        height: 120, 
+        marginBottom: 20
+     }
  })
