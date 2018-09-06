@@ -7,9 +7,12 @@ import {
     Image,
     TouchableOpacity
  } from 'react-native';
- var heightScreen = Dimensions.get('window').height;  
+ var heightScreen = Dimensions.get('window').height;
+ 
+ import { connect } from 'react-redux';
+ import {selectRegion} from '../redux/actionCreators';
 
- export default class SlideMenuComponent extends Component {
+  class SlideMenuComponent extends Component {
 
      constructor(props){
          super(props);
@@ -31,33 +34,33 @@ import {
 
                     <TouchableOpacity style={styles.touch_style}
                         onPress={()=>
-                        this.clickOption(1)
+                        this.clickOption('1')
                     }>
                         <Image
                             style ={{width: 50, height: 50}}
-                            source = {require('../images/ic_launcher.png')}
+                            source = {require('../images/mien_bac.png')}
                         />
                         <Text style={styles.text_option}>Kết quả miền bắc</Text>
                     </TouchableOpacity>
                     
                     <TouchableOpacity style={styles.touch_style}
                         onPress={()=>
-                        this.clickOption(1)
+                        this.clickOption('2')
                     }>
                         <Image
                             style ={{width: 50, height: 50}}
-                            source = {require('../images/ic_launcher.png')}
+                            source = {require('../images/mien_trung.png')}
                         />
                         <Text style={styles.text_option}>Kết quả miền trung</Text>
                     </TouchableOpacity>
 
                     <TouchableOpacity style={styles.touch_style}
                         onPress={()=>
-                        this.clickOption(1)
+                        this.clickOption('3')
                     }>
                         <Image
                             style ={{width: 50, height: 50}}
-                            source = {require('../images/ic_launcher.png')}
+                            source = {require('../images/mien_nam.png')}
                         />
                         <Text style={styles.text_option}>Kết quả miền nam</Text>
                     </TouchableOpacity>
@@ -68,35 +71,35 @@ import {
 
                     <TouchableOpacity style={styles.touch_style}
                         onPress={()=>
-                        this.clickOption(1)
+                        this.clickOption('4')
                     }>
                         <Image
                             style ={{width: 50, height: 50}}
-                            source = {require('../images/ic_launcher.png')}
+                            source = {require('../images/schedule.png')}
+                        />
+                        <Text style={styles.text_option}>Xem theo ngày</Text>
+                    </TouchableOpacity>
+
+                    <TouchableOpacity style={styles.touch_style}
+                        onPress={()=>
+                        this.clickOption('5')
+                    }>
+                        <Image
+                            style ={{width: 50, height: 50}}
+                            source = {require('../images/do_so.png')}
                         />
                         <Text style={styles.text_option}>Dò số</Text>
                     </TouchableOpacity>
 
                     <TouchableOpacity style={styles.touch_style}
                         onPress={()=>
-                        this.clickOption(1)
+                        this.clickOption('6')
                     }>
                         <Image
                             style ={{width: 50, height: 50}}
-                            source = {require('../images/ic_launcher.png')}
+                            source = {require('../images/thongke.png')}
                         />
                         <Text style={styles.text_option}>Thống kê</Text>
-                    </TouchableOpacity>
-
-                    <TouchableOpacity style={styles.touch_style}
-                        onPress={()=>
-                        this.clickOption(1)
-                    }>
-                        <Image
-                            style ={{width: 50, height: 50}}
-                            source = {require('../images/ic_launcher.png')}
-                        />
-                        <Text style={styles.text_option}>Sổ mơ</Text>
                     </TouchableOpacity>
 
                 </View>
@@ -105,37 +108,51 @@ import {
 
                     <TouchableOpacity style={styles.touch_style}
                         onPress={()=>
-                        this.clickOption(1)
+                        this.clickOption('7')
                     }>
                         <Image
                             style ={{width: 50, height: 50}}
-                            source = {require('../images/ic_launcher.png')}
+                            source = {require('../images/somo.png')}
+                        />
+                        <Text style={styles.text_option}>Sổ mơ</Text>
+                    </TouchableOpacity>
+
+                    <TouchableOpacity style={styles.touch_style}
+                        onPress={()=>
+                        this.clickOption('8')
+                    }>
+                        <Image
+                            style ={{width: 50, height: 50}}
+                            source = {require('../images/share.png')}
                         />
                         <Text style={styles.text_option}>Chia sẻ</Text>
                     </TouchableOpacity>
 
                     <TouchableOpacity style={styles.touch_style}
                         onPress={()=>
-                        this.clickOption(1)
+                        this.clickOption('9')
                     }>
                         <Image
                             style ={{width: 50, height: 50}}
-                            source = {require('../images/ic_launcher.png')}
+                            source = {require('../images/setting.png')}
                         />
                         <Text style={styles.text_option}>Cài đặt</Text>
                     </TouchableOpacity>
 
-                    <TouchableOpacity style={styles.touch_style}
+                </View>
+
+                <View style={{flexDirection:'row', marginHorizontal: 5, marginTop: 20}}>
+
+                    <TouchableOpacity style={[styles.touch_style]}
                         onPress={()=>
                         this.clickOption(1)
                     }>
                         <Image
                             style ={{width: 50, height: 50}}
-                            source = {require('../images/ic_launcher.png')}
+                            source = {require('../images/pay.png')}
                         />
-                        <Text style={styles.text_option}>Thanh toán</Text>
+                        <Text style={styles.text_option}>Thanh Toán</Text>
                     </TouchableOpacity>
-
                 </View>
 
              </View>
@@ -146,39 +163,50 @@ import {
      //1-KQMB, 2-KQMT, 3-KQMN, 4-DÒ SỐ, 5-THỐNG KÊ, 6-SỔ MƠ, 7-CHIA SẺ, 8-CÀI ĐẶT, 9-THANH TOÁN
      clickOption(value_click){
             switch(value_click){
-                case 1:
+                case '1':
+                    //Chuyển sang màn xem kết quả miền bắc
+                    this.props.selectRegion(value_click);
+                    this.props.navigation.navigate('ResultLotteryComponent');
+                    this.props.navigation.closeDrawer();
+                break;
+
+                case '2':
+                    //Chuyển sang màn xem kết quả miền bắc
+                    this.props.selectRegion(value_click);
+                    this.props.navigation.navigate('ResultLotteryComponent');
+                    this.props.navigation.closeDrawer();
+                break;
+
+                case '3':
+                    //Chuyển sang màn xem kết quả miền bắc
+                    this.props.selectRegion(value_click);
+                    this.props.navigation.navigate('ResultLotteryComponent');
+                    this.props.navigation.closeDrawer();
+                break;
+
+                case '4':
+                   //Xem kết quả theo ngày
+                   this.props.navigation.navigate('ScheduleRotateLottery');
+                   this.props.navigation.closeDrawer();
+                break;
+
+                case '5':
                     alert('click');
                 break;
 
-                case 2:
+                case '6':
                     alert('click');
                 break;
 
-                case 3:
+                case '7':
                     alert('click');
                 break;
 
-                case 4:
+                case '8':
                     alert('click');
                 break;
 
-                case 5:
-                    alert('click');
-                break;
-
-                case 6:
-                    alert('click');
-                break;
-
-                case 7:
-                    alert('click');
-                break;
-
-                case 8:
-                    alert('click');
-                break;
-
-                case 9:
+                case '9':
                     alert('click');
                 break;
             }
@@ -186,6 +214,8 @@ import {
 
 
  }
+
+ export default connect(null, {selectRegion})(SlideMenuComponent);
 
  const styles = StyleSheet.create({
      container:{

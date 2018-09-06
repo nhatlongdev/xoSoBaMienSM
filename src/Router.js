@@ -10,7 +10,8 @@ import {
   import SplashComponent from './components/SplashComponent';
   import HomeComponent from './components/HomeComponent';
   import SlideMenuComponent from './components/SlideMenuComponent';
-  import ResultLottery1Component from './components/ResultLottery1Component';
+  import ResultLotteryComponent from './components/ResultLotteryComponent';
+  import ScheduleRotateLottery from './components/ScheduleRotateLottery';
 
   export const HomeStack = StackNavigator({
     SplashComponent: {
@@ -22,11 +23,17 @@ import {
     HomeComponent:{
         screen: HomeComponent,
         navigationOptions: {
-            header: null
+            header: null,
         }
     },
-    ResultLottery1Component:{
-        screen:ResultLottery1Component,
+    ResultLotteryComponent:{
+        screen:ResultLotteryComponent,
+        navigationOptions:{
+            header:null
+        }
+    },
+    ScheduleRotateLottery:{
+        screen:ScheduleRotateLottery,
         navigationOptions:{
             header:null
         }
@@ -39,7 +46,8 @@ export const SlideMenuStack = DrawerNavigator({
     },
   },
   {
-    drawerWidth: Dimensions.get('window').width*80/100,
+    drawerWidth: Dimensions.get('window').width*70/100,
     drawerPosition: 'left',
+    disableOpenGesture: false,
     contentComponent: props => <SlideMenuComponent {...props}/>
   });

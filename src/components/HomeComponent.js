@@ -8,7 +8,10 @@ import {
     Image
  } from 'react-native';
 
- export default class HomeComponent extends Component {
+import { connect } from 'react-redux';
+import { selectRegion } from '../redux/actionCreators';
+
+ class HomeComponent extends Component {
 
      render() {
          return (
@@ -21,31 +24,31 @@ import {
                 </Text>
 
                 <View style={{flex:1, marginHorizontal: 10, marginTop: 20}}>
-                    <TouchableOpacity onPress={()=>
-                        this.clickRegion(1)
+                    <TouchableOpacity style={{width:120}}
+                      onPress={()=>this.clickRegion('1')
                     }>
                         <Image
                             style = {styles.image_style}
-                            source = {require('../images/ic_launcher.png')}
+                            source = {require('../images/mienbac.png')}
                         />
                     </TouchableOpacity>
                     
 
-                    <TouchableOpacity onPress={()=>
-                        this.clickRegion(2)
+                    <TouchableOpacity style={{marginLeft:100, width:120}}
+                      onPress={()=>this.clickRegion('2')
                     }>
                         <Image
                             style = {styles.image_style}
-                            source = {require('../images/ic_launcher.png')}
+                            source = {require('../images/mientrung.png')}
                         />
                     </TouchableOpacity>
 
-                    <TouchableOpacity onPress={()=>
-                        this.clickRegion(3)
+                    <TouchableOpacity style={{marginLeft:200, width:120}}
+                      onPress={()=>this.clickRegion('3')
                     }>
                         <Image
-                            style = {styles.image_style}
-                            source = {require('../images/ic_launcher.png')}
+                        style = {styles.image_style}
+                            source = {require('../images/miennam.png')}
                         />
                     </TouchableOpacity>
 
@@ -57,22 +60,13 @@ import {
 
      //HÀM XỬ LÝ SỰ KIỆN CLICK VÀO VÙNG MIỀN
      clickRegion(value_region){
-        switch(value_region){
-            case 1:
-                //Chuyển sang màn xem kết quả miền bắc
-                this.props.navigation.replace('ResultLottery1Component');
-            break;
-
-            case 2:
-                //Chuyển sang màn xem kết quả miền trung
-            break;
-
-            case 3:
-                //Chuyển sang màn xem kết quả miền nam
-            break;
-        }
+        //Chuyển sang màn xem kết quả
+        this.props.selectRegion(value_region);
+        this.props.navigation.replace('ResultLotteryComponent');
      }
  }
+
+ export default connect(null,{selectRegion})(HomeComponent);
 
  const styles = StyleSheet.create({
      container:{
@@ -93,7 +87,8 @@ import {
          textAlign: 'center'
      },
      image_style:{
-        height: 120, 
+        width: 120,
+        height:120, 
         marginBottom: 20
      }
  })

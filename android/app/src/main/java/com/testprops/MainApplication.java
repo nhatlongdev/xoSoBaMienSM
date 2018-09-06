@@ -1,4 +1,4 @@
-package com.testprops;
+package xoso98.com;
 
 import android.app.Application;
 
