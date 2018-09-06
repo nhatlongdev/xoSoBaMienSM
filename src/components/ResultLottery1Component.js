@@ -4,8 +4,10 @@ import {
     Text,
     Image,
     TouchableOpacity,
-    StyleSheet
+    StyleSheet,
+    ScrollView
  } from 'react-native';
+ import ItemRowDauDuoi from '../components/ItemRowDauDuoi';
 
  export default class ResultLottery1Component extends Component {
      render() {
@@ -30,6 +32,7 @@ import {
                 
                 <Text style={styles.text_title_date}>Thứ ba, 08/09/2018</Text>
 
+                <ScrollView>
                 <View style={styles.row_result}>
                      <Text style={styles.text_db_g1_title}>ĐB</Text>  
                      <Text style={[styles.text_db_g1_result,{color:'red', fontWeight:'bold'}]}>23456</Text> 
@@ -104,20 +107,98 @@ import {
                 <View style={{marginHorizontal:5, marginTop: 10, marginBottom:5, flexDirection:'row'}}>
 
                       <View style={{flex:1, marginRight:5}}>
-                          <View style={[styles.row_result,{borderTopWidth:1, borderTopColor:'#DDDDDD', backgroundColor:'#EEEEEE'}]}>
-                            <Text style={styles.dau}>Đầu</Text>  
-                            <Text style={[styles.duoi,{fontWeight:'bold'}]}>Đuôi</Text> 
-                          </View>  
+                          <ItemRowDauDuoi dau={'Đầu'} duoi={'Đuôi'} 
+                            styleView={[styles.row_result,{borderTopWidth:1, borderTopColor:'#DDDDDD', backgroundColor:'#EEEEEE'}]} 
+                            styleDau={[styles.dau,{fontWeight:'bold'}]} styleDuoi={[styles.duoi,{fontWeight:'bold'}]}/> 
+
+                          <ItemRowDauDuoi dau={'0'} duoi={''} 
+                            styleView={styles.row_result} 
+                            styleDau={styles.dau} styleDuoi={[styles.duoi,{fontWeight:'bold'}]}/>
+
+                          <ItemRowDauDuoi dau={'1'} duoi={'1,3,5,5,4,3,2'} 
+                            styleView={[styles.row_result,{backgroundColor:'#EEEEEE'}]} 
+                            styleDau={styles.dau} styleDuoi={[styles.duoi,{fontWeight:'bold'}]}/>  
+
+                          <ItemRowDauDuoi dau={'2'} duoi={''} 
+                            styleView={styles.row_result} 
+                            styleDau={styles.dau} styleDuoi={[styles.duoi,{fontWeight:'bold'}]}/> 
+
+                          <ItemRowDauDuoi dau={'3'} duoi={''} 
+                            styleView={[styles.row_result,{backgroundColor:'#EEEEEE'}]} 
+                            styleDau={styles.dau} styleDuoi={[styles.duoi,{fontWeight:'bold'}]}/> 
+
+                          <ItemRowDauDuoi dau={'4'} duoi={''} 
+                            styleView={styles.row_result} 
+                            styleDau={styles.dau} styleDuoi={[styles.duoi,{fontWeight:'bold'}]}/> 
+
+                         <ItemRowDauDuoi dau={'5'} duoi={''} 
+                            styleView={[styles.row_result,{backgroundColor:'#EEEEEE'}]} 
+                            styleDau={styles.dau} styleDuoi={[styles.duoi,{fontWeight:'bold'}]}/> 
+
+                         <ItemRowDauDuoi dau={'6'} duoi={''} 
+                            styleView={styles.row_result} 
+                            styleDau={styles.dau} styleDuoi={[styles.duoi,{fontWeight:'bold'}]}/> 
+
+                         <ItemRowDauDuoi dau={'7'} duoi={''} 
+                            styleView={[styles.row_result,{backgroundColor:'#EEEEEE'}]} 
+                            styleDau={styles.dau} styleDuoi={[styles.duoi,{fontWeight:'bold'}]}/> 
+
+                         <ItemRowDauDuoi dau={'8'} duoi={''} 
+                            styleView={styles.row_result} 
+                            styleDau={styles.dau} styleDuoi={[styles.duoi,{fontWeight:'bold'}]}/> 
+
+                         <ItemRowDauDuoi dau={'9'} duoi={''} 
+                            styleView={[styles.row_result,{backgroundColor:'#EEEEEE'}]} 
+                            styleDau={styles.dau} styleDuoi={[styles.duoi,{fontWeight:'bold'}]}/>                   
                       </View>
                       
                       <View style={{flex:1, marginRight:5}}>
-                            <View style={[styles.row_result,{borderTopWidth:1, borderTopColor:'#DDDDDD', backgroundColor:'#EEEEEE'}]}>
-                                <Text style={styles.dau}>Đầu</Text>  
-                                <Text style={[styles.duoi,{fontWeight:'bold'}]}>Đuôi</Text> 
-                            </View>
-                      </View>  
+                          <ItemRowDauDuoi dau={'Đầu'} duoi={'Đuôi'} 
+                            styleView={[styles.row_result,{borderTopWidth:1, borderTopColor:'#DDDDDD', backgroundColor:'#EEEEEE'}]} 
+                            styleDau={[styles.dau,{flex:3, fontWeight:'bold'}]} styleDuoi={[styles.duoi,{flex:1, fontWeight:'bold'}]}/> 
 
+                          <ItemRowDauDuoi dau={'2,3,4,5'} duoi={'0'} 
+                            styleView={styles.row_result} 
+                            styleDau={[styles.dau,{flex:3, fontWeight:'bold'}]} styleDuoi={[styles.duoi,{flex:1}]}/> 
+
+                          <ItemRowDauDuoi dau={''} duoi={'1'} 
+                            styleView={[styles.row_result,{backgroundColor:'#EEEEEE'}]} 
+                            styleDau={[styles.dau,{flex:3, fontWeight:'bold'}]} styleDuoi={[styles.duoi,{flex:1}]}/>  
+
+                          <ItemRowDauDuoi dau={''} duoi={'2'} 
+                            styleView={styles.row_result} 
+                            styleDau={[styles.dau,{flex:3, fontWeight:'bold'}]} styleDuoi={[styles.duoi,{flex:1}]}/> 
+
+                          <ItemRowDauDuoi dau={''} duoi={'3'} 
+                            styleView={[styles.row_result,{backgroundColor:'#EEEEEE'}]} 
+                            styleDau={[styles.dau,{flex:3, fontWeight:'bold'}]} styleDuoi={[styles.duoi,{flex:1}]}/> 
+
+                          <ItemRowDauDuoi dau={''} duoi={'4'} 
+                            styleView={styles.row_result} 
+                            styleDau={[styles.dau,{flex:3, fontWeight:'bold'}]} styleDuoi={[styles.duoi,{flex:1}]}/> 
+
+                         <ItemRowDauDuoi dau={''} duoi={'5'} 
+                            styleView={[styles.row_result,{backgroundColor:'#EEEEEE'}]} 
+                            styleDau={[styles.dau,{flex:3, fontWeight:'bold'}]} styleDuoi={[styles.duoi,{flex:1}]}/> 
+
+                         <ItemRowDauDuoi dau={''} duoi={'6'} 
+                            styleView={styles.row_result} 
+                            styleDau={[styles.dau,{flex:3, fontWeight:'bold'}]} styleDuoi={[styles.duoi,{flex:1}]}/> 
+
+                         <ItemRowDauDuoi dau={''} duoi={'7'} 
+                            styleView={[styles.row_result,{backgroundColor:'#EEEEEE'}]} 
+                            styleDau={[styles.dau,{flex:3, fontWeight:'bold'}]} styleDuoi={[styles.duoi,{flex:1}]}/> 
+
+                         <ItemRowDauDuoi dau={''} duoi={'8'} 
+                            styleView={styles.row_result} 
+                            styleDau={[styles.dau,{flex:3, fontWeight:'bold'}]} styleDuoi={[styles.duoi,{flex:1}]}/> 
+
+                         <ItemRowDauDuoi dau={''} duoi={'9'} 
+                            styleView={[styles.row_result,{backgroundColor:'#EEEEEE'}]} 
+                            styleDau={[styles.dau,{flex:3, fontWeight:'bold'}]} styleDuoi={[styles.duoi,{flex:1}]}/>          
+                      </View>  
                 </View>
+                </ScrollView>
 
              </View>
          );
@@ -188,7 +269,7 @@ import {
         textAlign:'center', 
         alignItems: 'center', 
         color:'grey',
-        fontWeight:'bold',
+        paddingVertical: 5,
         fontSize:16
     },
     duoi:{
