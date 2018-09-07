@@ -5,10 +5,36 @@ import {
     StyleSheet,
     ScrollView
  } from 'react-native';
+ //Tạo ds key_item các tỉnh quay miền trung hoặc nam
+ import {getKeyItemProvincials} from '../functions/GetKeyItemProvincial';
+
+ //Lấy ds kết quả các tỉnh quay của miền trung hoặc nam
+ import {getListItemWithDate} from '../functions/GetItemWithDate';
  import GlobalValue from '../data/GlobalValue';
  import { connect } from 'react-redux';
 
+ var date_view;
+ var arr_key;
+ var arr_result_lottery;
+
  class ResultMienTrungNamComponent extends Component {
+
+    constructor(props){
+        super(props);
+        const regionSelected = this.props.regionSelected;
+        const {dataLottery} = this.props;
+        date_view = new Date();
+        //Lay ds key item
+        arr_key = getKeyItemProvincials(date_view, regionSelected, -1);
+        //Lay ds ket qua cac tinh quay hom do
+        arr_result_lottery = getListItemWithDate(arr_key, dataLottery);
+        console.log('GIA TRI 1 ' + JSON.stringify(arr_result_lottery[0]))
+    }
+
+    componentWillMount(){
+        
+    }
+
      render() {
          const regionSelected = this.props.regionSelected;
          const weekday = '6';
@@ -36,8 +62,8 @@ import {
                 <View style={styles.view_row}>
                      <Text style={styles.row_text_title}>G.8</Text>
                      <View style={{flex:4, flexDirection:'row', height:'100%'}}>
-                        <Text style={[styles.row_text_result,{color:'red', fontWeight:'bold'}]}>56</Text>
-                        <Text style={[styles.row_text_result,{color:'red', fontWeight:'bold'}]}>56</Text>
+                        <Text style={[styles.row_text_result,{color:'red', fontWeight:'bold'}]}>{arr_result_lottery[0].arr_kq[17]}</Text>
+                        <Text style={[styles.row_text_result,{color:'red', fontWeight:'bold'}]}>{arr_result_lottery[1].arr_kq[17]}</Text>
                         {
                             this.checkCountProvincialRotateThisDay(regionSelected,weekday)>= 3 ?
                             <Text style={[styles.row_text_result,{color:'red', fontWeight:'bold'}]}>56</Text>: null
@@ -51,8 +77,8 @@ import {
                 <View style={[styles.view_row,{backgroundColor:GlobalValue.Color.bg}]}>
                      <Text style={styles.row_text_title}>G.7</Text>
                      <View style={{flex:4, flexDirection:'row', height:'100%'}}>
-                        <Text style={styles.row_text_result}>567</Text>
-                        <Text style={styles.row_text_result}>566</Text>
+                        <Text style={styles.row_text_result}>{arr_result_lottery[0].arr_kq[16]}</Text>
+                        <Text style={styles.row_text_result}>{arr_result_lottery[1].arr_kq[16]}</Text>
                         {
                             this.checkCountProvincialRotateThisDay(regionSelected,weekday)>= 3 ?
                             <Text style={styles.row_text_result}>564</Text>: null
@@ -68,8 +94,8 @@ import {
                      <Text style={styles.row_text_title}>G.6</Text>
                      <View style={{flex:4, borderLeftWidth:1, borderLeftColor:GlobalValue.Color.vien, height:'100%'}}>
                          <View style={styles.view_row}>
-                            <Text style={[styles.row_text_result, {borderLeftWidth:0}]}>567</Text>
-                            <Text style={styles.row_text_result}>346</Text>
+                            <Text style={[styles.row_text_result, {borderLeftWidth:0}]}>{arr_result_lottery[0].arr_kq[15]}</Text>
+                            <Text style={styles.row_text_result}>{arr_result_lottery[1].arr_kq[15]}</Text>
                             {
                                 this.checkCountProvincialRotateThisDay(regionSelected,weekday)>= 3 ?
                                 <Text style={styles.row_text_result}>457</Text>: null
@@ -81,8 +107,8 @@ import {
                          </View>
                          
                          <View style={styles.view_row}>
-                            <Text style={[styles.row_text_result, {borderLeftWidth:0}]}>567</Text>
-                            <Text style={styles.row_text_result}>546</Text>
+                            <Text style={[styles.row_text_result, {borderLeftWidth:0}]}>{arr_result_lottery[0].arr_kq[14]}</Text>
+                            <Text style={styles.row_text_result}>{arr_result_lottery[1].arr_kq[14]}</Text>
                             {
                                 this.checkCountProvincialRotateThisDay(regionSelected,weekday)>= 3 ?
                                 <Text style={styles.row_text_result}>564</Text>: null
@@ -94,8 +120,8 @@ import {
                          </View> 
 
                          <View style={[styles.view_row, {borderBottomWidth:0}]}>
-                            <Text style={[styles.row_text_result, {borderLeftWidth:0}]}>567</Text>
-                            <Text style={styles.row_text_result}>328</Text>
+                            <Text style={[styles.row_text_result, {borderLeftWidth:0}]}>{arr_result_lottery[0].arr_kq[13]}</Text>
+                            <Text style={styles.row_text_result}>{arr_result_lottery[1].arr_kq[13]}</Text>
                             {
                                 this.checkCountProvincialRotateThisDay(regionSelected,weekday)>= 3 ?
                                 <Text style={styles.row_text_result}>496</Text>: null
@@ -111,8 +137,8 @@ import {
                 <View style={[styles.view_row,{backgroundColor:GlobalValue.Color.bg}]}>
                      <Text style={styles.row_text_title}>G.5</Text>
                      <View style={{flex:4, flexDirection:'row', height:'100%'}}>
-                        <Text style={styles.row_text_result}>567</Text>
-                        <Text style={styles.row_text_result}>566</Text>
+                        <Text style={styles.row_text_result}>{arr_result_lottery[0].arr_kq[12]}</Text>
+                        <Text style={styles.row_text_result}>{arr_result_lottery[1].arr_kq[12]}</Text>
                         {
                             this.checkCountProvincialRotateThisDay(regionSelected,weekday)>= 3 ?
                             <Text style={styles.row_text_result}>564</Text>: null
@@ -128,8 +154,8 @@ import {
                      <Text style={styles.row_text_title}>G.4</Text>
                      <View style={{flex:4, borderLeftWidth:1, borderLeftColor:GlobalValue.Color.vien, height:'100%'}}>
                          <View style={styles.view_row}>
-                            <Text style={[styles.row_text_result, {borderLeftWidth:0}]}>567</Text>
-                            <Text style={styles.row_text_result}>346</Text>
+                            <Text style={[styles.row_text_result, {borderLeftWidth:0}]}>{arr_result_lottery[0].arr_kq[11]}</Text>
+                            <Text style={styles.row_text_result}>{arr_result_lottery[1].arr_kq[11]}</Text>
                             {
                                 this.checkCountProvincialRotateThisDay(regionSelected,weekday)>= 3 ?
                                 <Text style={styles.row_text_result}>457</Text>: null
@@ -141,8 +167,8 @@ import {
                          </View>
                          
                          <View style={styles.view_row}>
-                            <Text style={[styles.row_text_result, {borderLeftWidth:0}]}>567</Text>
-                            <Text style={styles.row_text_result}>546</Text>
+                            <Text style={[styles.row_text_result, {borderLeftWidth:0}]}>{arr_result_lottery[0].arr_kq[10]}</Text>
+                            <Text style={styles.row_text_result}>{arr_result_lottery[1].arr_kq[10]}</Text>
                             {
                                 this.checkCountProvincialRotateThisDay(regionSelected,weekday)>= 3 ?
                                 <Text style={styles.row_text_result}>564</Text>: null
@@ -154,8 +180,8 @@ import {
                          </View> 
 
                          <View style={styles.view_row}>
-                            <Text style={[styles.row_text_result, {borderLeftWidth:0}]}>567</Text>
-                            <Text style={styles.row_text_result}>546</Text>
+                            <Text style={[styles.row_text_result, {borderLeftWidth:0}]}>{arr_result_lottery[0].arr_kq[9]}</Text>
+                            <Text style={styles.row_text_result}>{arr_result_lottery[1].arr_kq[9]}</Text>
                             {
                                 this.checkCountProvincialRotateThisDay(regionSelected,weekday)>= 3 ?
                                 <Text style={styles.row_text_result}>564</Text>: null
@@ -167,8 +193,8 @@ import {
                          </View> 
                          
                          <View style={styles.view_row}>
-                            <Text style={[styles.row_text_result, {borderLeftWidth:0}]}>567</Text>
-                            <Text style={styles.row_text_result}>546</Text>
+                            <Text style={[styles.row_text_result, {borderLeftWidth:0}]}>{arr_result_lottery[0].arr_kq[8]}</Text>
+                            <Text style={styles.row_text_result}>{arr_result_lottery[1].arr_kq[8]}</Text>
                             {
                                 this.checkCountProvincialRotateThisDay(regionSelected,weekday)>= 3 ?
                                 <Text style={styles.row_text_result}>564</Text>: null
@@ -493,6 +519,7 @@ import {
  //map state to props
  function mapStateToProps(state){
     return{
+        dataLottery: state.dataLottery,
         regionSelected: state.regionSelected,
     };
  };

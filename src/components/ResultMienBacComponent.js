@@ -10,7 +10,7 @@ import {
  import ItemRowDauDuoi from '../components/ItemRowDauDuoi';
  import { connect } from 'react-redux';
  import { getItemWithDate } from '../functions/GetItemWithDate';
- import { getKeyItemOneProvincial } from '../functions/GetKeyItemOneProvincial';
+ import { getKeyItemOneProvincial } from '../functions/GetKeyItemProvincial';
  import moment from 'moment';
  var date_view;
  var result;

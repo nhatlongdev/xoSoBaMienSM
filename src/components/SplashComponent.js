@@ -96,8 +96,8 @@ import {
     getDataLottery(){
         getDataLottery().then((data)=>{
             //CONVERT DATA TO FORMAT KEY_VALUE
-            var d = formatDataLotteryToKeyValue(data);
-            console.log("DATA KEY VALUE: " + JSON.stringify(d))
+            console.log("DATA KEY VALUE: " + JSON.stringify(data))
+            var d = formatDataLotteryToKeyValue(data);       
             //CAP NHAT DU LIEU CHO STORE
             this.props.addResultLottery(d);
             this.getRegionSelected();

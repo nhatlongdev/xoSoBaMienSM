@@ -19,9 +19,24 @@ function formatDataLotteryToKeyValue(data){
                 let arrTam = arr_kq;
                 arr_kq = arrTam.concat(arr);
             }
-            value.arr_kq = arr_kq;
+        }else{
+            var db = '';
+            if(value.s1 !== null){
+                db = db + value.s1;
+            }
+            if(value.s1 !== null){
+                db = db + value.s2;
+            }
+            arr_kq.push(db);
+            for (let i=1; i<9; i++){
+                let key = 'p'+ i;
+                let arr = value[key].split(' - ');
+                let arrTam = arr_kq;
+                arr_kq = arrTam.concat(arr);
+            }
         }
-
+        value.arr_kq = arr_kq;
+    
         //Tao list dau lo to
         value.arr_dau_loto = createArrDauLoto(arr_kq);
         value.arr_duoi_loto = createArrDuoiLoto(arr_kq);
