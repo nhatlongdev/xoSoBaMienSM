@@ -9,85 +9,108 @@ import {
  } from 'react-native';
  import ItemRowDauDuoi from '../components/ItemRowDauDuoi';
  import { connect } from 'react-redux';
+ import { getItemWithDate } from '../functions/GetItemWithDate';
+ import { getKeyItemOneProvincial } from '../functions/GetKeyItemOneProvincial';
+ import moment from 'moment';
+ var date_view;
+ var result;
 
  class ResultMienBacComponent extends Component {
+    
+    constructor(props){
+        super(props);
+        const {dataLottery} = this.props;
+        date_view = new Date();
+        var key_item = getKeyItemOneProvincial(date_view,'MB', 0);
+        result = getItemWithDate(key_item, dataLottery);
+        if(result === undefined){ //TH dữ liệu ngày date_view chưa có kết quả
+            key_item = getKeyItemOneProvincial(date_view,'MB', -1);
+            result = getItemWithDate(key_item, dataLottery);
+        }
+        console.log('OBJ RESULT: ' + JSON.stringify(result))
+    }
+
+    componentWillMount(){
+
+    }
+
      render() {
-         const dataLottery = this.props;
+         const {dataLottery} = this.props;
          console.log('DATA SAU KHI LAY SEVER VE ADD: ' + JSON.stringify(dataLottery));
          return (
              <View style={styles.container}>
-                <Text style={styles.text_title_date}>Thứ ba, 08/09/2018</Text>
+                <Text style={styles.text_title_date}>{result.title}</Text>
 
                 <ScrollView>
                 <View style={styles.row_result}>
                      <Text style={styles.text_db_g1_title}>ĐB</Text>  
-                     <Text style={[styles.text_db_g1_result,{color:'red', fontWeight:'bold'}]}>23456</Text> 
+                     <Text style={[styles.text_db_g1_result,{color:'red', fontWeight:'bold'}]}>{result.arr_kq[0]}</Text> 
                 </View>
 
                 <View style={[styles.row_result,{backgroundColor:'#EEEEEE'}]}>
                      <Text style={styles.text_db_g1_title}>G.1</Text>  
-                     <Text style={styles.text_db_g1_result}>23456</Text> 
+                     <Text style={styles.text_db_g1_result}>{result.arr_kq[1]}</Text> 
                 </View>
 
                 <View style={styles.row_result}>
                     <Text style={styles.text_db_g1_title}>G.2</Text>  
-                    <Text style={[styles.text_db_g1_result,{flex:2.99}]}>23456</Text> 
-                    <Text style={[styles.text_db_g1_result,{flex:2.99}]}>23456</Text> 
+                    <Text style={[styles.text_db_g1_result,{flex:2.99}]}>{result.arr_kq[2]}</Text> 
+                    <Text style={[styles.text_db_g1_result,{flex:2.99}]}>{result.arr_kq[3]}</Text> 
                 </View>
 
                 <View style={[styles.row_result,{backgroundColor:'#EEEEEE'}]}>
                     <Text style={styles.text_db_g1_title}>G.3</Text>  
                     <View style={{flex:6, borderLeftWidth:1, borderLeftColor:'#DDDDDD',}}>
                         <View style={{flexDirection:'row', borderBottomWidth:1, borderBottomColor:'#DDDDDD'}}>
-                            <Text style={[styles.text_db_g1_result,{flex:1, borderLeftWidth:0}]}>23456</Text>
-                            <Text style={[styles.text_db_g1_result,{flex:1}]}>23456</Text> 
-                            <Text style={[styles.text_db_g1_result,{flex:1}]}>23456</Text>  
+                            <Text style={[styles.text_db_g1_result,{flex:1, borderLeftWidth:0}]}>{result.arr_kq[4]}</Text>
+                            <Text style={[styles.text_db_g1_result,{flex:1}]}>{result.arr_kq[5]}</Text> 
+                            <Text style={[styles.text_db_g1_result,{flex:1}]}>{result.arr_kq[6]}</Text>  
                         </View>
                         <View style={{flexDirection:'row'}}>
-                            <Text style={[styles.text_db_g1_result,{flex:1, borderLeftWidth:0}]}>23456</Text>
-                            <Text style={[styles.text_db_g1_result,{flex:1}]}>23456</Text> 
-                            <Text style={[styles.text_db_g1_result,{flex:1}]}>23456</Text>  
+                            <Text style={[styles.text_db_g1_result,{flex:1, borderLeftWidth:0}]}>{result.arr_kq[7]}</Text>
+                            <Text style={[styles.text_db_g1_result,{flex:1}]}>{result.arr_kq[8]}</Text> 
+                            <Text style={[styles.text_db_g1_result,{flex:1}]}>{result.arr_kq[9]}</Text>  
                         </View>
                     </View>    
                 </View>
 
                 <View style={styles.row_result}>
                     <Text style={styles.text_db_g1_title}>G.4</Text>  
-                    <Text style={[styles.text_db_g1_result,{flex:1.48}]}>23456</Text> 
-                    <Text style={[styles.text_db_g1_result,{flex:1.48}]}>23456</Text>
-                    <Text style={[styles.text_db_g1_result,{flex:1.48}]}>23456</Text> 
-                    <Text style={[styles.text_db_g1_result,{flex:1.48}]}>23456</Text> 
+                    <Text style={[styles.text_db_g1_result,{flex:1.48}]}>{result.arr_kq[10]}</Text> 
+                    <Text style={[styles.text_db_g1_result,{flex:1.48}]}>{result.arr_kq[11]}</Text>
+                    <Text style={[styles.text_db_g1_result,{flex:1.48}]}>{result.arr_kq[12]}</Text> 
+                    <Text style={[styles.text_db_g1_result,{flex:1.48}]}>{result.arr_kq[13]}</Text> 
                 </View>
 
                 <View style={[styles.row_result,{backgroundColor:'#EEEEEE'}]}>
                     <Text style={styles.text_db_g1_title}>G.5</Text>  
                     <View style={{flex:6, borderLeftWidth:1, borderLeftColor:'#DDDDDD',}}>
                         <View style={{flexDirection:'row', borderBottomWidth:1, borderBottomColor:'#DDDDDD'}}>
-                            <Text style={[styles.text_db_g1_result,{flex:1, borderLeftWidth:0}]}>23456</Text>
-                            <Text style={[styles.text_db_g1_result,{flex:1}]}>23456</Text> 
-                            <Text style={[styles.text_db_g1_result,{flex:1}]}>23456</Text>  
+                            <Text style={[styles.text_db_g1_result,{flex:1, borderLeftWidth:0}]}>{result.arr_kq[14]}</Text>
+                            <Text style={[styles.text_db_g1_result,{flex:1}]}>{result.arr_kq[15]}</Text> 
+                            <Text style={[styles.text_db_g1_result,{flex:1}]}>{result.arr_kq[16]}</Text>  
                         </View>
                         <View style={{flexDirection:'row'}}>
-                            <Text style={[styles.text_db_g1_result,{flex:1, borderLeftWidth:0}]}>23456</Text>
-                            <Text style={[styles.text_db_g1_result,{flex:1}]}>23456</Text> 
-                            <Text style={[styles.text_db_g1_result,{flex:1}]}>23456</Text>  
+                            <Text style={[styles.text_db_g1_result,{flex:1, borderLeftWidth:0}]}>{result.arr_kq[17]}</Text>
+                            <Text style={[styles.text_db_g1_result,{flex:1}]}>{result.arr_kq[18]}</Text> 
+                            <Text style={[styles.text_db_g1_result,{flex:1}]}>{result.arr_kq[19]}</Text>  
                         </View>
                     </View>    
                 </View>
 
                 <View style={styles.row_result}>
                     <Text style={styles.text_db_g1_title}>G.6</Text>  
-                    <Text style={[styles.text_db_g1_result,{flex:1.99}]}>456</Text> 
-                    <Text style={[styles.text_db_g1_result,{flex:1.99}]}>234</Text>
-                    <Text style={[styles.text_db_g1_result,{flex:1.99}]}>345</Text> 
+                    <Text style={[styles.text_db_g1_result,{flex:1.99}]}>{result.arr_kq[20]}</Text> 
+                    <Text style={[styles.text_db_g1_result,{flex:1.99}]}>{result.arr_kq[21]}</Text>
+                    <Text style={[styles.text_db_g1_result,{flex:1.99}]}>{result.arr_kq[22]}</Text> 
                 </View>
 
                 <View style={[styles.row_result,{backgroundColor:'#EEEEEE'}]}>
                     <Text style={styles.text_db_g1_title}>G.7</Text>  
-                    <Text style={[styles.text_db_g1_result,{flex:1.48}]}>23</Text> 
-                    <Text style={[styles.text_db_g1_result,{flex:1.48}]}>45</Text>
-                    <Text style={[styles.text_db_g1_result,{flex:1.48}]}>34</Text> 
-                    <Text style={[styles.text_db_g1_result,{flex:1.48}]}>56</Text> 
+                    <Text style={[styles.text_db_g1_result,{flex:1.48}]}>{result.arr_kq[23]}</Text> 
+                    <Text style={[styles.text_db_g1_result,{flex:1.48}]}>{result.arr_kq[24]}</Text>
+                    <Text style={[styles.text_db_g1_result,{flex:1.48}]}>{result.arr_kq[25]}</Text> 
+                    <Text style={[styles.text_db_g1_result,{flex:1.48}]}>{result.arr_kq[26]}</Text> 
                 </View>
 
                 <View style={{marginHorizontal:5, marginTop: 10, marginBottom:5, flexDirection:'row'}}>
@@ -97,43 +120,43 @@ import {
                             styleView={[styles.row_result,{borderTopWidth:1, borderTopColor:'#DDDDDD', backgroundColor:'#EEEEEE'}]} 
                             styleDau={[styles.dau,{fontWeight:'bold'}]} styleDuoi={[styles.duoi,{fontWeight:'bold'}]}/> 
 
-                          <ItemRowDauDuoi dau={'0'} duoi={''} 
+                          <ItemRowDauDuoi dau={'0'} duoi={result.arr_dau_loto[0]} 
                             styleView={styles.row_result} 
                             styleDau={styles.dau} styleDuoi={[styles.duoi,{fontWeight:'bold'}]}/>
 
-                          <ItemRowDauDuoi dau={'1'} duoi={'1,3,5,5,4,3,2'} 
+                          <ItemRowDauDuoi dau={'1'} duoi={result.arr_dau_loto[1]} 
                             styleView={[styles.row_result,{backgroundColor:'#EEEEEE'}]} 
                             styleDau={styles.dau} styleDuoi={[styles.duoi,{fontWeight:'bold'}]}/>  
 
-                          <ItemRowDauDuoi dau={'2'} duoi={''} 
+                          <ItemRowDauDuoi dau={'2'} duoi={result.arr_dau_loto[2]} 
                             styleView={styles.row_result} 
                             styleDau={styles.dau} styleDuoi={[styles.duoi,{fontWeight:'bold'}]}/> 
 
-                          <ItemRowDauDuoi dau={'3'} duoi={''} 
+                          <ItemRowDauDuoi dau={'3'} duoi={result.arr_dau_loto[3]} 
                             styleView={[styles.row_result,{backgroundColor:'#EEEEEE'}]} 
                             styleDau={styles.dau} styleDuoi={[styles.duoi,{fontWeight:'bold'}]}/> 
 
-                          <ItemRowDauDuoi dau={'4'} duoi={''} 
+                          <ItemRowDauDuoi dau={'4'} duoi={result.arr_dau_loto[4]} 
                             styleView={styles.row_result} 
                             styleDau={styles.dau} styleDuoi={[styles.duoi,{fontWeight:'bold'}]}/> 
 
-                         <ItemRowDauDuoi dau={'5'} duoi={''} 
+                         <ItemRowDauDuoi dau={'5'} duoi={result.arr_dau_loto[5]} 
                             styleView={[styles.row_result,{backgroundColor:'#EEEEEE'}]} 
                             styleDau={styles.dau} styleDuoi={[styles.duoi,{fontWeight:'bold'}]}/> 
 
-                         <ItemRowDauDuoi dau={'6'} duoi={''} 
+                         <ItemRowDauDuoi dau={'6'} duoi={result.arr_dau_loto[6]} 
                             styleView={styles.row_result} 
                             styleDau={styles.dau} styleDuoi={[styles.duoi,{fontWeight:'bold'}]}/> 
 
-                         <ItemRowDauDuoi dau={'7'} duoi={''} 
+                         <ItemRowDauDuoi dau={'7'} duoi={result.arr_dau_loto[7]} 
                             styleView={[styles.row_result,{backgroundColor:'#EEEEEE'}]} 
                             styleDau={styles.dau} styleDuoi={[styles.duoi,{fontWeight:'bold'}]}/> 
 
-                         <ItemRowDauDuoi dau={'8'} duoi={''} 
+                         <ItemRowDauDuoi dau={'8'} duoi={result.arr_dau_loto[8]} 
                             styleView={styles.row_result} 
                             styleDau={styles.dau} styleDuoi={[styles.duoi,{fontWeight:'bold'}]}/> 
 
-                         <ItemRowDauDuoi dau={'9'} duoi={''} 
+                         <ItemRowDauDuoi dau={'9'} duoi={result.arr_dau_loto[9]} 
                             styleView={[styles.row_result,{backgroundColor:'#EEEEEE'}]} 
                             styleDau={styles.dau} styleDuoi={[styles.duoi,{fontWeight:'bold'}]}/>                   
                       </View>
@@ -143,43 +166,43 @@ import {
                             styleView={[styles.row_result,{borderTopWidth:1, borderTopColor:'#DDDDDD', backgroundColor:'#EEEEEE'}]} 
                             styleDau={[styles.dau,{flex:3, fontWeight:'bold'}]} styleDuoi={[styles.duoi,{flex:1, fontWeight:'bold'}]}/> 
 
-                          <ItemRowDauDuoi dau={'2,3,4,5'} duoi={'0'} 
+                          <ItemRowDauDuoi dau={result.arr_duoi_loto[0]} duoi={'0'} 
                             styleView={styles.row_result} 
                             styleDau={[styles.dau,{flex:3, fontWeight:'bold'}]} styleDuoi={[styles.duoi,{flex:1}]}/> 
 
-                          <ItemRowDauDuoi dau={''} duoi={'1'} 
+                          <ItemRowDauDuoi dau={result.arr_duoi_loto[1]} duoi={'1'} 
                             styleView={[styles.row_result,{backgroundColor:'#EEEEEE'}]} 
                             styleDau={[styles.dau,{flex:3, fontWeight:'bold'}]} styleDuoi={[styles.duoi,{flex:1}]}/>  
 
-                          <ItemRowDauDuoi dau={''} duoi={'2'} 
+                          <ItemRowDauDuoi dau={result.arr_duoi_loto[2]} duoi={'2'} 
                             styleView={styles.row_result} 
                             styleDau={[styles.dau,{flex:3, fontWeight:'bold'}]} styleDuoi={[styles.duoi,{flex:1}]}/> 
 
-                          <ItemRowDauDuoi dau={''} duoi={'3'} 
+                          <ItemRowDauDuoi dau={result.arr_duoi_loto[3]} duoi={'3'} 
                             styleView={[styles.row_result,{backgroundColor:'#EEEEEE'}]} 
                             styleDau={[styles.dau,{flex:3, fontWeight:'bold'}]} styleDuoi={[styles.duoi,{flex:1}]}/> 
 
-                          <ItemRowDauDuoi dau={''} duoi={'4'} 
+                          <ItemRowDauDuoi dau={result.arr_duoi_loto[4]} duoi={'4'} 
                             styleView={styles.row_result} 
                             styleDau={[styles.dau,{flex:3, fontWeight:'bold'}]} styleDuoi={[styles.duoi,{flex:1}]}/> 
 
-                         <ItemRowDauDuoi dau={''} duoi={'5'} 
+                         <ItemRowDauDuoi dau={result.arr_duoi_loto[5]} duoi={'5'} 
                             styleView={[styles.row_result,{backgroundColor:'#EEEEEE'}]} 
                             styleDau={[styles.dau,{flex:3, fontWeight:'bold'}]} styleDuoi={[styles.duoi,{flex:1}]}/> 
 
-                         <ItemRowDauDuoi dau={''} duoi={'6'} 
+                         <ItemRowDauDuoi dau={result.arr_duoi_loto[6]} duoi={'6'} 
                             styleView={styles.row_result} 
                             styleDau={[styles.dau,{flex:3, fontWeight:'bold'}]} styleDuoi={[styles.duoi,{flex:1}]}/> 
 
-                         <ItemRowDauDuoi dau={''} duoi={'7'} 
+                         <ItemRowDauDuoi dau={result.arr_duoi_loto[7]} duoi={'7'} 
                             styleView={[styles.row_result,{backgroundColor:'#EEEEEE'}]} 
                             styleDau={[styles.dau,{flex:3, fontWeight:'bold'}]} styleDuoi={[styles.duoi,{flex:1}]}/> 
 
-                         <ItemRowDauDuoi dau={''} duoi={'8'} 
+                         <ItemRowDauDuoi dau={result.arr_duoi_loto[8]} duoi={'8'} 
                             styleView={styles.row_result} 
                             styleDau={[styles.dau,{flex:3, fontWeight:'bold'}]} styleDuoi={[styles.duoi,{flex:1}]}/> 
 
-                         <ItemRowDauDuoi dau={''} duoi={'9'} 
+                         <ItemRowDauDuoi dau={result.arr_duoi_loto[9]} duoi={'9'} 
                             styleView={[styles.row_result,{backgroundColor:'#EEEEEE'}]} 
                             styleDau={[styles.dau,{flex:3, fontWeight:'bold'}]} styleDuoi={[styles.duoi,{flex:1}]}/>          
                       </View>  
@@ -215,6 +238,8 @@ import {
     text_title_date:{
         width:'100%',
         backgroundColor:'#EEEEEE',
+        borderBottomWidth:1,
+        borderBottomColor:'#DDDDDD',
         textAlign:'center',
         fontWeight:'bold',
         padding: 5,
