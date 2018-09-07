@@ -10,8 +10,10 @@ import {
  import dataInAppPurchase from '../data/ListProductInAppPurchase';
  import {getDataLottery} from '../network/Server';
  import {formatDataLotteryToKeyValue} from '../functions/ConvertDataLotteryToKeyValue';
+ import { connect } from 'react-redux';
+ import {addResultLottery} from '../redux/actionCreators';
 
- export default class SplashComponent extends Component {
+ class SplashComponent extends Component {
 
 
     componentWillMount(){
@@ -95,7 +97,9 @@ import {
         getDataLottery().then((data)=>{
             //CONVERT DATA TO FORMAT KEY_VALUE
             var d = formatDataLotteryToKeyValue(data);
-            // console.log("DATA KEY VALUE: " + JSON.stringify(d))
+            console.log("DATA KEY VALUE: " + JSON.stringify(d))
+            //CAP NHAT DU LIEU CHO STORE
+            this.props.addResultLottery(d);
             this.getRegionSelected();
         }).catch((error)=>{
             console.log(error)
@@ -103,6 +107,8 @@ import {
     }
 
  }
+
+ export default connect(null, {addResultLottery})(SplashComponent);
 
  const styles = StyleSheet.create({
      container:{

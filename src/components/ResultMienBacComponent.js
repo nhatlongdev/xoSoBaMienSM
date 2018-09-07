@@ -8,9 +8,12 @@ import {
     ScrollView
  } from 'react-native';
  import ItemRowDauDuoi from '../components/ItemRowDauDuoi';
+ import { connect } from 'react-redux';
 
- export default class ResultMienBacComponent extends Component {
+ class ResultMienBacComponent extends Component {
      render() {
+         const dataLottery = this.props;
+         console.log('DATA SAU KHI LAY SEVER VE ADD: ' + JSON.stringify(dataLottery));
          return (
              <View style={styles.container}>
                 <Text style={styles.text_title_date}>Thứ ba, 08/09/2018</Text>
@@ -187,6 +190,15 @@ import {
          );
      }
  }
+
+ //function map state to props
+ function mapStateToProps(state){
+     return {
+        dataLottery: state.dataLottery,
+     }
+ }
+
+ export default connect(mapStateToProps)(ResultMienBacComponent);
 
  const styles = StyleSheet.create({
     container:{
