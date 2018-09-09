@@ -34,6 +34,14 @@ import {
 
     }
 
+    shouldComponentUpdate(){
+        return true;
+    }
+
+    componentWillUpdate(){
+        
+    }
+
      render() {
          const {dataLottery} = this.props;
          console.log('DATA SAU KHI LAY SEVER VE ADD: ' + JSON.stringify(dataLottery));

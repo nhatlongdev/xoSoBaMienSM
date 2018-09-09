@@ -14,47 +14,58 @@ import {
  import { connect } from 'react-redux';
 
  var date_view;
- var arr_key;
  var arr_result_lottery;
+ var checkWillUpdate;
 
  class ResultMienTrungNamComponent extends Component {
 
     constructor(props){
         super(props);
+        checkWillUpdate = false;
         const regionSelected = this.props.regionSelected;
         const {dataLottery} = this.props;
         date_view = new Date();
-        //Lay ds key item
-        arr_key = getKeyItemProvincials(date_view, regionSelected, -1);
         //Lay ds ket qua cac tinh quay hom do
-        arr_result_lottery = getListItemWithDate(arr_key, dataLottery);
-        console.log('GIA TRI 1 ' + JSON.stringify(arr_result_lottery[0]))
+        arr_result_lottery = getListItemWithDate(date_view, regionSelected, dataLottery, 0);
+        if(arr_result_lottery.length === 0){
+            arr_result_lottery = getListItemWithDate(date_view, regionSelected, dataLottery, -1);
+        }
     }
 
     componentWillMount(){
         
     }
 
+    shouldComponentUpdate(){
+        return true;
+    }
+
+    componentWillUpdate(){
+        checkWillUpdate = true;
+    }
+
      render() {
-         const regionSelected = this.props.regionSelected;
-         const weekday = '6';
+         if(checkWillUpdate === true){
+            checkWillUpdate = false
+            this.updateWhenStateChange();
+         }
          return (
              <View style={styles.container}>
-                <Text style={styles.text_title_date}>Thứ ba, 08/09/2018</Text>
+                <Text style={styles.text_title_date}>{arr_result_lottery[0].title}</Text>
 
                 
                 <View style={{width:'100%', flexDirection:'row', backgroundColor:GlobalValue.Color.yellow_light, alignItems:'center', borderBottomWidth:1, borderBottomColor:GlobalValue.Color.vien}}>
                         <Text style={{flex:0.6}}></Text>
                         <View style={{flex:4, flexDirection:'row', height:'100%'}}>
-                            <Text style={styles.text_name_provincial}>TP Hồ Chí Minh</Text>
-                            <Text style={styles.text_name_provincial}>Long An</Text>
+                            <Text style={styles.text_name_provincial}>{arr_result_lottery[0].name}</Text>
+                            <Text style={styles.text_name_provincial}>{arr_result_lottery[1].name}</Text>
                             {
-                                this.checkCountProvincialRotateThisDay(regionSelected,weekday)>= 3 ?
-                                <Text style={styles.text_name_provincial}>Bình Phước</Text>: null
+                                arr_result_lottery.length >= 3 ?
+                                <Text style={styles.text_name_provincial}>{arr_result_lottery[2].name}</Text>: null
                             }
                             {
-                                this.checkCountProvincialRotateThisDay(regionSelected,weekday)== 4 ?
-                                <Text style={styles.text_name_provincial}>Bình Phước</Text>:null
+                                arr_result_lottery.length === 4 ?
+                                <Text style={styles.text_name_provincial}>{arr_result_lottery[3].name}</Text>:null
                             }
                         </View>     
                     </View>
@@ -65,12 +76,12 @@ import {
                         <Text style={[styles.row_text_result,{color:'red', fontWeight:'bold'}]}>{arr_result_lottery[0].arr_kq[17]}</Text>
                         <Text style={[styles.row_text_result,{color:'red', fontWeight:'bold'}]}>{arr_result_lottery[1].arr_kq[17]}</Text>
                         {
-                            this.checkCountProvincialRotateThisDay(regionSelected,weekday)>= 3 ?
-                            <Text style={[styles.row_text_result,{color:'red', fontWeight:'bold'}]}>56</Text>: null
+                            arr_result_lottery.length >= 3 ?
+                            <Text style={[styles.row_text_result,{color:'red', fontWeight:'bold'}]}>{arr_result_lottery[2].arr_kq[17]}</Text>: null
                         }
                         {
-                            this.checkCountProvincialRotateThisDay(regionSelected,weekday)== 4 ?
-                            <Text style={[styles.row_text_result,{color:'red', fontWeight:'bold'}]}></Text>:null
+                            arr_result_lottery.length === 4 ?
+                            <Text style={[styles.row_text_result,{color:'red', fontWeight:'bold'}]}>{arr_result_lottery[3].arr_kq[17]}</Text>:null
                         }  
                      </View>
                 </View>
@@ -80,12 +91,12 @@ import {
                         <Text style={styles.row_text_result}>{arr_result_lottery[0].arr_kq[16]}</Text>
                         <Text style={styles.row_text_result}>{arr_result_lottery[1].arr_kq[16]}</Text>
                         {
-                            this.checkCountProvincialRotateThisDay(regionSelected,weekday)>= 3 ?
-                            <Text style={styles.row_text_result}>564</Text>: null
+                            arr_result_lottery.length >= 3 ?
+                            <Text style={styles.row_text_result}>{arr_result_lottery[2].arr_kq[16]}</Text>: null
                         }
                         {
-                            this.checkCountProvincialRotateThisDay(regionSelected,weekday)== 4 ?
-                            <Text style={styles.row_text_result}>566</Text>:null
+                            arr_result_lottery.length === 4 ?
+                            <Text style={styles.row_text_result}>{arr_result_lottery[3].arr_kq[16]}</Text>:null
                         }  
                      </View>
                 </View>
@@ -97,12 +108,12 @@ import {
                             <Text style={[styles.row_text_result, {borderLeftWidth:0}]}>{arr_result_lottery[0].arr_kq[15]}</Text>
                             <Text style={styles.row_text_result}>{arr_result_lottery[1].arr_kq[15]}</Text>
                             {
-                                this.checkCountProvincialRotateThisDay(regionSelected,weekday)>= 3 ?
-                                <Text style={styles.row_text_result}>457</Text>: null
+                                arr_result_lottery.length >= 3 ?
+                                <Text style={styles.row_text_result}>{arr_result_lottery[2].arr_kq[15]}</Text>: null
                             }
                             {
-                                this.checkCountProvincialRotateThisDay(regionSelected,weekday)== 4 ?
-                                <Text style={styles.row_text_result}>243</Text>:null
+                                arr_result_lottery.length === 4 ?
+                                <Text style={styles.row_text_result}>{arr_result_lottery[3].arr_kq[15]}</Text>:null
                             }                                 
                          </View>
                          
@@ -110,12 +121,12 @@ import {
                             <Text style={[styles.row_text_result, {borderLeftWidth:0}]}>{arr_result_lottery[0].arr_kq[14]}</Text>
                             <Text style={styles.row_text_result}>{arr_result_lottery[1].arr_kq[14]}</Text>
                             {
-                                this.checkCountProvincialRotateThisDay(regionSelected,weekday)>= 3 ?
-                                <Text style={styles.row_text_result}>564</Text>: null
+                                arr_result_lottery.length >= 3 ?
+                                <Text style={styles.row_text_result}>{arr_result_lottery[2].arr_kq[14]}</Text>: null
                             }
                             {
-                                this.checkCountProvincialRotateThisDay(regionSelected,weekday)== 4 ?
-                                <Text style={styles.row_text_result}>588</Text>:null
+                                arr_result_lottery.length === 4 ?
+                                <Text style={styles.row_text_result}>{arr_result_lottery[3].arr_kq[14]}</Text>:null
                             }                               
                          </View> 
 
@@ -123,12 +134,12 @@ import {
                             <Text style={[styles.row_text_result, {borderLeftWidth:0}]}>{arr_result_lottery[0].arr_kq[13]}</Text>
                             <Text style={styles.row_text_result}>{arr_result_lottery[1].arr_kq[13]}</Text>
                             {
-                                this.checkCountProvincialRotateThisDay(regionSelected,weekday)>= 3 ?
-                                <Text style={styles.row_text_result}>496</Text>: null
+                                arr_result_lottery.length >= 3 ?
+                                <Text style={styles.row_text_result}>{arr_result_lottery[2].arr_kq[13]}</Text>: null
                             }
                             {
-                                this.checkCountProvincialRotateThisDay(regionSelected,weekday)== 4 ?
-                                <Text style={styles.row_text_result}>555</Text>:null
+                                arr_result_lottery.length === 4 ?
+                                <Text style={styles.row_text_result}>{arr_result_lottery[3].arr_kq[13]}</Text>:null
                             }   
                          </View> 
                      </View>  
@@ -140,12 +151,12 @@ import {
                         <Text style={styles.row_text_result}>{arr_result_lottery[0].arr_kq[12]}</Text>
                         <Text style={styles.row_text_result}>{arr_result_lottery[1].arr_kq[12]}</Text>
                         {
-                            this.checkCountProvincialRotateThisDay(regionSelected,weekday)>= 3 ?
-                            <Text style={styles.row_text_result}>564</Text>: null
+                            arr_result_lottery.length >= 3 ?
+                            <Text style={styles.row_text_result}>{arr_result_lottery[2].arr_kq[12]}</Text>: null
                         }
                         {
-                            this.checkCountProvincialRotateThisDay(regionSelected,weekday)== 4 ?
-                            <Text style={styles.row_text_result}>566</Text>:null
+                            arr_result_lottery.length === 4 ?
+                            <Text style={styles.row_text_result}>{arr_result_lottery[3].arr_kq[12]}</Text>:null
                         }                      
                      </View>
                 </View>
@@ -157,12 +168,12 @@ import {
                             <Text style={[styles.row_text_result, {borderLeftWidth:0}]}>{arr_result_lottery[0].arr_kq[11]}</Text>
                             <Text style={styles.row_text_result}>{arr_result_lottery[1].arr_kq[11]}</Text>
                             {
-                                this.checkCountProvincialRotateThisDay(regionSelected,weekday)>= 3 ?
-                                <Text style={styles.row_text_result}>457</Text>: null
+                                arr_result_lottery.length >= 3 ?
+                                <Text style={styles.row_text_result}>{arr_result_lottery[2].arr_kq[11]}</Text>: null
                             }
                             {
-                                this.checkCountProvincialRotateThisDay(regionSelected,weekday)== 4 ?
-                                <Text style={styles.row_text_result}>243</Text>:null
+                                arr_result_lottery.length === 4 ?
+                                <Text style={styles.row_text_result}>{arr_result_lottery[3].arr_kq[11]}</Text>:null
                             }                          
                          </View>
                          
@@ -170,12 +181,12 @@ import {
                             <Text style={[styles.row_text_result, {borderLeftWidth:0}]}>{arr_result_lottery[0].arr_kq[10]}</Text>
                             <Text style={styles.row_text_result}>{arr_result_lottery[1].arr_kq[10]}</Text>
                             {
-                                this.checkCountProvincialRotateThisDay(regionSelected,weekday)>= 3 ?
-                                <Text style={styles.row_text_result}>564</Text>: null
+                                arr_result_lottery.length >= 3 ?
+                                <Text style={styles.row_text_result}>{arr_result_lottery[2].arr_kq[10]}</Text>: null
                             }
                             {
-                                this.checkCountProvincialRotateThisDay(regionSelected,weekday)== 4 ?
-                                <Text style={styles.row_text_result}>588</Text>:null
+                                arr_result_lottery.length === 4 ?
+                                <Text style={styles.row_text_result}>{arr_result_lottery[3].arr_kq[10]}</Text>:null
                             }                                   
                          </View> 
 
@@ -183,12 +194,12 @@ import {
                             <Text style={[styles.row_text_result, {borderLeftWidth:0}]}>{arr_result_lottery[0].arr_kq[9]}</Text>
                             <Text style={styles.row_text_result}>{arr_result_lottery[1].arr_kq[9]}</Text>
                             {
-                                this.checkCountProvincialRotateThisDay(regionSelected,weekday)>= 3 ?
-                                <Text style={styles.row_text_result}>564</Text>: null
+                                arr_result_lottery.length >= 3 ?
+                                <Text style={styles.row_text_result}>{arr_result_lottery[2].arr_kq[9]}</Text>: null
                             }
                             {
-                                this.checkCountProvincialRotateThisDay(regionSelected,weekday)== 4 ?
-                                <Text style={styles.row_text_result}>588</Text>:null
+                                arr_result_lottery.length === 4 ?
+                                <Text style={styles.row_text_result}>{arr_result_lottery[3].arr_kq[9]}</Text>:null
                             }                                                          
                          </View> 
                          
@@ -196,51 +207,51 @@ import {
                             <Text style={[styles.row_text_result, {borderLeftWidth:0}]}>{arr_result_lottery[0].arr_kq[8]}</Text>
                             <Text style={styles.row_text_result}>{arr_result_lottery[1].arr_kq[8]}</Text>
                             {
-                                this.checkCountProvincialRotateThisDay(regionSelected,weekday)>= 3 ?
-                                <Text style={styles.row_text_result}>564</Text>: null
+                                arr_result_lottery.length >= 3 ?
+                                <Text style={styles.row_text_result}>{arr_result_lottery[2].arr_kq[8]}</Text>: null
                             }
                             {
-                                this.checkCountProvincialRotateThisDay(regionSelected,weekday)== 4 ?
-                                <Text style={styles.row_text_result}>588</Text>:null
+                                arr_result_lottery.length === 4 ?
+                                <Text style={styles.row_text_result}>{arr_result_lottery[3].arr_kq[8]}</Text>:null
                             }                                                           
                          </View>  
 
                          <View style={styles.view_row}>
-                            <Text style={[styles.row_text_result, {borderLeftWidth:0}]}>567</Text>
-                            <Text style={styles.row_text_result}>546</Text>
+                            <Text style={[styles.row_text_result, {borderLeftWidth:0}]}>{arr_result_lottery[0].arr_kq[7]}</Text>
+                            <Text style={styles.row_text_result}>{arr_result_lottery[1].arr_kq[7]}</Text>
                             {
-                                this.checkCountProvincialRotateThisDay(regionSelected,weekday)>= 3 ?
-                                <Text style={styles.row_text_result}>564</Text>: null
+                                arr_result_lottery.length >= 3 ?
+                                <Text style={styles.row_text_result}>{arr_result_lottery[2].arr_kq[7]}</Text>: null
                             }
                             {
-                                this.checkCountProvincialRotateThisDay(regionSelected,weekday)== 4 ?
-                                <Text style={styles.row_text_result}>588</Text> :null
+                                arr_result_lottery.length === 4 ?
+                                <Text style={styles.row_text_result}>{arr_result_lottery[3].arr_kq[7]}</Text> :null
                             }                                                           
                          </View>  
 
                          <View style={styles.view_row}>
-                            <Text style={[styles.row_text_result, {borderLeftWidth:0}]}>567</Text>
-                            <Text style={styles.row_text_result}>546</Text>
+                            <Text style={[styles.row_text_result, {borderLeftWidth:0}]}>{arr_result_lottery[0].arr_kq[6]}</Text>
+                            <Text style={styles.row_text_result}>{arr_result_lottery[1].arr_kq[6]}</Text>
                             {
-                                this.checkCountProvincialRotateThisDay(regionSelected,weekday)>= 3 ?
-                                <Text style={styles.row_text_result}>564</Text>: null
+                                arr_result_lottery.length >= 3 ?
+                                <Text style={styles.row_text_result}>{arr_result_lottery[2].arr_kq[6]}</Text>: null
                             }
                             {
-                                this.checkCountProvincialRotateThisDay(regionSelected,weekday)== 4 ?
-                                <Text style={styles.row_text_result}>588</Text> :null
+                                arr_result_lottery.length === 4 ?
+                                <Text style={styles.row_text_result}>{arr_result_lottery[3].arr_kq[6]}8</Text> :null
                             }                                                         
                          </View>  
 
                          <View style={[styles.view_row, {borderBottomWidth:0}]}>
-                            <Text style={[styles.row_text_result, {borderLeftWidth:0}]}>567</Text>
-                            <Text style={styles.row_text_result}></Text>
+                            <Text style={[styles.row_text_result, {borderLeftWidth:0}]}>{arr_result_lottery[0].arr_kq[5]}</Text>
+                            <Text style={styles.row_text_result}>{arr_result_lottery[1].arr_kq[6]}</Text>
                             {
-                                this.checkCountProvincialRotateThisDay(regionSelected,weekday)>= 3 ?
-                                <Text style={styles.row_text_result}>496</Text>: null
+                                arr_result_lottery.length >= 3 ?
+                                <Text style={styles.row_text_result}>{arr_result_lottery[2].arr_kq[6]}</Text>: null
                             }
                             {
-                                this.checkCountProvincialRotateThisDay(regionSelected,weekday)== 4 ?
-                                <Text style={styles.row_text_result}>555</Text> :null
+                                arr_result_lottery.length === 4 ?
+                                <Text style={styles.row_text_result}>{arr_result_lottery[3].arr_kq[6]}</Text> :null
                             }                                                          
                          </View> 
                      </View>  
@@ -250,28 +261,28 @@ import {
                      <Text style={styles.row_text_title}>G.3</Text>
                      <View style={{flex:4, borderLeftWidth:1, borderLeftColor:GlobalValue.Color.vien, height:'100%'}}>
                          <View style={styles.view_row}>
-                            <Text style={[styles.row_text_result, {borderLeftWidth:0}]}>567</Text>
-                            <Text style={styles.row_text_result}>346</Text>
+                            <Text style={[styles.row_text_result, {borderLeftWidth:0}]}>{arr_result_lottery[0].arr_kq[5]}</Text>
+                            <Text style={styles.row_text_result}>{arr_result_lottery[1].arr_kq[5]}</Text>
                             {
-                                this.checkCountProvincialRotateThisDay(regionSelected,weekday)>= 3 ?
-                                <Text style={styles.row_text_result}></Text>: null
+                                arr_result_lottery.length >= 3 ?
+                                <Text style={styles.row_text_result}>{arr_result_lottery[2].arr_kq[5]}</Text>: null
                             }
                             {
-                                this.checkCountProvincialRotateThisDay(regionSelected,weekday)== 4 ?
-                                <Text style={styles.row_text_result}>243</Text>:null
+                                arr_result_lottery.length === 4 ?
+                                <Text style={styles.row_text_result}>{arr_result_lottery[3].arr_kq[5]}</Text>:null
                             }                                                         
                          </View>
                          
                          <View style={[styles.view_row, {borderBottomWidth:0}]}>
-                            <Text style={[styles.row_text_result, {borderLeftWidth:0}]}>567</Text>
-                            <Text style={styles.row_text_result}>328</Text>
+                            <Text style={[styles.row_text_result, {borderLeftWidth:0}]}>{arr_result_lottery[0].arr_kq[4]}</Text>
+                            <Text style={styles.row_text_result}>{arr_result_lottery[1].arr_kq[4]}</Text>
                             {
-                                this.checkCountProvincialRotateThisDay(regionSelected,weekday)>= 3 ?
-                                <Text style={styles.row_text_result}>496</Text>: null
+                                arr_result_lottery.length >= 3 ?
+                                <Text style={styles.row_text_result}>{arr_result_lottery[2].arr_kq[4]}</Text>: null
                             }
                             {
-                                this.checkCountProvincialRotateThisDay(regionSelected,weekday)== 4 ?
-                                <Text style={styles.row_text_result}>555</Text>:null
+                                arr_result_lottery.length === 4 ?
+                                <Text style={styles.row_text_result}>{arr_result_lottery[3].arr_kq[4]}</Text>:null
                             }                                                           
                          </View> 
                      </View>  
@@ -280,15 +291,15 @@ import {
                 <View style={styles.view_row}>
                      <Text style={styles.row_text_title}>G.2</Text>
                      <View style={{flex:4, flexDirection:'row', height:'100%'}}>
-                        <Text style={styles.row_text_result}>567</Text>
-                        <Text style={styles.row_text_result}>566</Text>
+                        <Text style={styles.row_text_result}>{arr_result_lottery[0].arr_kq[3]}</Text>
+                        <Text style={styles.row_text_result}>{arr_result_lottery[1].arr_kq[3]}</Text>
                         {
-                            this.checkCountProvincialRotateThisDay(regionSelected,weekday)>= 3 ?
-                            <Text style={styles.row_text_result}>564</Text>: null
+                            arr_result_lottery.length >= 3 ?
+                            <Text style={styles.row_text_result}>{arr_result_lottery[2].arr_kq[3]}</Text>: null
                         }
                         {
-                            this.checkCountProvincialRotateThisDay(regionSelected,weekday)== 4 ?
-                            <Text style={styles.row_text_result}>566</Text>:null
+                            arr_result_lottery.length === 4 ?
+                            <Text style={styles.row_text_result}>{arr_result_lottery[3].arr_kq[3]}</Text>:null
                         }                                                
                      </View>
                 </View>
@@ -296,15 +307,15 @@ import {
                 <View style={[styles.view_row,{backgroundColor:GlobalValue.Color.bg}]}>
                      <Text style={styles.row_text_title}>G.1</Text>
                      <View style={{flex:4, flexDirection:'row', height:'100%'}}>
-                        <Text style={styles.row_text_result}>567</Text>
-                        <Text style={styles.row_text_result}>566</Text>
+                        <Text style={styles.row_text_result}>{arr_result_lottery[0].arr_kq[2]}</Text>
+                        <Text style={styles.row_text_result}>{arr_result_lottery[1].arr_kq[2]}</Text>
                         {
-                            this.checkCountProvincialRotateThisDay(regionSelected,weekday)>= 3 ?
-                            <Text style={styles.row_text_result}>564</Text>: null
+                            arr_result_lottery.length >= 3 ?
+                            <Text style={styles.row_text_result}>{arr_result_lottery[2].arr_kq[2]}</Text>: null
                         }
                         {
-                            this.checkCountProvincialRotateThisDay(regionSelected,weekday)== 4 ?
-                            <Text style={styles.row_text_result}>566</Text>:null
+                            arr_result_lottery.length === 4 ?
+                            <Text style={styles.row_text_result}>{arr_result_lottery[3].arr_kq[2]}</Text>:null
                         }                                              
                      </View>
                 </View>
@@ -312,15 +323,15 @@ import {
                 <View style={styles.view_row}>
                      <Text style={styles.row_text_title}>ĐB</Text>
                      <View style={{flex:4, flexDirection:'row', height:'100%'}}>
-                        <Text style={[styles.row_text_result,{color:'red',fontWeight:'bold'}]}>172422</Text>
-                        <Text style={[styles.row_text_result,{color:'red',fontWeight:'bold'}]}>042192</Text>
+                        <Text style={[styles.row_text_result,{color:'red',fontWeight:'bold'}]}>{arr_result_lottery[0].arr_kq[1]}</Text>
+                        <Text style={[styles.row_text_result,{color:'red',fontWeight:'bold'}]}>{arr_result_lottery[1].arr_kq[1]}</Text>
                         {
-                            this.checkCountProvincialRotateThisDay(regionSelected,weekday)>= 3 ?
-                            <Text style={[styles.row_text_result,{color:'red',fontWeight:'bold'}]}>821118</Text>: null
+                            arr_result_lottery.length >= 3 ?
+                            <Text style={[styles.row_text_result,{color:'red',fontWeight:'bold'}]}>{arr_result_lottery[2].arr_kq[1]}</Text>: null
                         }
                         {
-                            this.checkCountProvincialRotateThisDay(regionSelected,weekday)== 4 ?
-                            <Text style={[styles.row_text_result,{color:'red',fontWeight:'bold'}]}>358272</Text>:null
+                            arr_result_lottery.length === 4 ?
+                            <Text style={[styles.row_text_result,{color:'red',fontWeight:'bold'}]}>{arr_result_lottery[3].arr_kq[1]}</Text>:null
                         }                                               
                      </View>
                 </View>
@@ -333,15 +344,15 @@ import {
                 <View style={styles.view_row}>
                      <Text style={styles.row_text_title}>0</Text>
                      <View style={{flex:4, flexDirection:'row', height:'100%'}}>
-                        <Text style={styles.row_text_result}>5,6,7</Text>
-                        <Text style={styles.row_text_result}>5,6,6</Text>
+                        <Text style={styles.row_text_result}>{arr_result_lottery[0].arr_dau_loto[0]}</Text>
+                        <Text style={styles.row_text_result}>{arr_result_lottery[1].arr_dau_loto[0]}</Text>
                         {
-                            this.checkCountProvincialRotateThisDay(regionSelected,weekday)>= 3 ?
-                            <Text style={styles.row_text_result}>5,6,4</Text>: null
+                            arr_result_lottery.length >= 3 ?
+                            <Text style={styles.row_text_result}>{arr_result_lottery[2].arr_dau_loto[0]}</Text>: null
                         }
                         {
-                            this.checkCountProvincialRotateThisDay(regionSelected,weekday)== 4 ?
-                            <Text style={styles.row_text_result}>5,6,6</Text>:null
+                            arr_result_lottery.length === 4 ?
+                            <Text style={styles.row_text_result}>{arr_result_lottery[3].arr_dau_loto[0]}</Text>:null
                         }                                        
                      </View>
                 </View>
@@ -349,15 +360,15 @@ import {
                 <View style={styles.view_row}>
                      <Text style={styles.row_text_title}>1</Text>
                      <View style={{flex:4, flexDirection:'row', height:'100%'}}>
-                        <Text style={styles.row_text_result}>5,6,7</Text>
-                        <Text style={styles.row_text_result}>5,6,6</Text>
+                        <Text style={styles.row_text_result}>{arr_result_lottery[0].arr_dau_loto[1]}</Text>
+                        <Text style={styles.row_text_result}>{arr_result_lottery[1].arr_dau_loto[1]}</Text>
                         {
-                            this.checkCountProvincialRotateThisDay(regionSelected,weekday)>= 3 ?
-                            <Text style={styles.row_text_result}>5,6,4</Text>: null
+                            arr_result_lottery.length >= 3 ?
+                            <Text style={styles.row_text_result}>{arr_result_lottery[2].arr_dau_loto[1]}</Text>: null
                         }
                         {
-                            this.checkCountProvincialRotateThisDay(regionSelected,weekday)== 4 ?
-                            <Text style={styles.row_text_result}>5,6,6</Text>:null
+                            arr_result_lottery.length === 4 ?
+                            <Text style={styles.row_text_result}>{arr_result_lottery[3].arr_dau_loto[1]}</Text>:null
                         }                                        
                      </View>
                 </View>
@@ -365,15 +376,15 @@ import {
                 <View style={styles.view_row}>
                      <Text style={styles.row_text_title}>2</Text>
                      <View style={{flex:4, flexDirection:'row', height:'100%'}}>
-                        <Text style={styles.row_text_result}>5,6,7</Text>
-                        <Text style={styles.row_text_result}>5,6,6</Text>
+                        <Text style={styles.row_text_result}>{arr_result_lottery[0].arr_dau_loto[2]}</Text>
+                        <Text style={styles.row_text_result}>{arr_result_lottery[1].arr_dau_loto[2]}</Text>
                         {
-                            this.checkCountProvincialRotateThisDay(regionSelected,weekday)>= 3 ?
-                            <Text style={styles.row_text_result}>5,6,4</Text>: null
+                            arr_result_lottery.length >= 3 ?
+                            <Text style={styles.row_text_result}>{arr_result_lottery[2].arr_dau_loto[2]}</Text>: null
                         }
                         {
-                            this.checkCountProvincialRotateThisDay(regionSelected,weekday)== 4 ?
-                            <Text style={styles.row_text_result}>5,6,6</Text>:null
+                            arr_result_lottery.length === 4 ?
+                            <Text style={styles.row_text_result}>{arr_result_lottery[3].arr_dau_loto[2]}</Text>:null
                         }                                        
                      </View>
                 </View>
@@ -381,15 +392,15 @@ import {
                 <View style={styles.view_row}>
                      <Text style={styles.row_text_title}>3</Text>
                      <View style={{flex:4, flexDirection:'row', height:'100%'}}>
-                        <Text style={styles.row_text_result}>5,6,7</Text>
-                        <Text style={styles.row_text_result}>5,6,6</Text>
+                        <Text style={styles.row_text_result}>{arr_result_lottery[0].arr_dau_loto[3]}</Text>
+                        <Text style={styles.row_text_result}>{arr_result_lottery[1].arr_dau_loto[3]}</Text>
                         {
-                            this.checkCountProvincialRotateThisDay(regionSelected,weekday)>= 3 ?
-                            <Text style={styles.row_text_result}>5,6,4</Text>: null
+                            arr_result_lottery.length >= 3 ?
+                            <Text style={styles.row_text_result}>{arr_result_lottery[2].arr_dau_loto[3]}</Text>: null
                         }
                         {
-                            this.checkCountProvincialRotateThisDay(regionSelected,weekday)== 4 ?
-                            <Text style={styles.row_text_result}>5,6,6</Text>:null
+                            arr_result_lottery.length === 4 ?
+                            <Text style={styles.row_text_result}>{arr_result_lottery[3].arr_dau_loto[3]}</Text>:null
                         }                                        
                      </View>
                 </View>
@@ -397,15 +408,15 @@ import {
                 <View style={styles.view_row}>
                      <Text style={styles.row_text_title}>4</Text>
                      <View style={{flex:4, flexDirection:'row', height:'100%'}}>
-                        <Text style={styles.row_text_result}>5,6,7</Text>
-                        <Text style={styles.row_text_result}>5,6,6</Text>
+                        <Text style={styles.row_text_result}>{arr_result_lottery[0].arr_dau_loto[4]}</Text>
+                        <Text style={styles.row_text_result}>{arr_result_lottery[1].arr_dau_loto[4]}</Text>
                         {
-                            this.checkCountProvincialRotateThisDay(regionSelected,weekday)>= 3 ?
-                            <Text style={styles.row_text_result}>5,6,4</Text>: null
+                            arr_result_lottery.length >= 3 ?
+                            <Text style={styles.row_text_result}>{arr_result_lottery[2].arr_dau_loto[4]}</Text>: null
                         }
                         {
-                            this.checkCountProvincialRotateThisDay(regionSelected,weekday)== 4 ?
-                            <Text style={styles.row_text_result}>5,6,6</Text>:null
+                            arr_result_lottery.length === 4 ?
+                            <Text style={styles.row_text_result}>{arr_result_lottery[3].arr_dau_loto[4]}</Text>:null
                         }                                        
                      </View>
                 </View>
@@ -413,15 +424,15 @@ import {
                 <View style={styles.view_row}>
                      <Text style={styles.row_text_title}>5</Text>
                      <View style={{flex:4, flexDirection:'row', height:'100%'}}>
-                        <Text style={styles.row_text_result}>5,6,7</Text>
-                        <Text style={styles.row_text_result}>5,6,6</Text>
+                        <Text style={styles.row_text_result}>{arr_result_lottery[0].arr_dau_loto[5]}</Text>
+                        <Text style={styles.row_text_result}>{arr_result_lottery[1].arr_dau_loto[5]}</Text>
                         {
-                            this.checkCountProvincialRotateThisDay(regionSelected,weekday)>= 3 ?
-                            <Text style={styles.row_text_result}>5,6,4</Text>: null
+                            arr_result_lottery.length >= 3 ?
+                            <Text style={styles.row_text_result}>{arr_result_lottery[2].arr_dau_loto[5]}</Text>: null
                         }
                         {
-                            this.checkCountProvincialRotateThisDay(regionSelected,weekday)== 4 ?
-                            <Text style={styles.row_text_result}>5,6,6</Text>:null
+                            arr_result_lottery.length === 4 ?
+                            <Text style={styles.row_text_result}>{arr_result_lottery[3].arr_dau_loto[5]}</Text>:null
                         }                                        
                      </View>
                 </View>
@@ -429,15 +440,15 @@ import {
                 <View style={styles.view_row}>
                      <Text style={styles.row_text_title}>6</Text>
                      <View style={{flex:4, flexDirection:'row', height:'100%'}}>
-                        <Text style={styles.row_text_result}></Text>
-                        <Text style={styles.row_text_result}>5,6,6</Text>
+                        <Text style={styles.row_text_result}>{arr_result_lottery[0].arr_dau_loto[6]}</Text>
+                        <Text style={styles.row_text_result}>{arr_result_lottery[1].arr_dau_loto[6]}</Text>
                         {
-                            this.checkCountProvincialRotateThisDay(regionSelected,weekday)>= 3 ?
-                            <Text style={styles.row_text_result}>5,6,4</Text>: null
+                            arr_result_lottery.length >= 3 ?
+                            <Text style={styles.row_text_result}>{arr_result_lottery[2].arr_dau_loto[6]}</Text>: null
                         }
                         {
-                            this.checkCountProvincialRotateThisDay(regionSelected,weekday)== 4 ?
-                            <Text style={styles.row_text_result}>5,6,6</Text>:null
+                            arr_result_lottery.length === 4 ?
+                            <Text style={styles.row_text_result}>{arr_result_lottery[3].arr_dau_loto[6]}</Text>:null
                         }                                        
                      </View>
                 </View>
@@ -445,15 +456,15 @@ import {
                 <View style={styles.view_row}>
                      <Text style={styles.row_text_title}>7</Text>
                      <View style={{flex:4, flexDirection:'row', height:'100%'}}>
-                        <Text style={styles.row_text_result}>5,6,7</Text>
-                        <Text style={styles.row_text_result}>5,6,6</Text>
+                        <Text style={styles.row_text_result}>{arr_result_lottery[0].arr_dau_loto[7]}</Text>
+                        <Text style={styles.row_text_result}>{arr_result_lottery[1].arr_dau_loto[7]}</Text>
                         {
-                            this.checkCountProvincialRotateThisDay(regionSelected,weekday)>= 3 ?
-                            <Text style={styles.row_text_result}>5,6,4</Text>: null
+                            arr_result_lottery.length >= 3 ?
+                            <Text style={styles.row_text_result}>{arr_result_lottery[2].arr_dau_loto[7]}</Text>: null
                         }
                         {
-                            this.checkCountProvincialRotateThisDay(regionSelected,weekday)== 4 ?
-                            <Text style={styles.row_text_result}></Text>:null
+                            arr_result_lottery.length === 4 ?
+                            <Text style={styles.row_text_result}>{arr_result_lottery[3].arr_dau_loto[7]}</Text>:null
                         }                                        
                      </View>
                 </View>
@@ -461,15 +472,15 @@ import {
                 <View style={styles.view_row}>
                      <Text style={styles.row_text_title}>8</Text>
                      <View style={{flex:4, flexDirection:'row', height:'100%'}}>
-                        <Text style={styles.row_text_result}></Text>
-                        <Text style={styles.row_text_result}>5,6,6</Text>
+                        <Text style={styles.row_text_result}>{arr_result_lottery[0].arr_dau_loto[8]}</Text>
+                        <Text style={styles.row_text_result}>{arr_result_lottery[1].arr_dau_loto[8]}</Text>
                         {
-                            this.checkCountProvincialRotateThisDay(regionSelected,weekday)>= 3 ?
-                            <Text style={styles.row_text_result}>5,6,4</Text>: null
+                            arr_result_lottery.length >= 3 ?
+                            <Text style={styles.row_text_result}>{arr_result_lottery[2].arr_dau_loto[8]}</Text>: null
                         }
                         {
-                            this.checkCountProvincialRotateThisDay(regionSelected,weekday)== 4 ?
-                            <Text style={styles.row_text_result}>5,6,6</Text>:null
+                            arr_result_lottery.length === 4 ?
+                            <Text style={styles.row_text_result}>{arr_result_lottery[3].arr_dau_loto[8]}</Text>:null
                         }                                        
                      </View>
                 </View>
@@ -477,15 +488,15 @@ import {
                 <View style={[styles.view_row,{marginBottom:5}]}>
                      <Text style={styles.row_text_title}>9</Text>
                      <View style={{flex:4, flexDirection:'row', height:'100%'}}>
-                        <Text style={styles.row_text_result}>5,6,7</Text>
-                        <Text style={styles.row_text_result}>5,6,6</Text>
+                        <Text style={styles.row_text_result}>{arr_result_lottery[0].arr_dau_loto[9]}</Text>
+                        <Text style={styles.row_text_result}>{arr_result_lottery[1].arr_dau_loto[9]}</Text>
                         {
-                            this.checkCountProvincialRotateThisDay(regionSelected,weekday)>= 3 ?
-                            <Text style={styles.row_text_result}></Text>: null
+                            arr_result_lottery.length >= 3 ?
+                            <Text style={styles.row_text_result}>{arr_result_lottery[2].arr_dau_loto[9]}</Text>: null
                         }
                         {
-                            this.checkCountProvincialRotateThisDay(regionSelected,weekday)== 4 ?
-                            <Text style={styles.row_text_result}>5,6,6</Text>:null
+                            arr_result_lottery.length === 4 ?
+                            <Text style={styles.row_text_result}>{arr_result_lottery[3].arr_dau_loto[9]}</Text>:null
                         }                                        
                      </View>
                 </View>
@@ -497,23 +508,24 @@ import {
          );
      }
 
-
-     //HÀM KIỂM TRA XEM NGÀY NGƯỜI DÙNG ĐANG XEM CÓ BAO NHIÊU TỈNH QUAY
-     checkCountProvincialRotateThisDay(regionSelected, weekday){
-        if(regionSelected === '2'){
-            if(weekday === '5' || weekday === '7'){
-                return 3;
-            }else {
-                return 2;
-            }
-        }else if(regionSelected === '3'){
-            if(weekday === '7'){
-                return 4;
-            }else {
-                return 3;
-            }
+     //FUNCTION UPDATE DATA WHEN STATE CHANGE
+     updateWhenStateChange(){
+        const {dataLottery} = this.props;
+        console.log('WIllUPDATE: ' + this.props.regionSelected)
+        date_view = new Date();
+        //Lay ds ket qua cac tinh quay hom do
+        arr_result_lottery = getListItemWithDate(date_view, this.props.regionSelected, dataLottery, 0);
+        //Neu ngay hien tai chua co ket qua thi lui lai mot ngay
+        if(arr_result_lottery.length === 0){
+            arr_result_lottery = getListItemWithDate(date_view, this.props.regionSelected, dataLottery, -1);
         }
+
+        //Nếu lùi lại một ngày mà vẫn ko có dữ liệu thì thông báo ====>>> LAM SAU
+
+        
      }
+     
+
  }
 
  //map state to props

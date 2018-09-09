@@ -12,7 +12,22 @@ import {
  import { connect } from 'react-redux';
 
 class ResultLotteryComponent extends Component {
+
+    constructor(props){
+        super(props);
+
+    }
+
+    shouldComponentUpdate(){
+        return true;
+    }
+
+    componentWillUpdate(){
+        console.log('WIllUPDATE: ' + this.props.regionSelected)
+    }
+
      render() {
+        console.log('RENDER: ' + this.props.regionSelected)
          return (
              <View style={styles.container}>
                 <View style = {styles.header_style}>

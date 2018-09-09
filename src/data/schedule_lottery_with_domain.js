@@ -139,7 +139,7 @@ const schedule_lottery_with_domain = {
         "area_id": 2,
         "weekdays": ",7,"
     },
-    '27':{
+    '37':{
         "id": 21,
         "name": ["Bình Phước", "Hậu Giang", "Long An", "TP Hồ Chí Minh"],
         "code": ["XSBinhPhuoc", "XSHauGiang", "XSLongAn", "XSTPHCM"],

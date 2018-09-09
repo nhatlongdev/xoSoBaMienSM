@@ -166,22 +166,22 @@ import {
                 case '1':
                     //Chuyển sang màn xem kết quả miền bắc
                     this.props.selectRegion(value_click);
-                    this.props.navigation.navigate('ResultLotteryComponent');
                     this.props.navigation.closeDrawer();
+                    this.props.navigation.navigate('ResultLotteryComponent');
                 break;
 
                 case '2':
                     //Chuyển sang màn xem kết quả miền bắc
                     this.props.selectRegion(value_click);
-                    this.props.navigation.navigate('ResultLotteryComponent');
                     this.props.navigation.closeDrawer();
+                    this.props.navigation.navigate('ResultLotteryComponent');
                 break;
 
                 case '3':
                     //Chuyển sang màn xem kết quả miền bắc
                     this.props.selectRegion(value_click);
-                    this.props.navigation.navigate('ResultLotteryComponent');
                     this.props.navigation.closeDrawer();
+                    this.props.navigation.navigate('ResultLotteryComponent');
                 break;
 
                 case '4':

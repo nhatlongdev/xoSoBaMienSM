@@ -25,9 +25,13 @@ function getKeyItemProvincials(date_view, regionSelected, action_type){
     //Lấy ds ma code các tỉnh quay ngày nào đó
     let schedule = getListProvincialRotateWithDay(date_view, regionSelected);
 
-    for(let value of schedule.code){
-        let key_item = value + '_' + moment(date_view).format('YYYYMMDD');
-        arr_key.push(key_item);
+    for(let i=0; i<schedule.code.length; i++){
+        let key_item = schedule.code[i] + '_' + moment(date_view).format('YYYYMMDD');
+        let name_provincial = schedule.name[i];
+        let obj = {};
+        obj.key_item = key_item;
+        obj.name_provincial = name_provincial;
+        arr_key.push(obj);
     }
     return arr_key;
 }
