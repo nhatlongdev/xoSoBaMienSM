@@ -5,13 +5,21 @@ import {
     Image,
     TouchableOpacity,
     StyleSheet,
-    ScrollView
+    ScrollView,
+    ToastAndroid
  } from 'react-native';
  import ItemRowDauDuoi from '../components/ItemRowDauDuoi';
+ import moment from 'moment';
+
+ //REDUX
  import { connect } from 'react-redux';
+ import { isSwipe } from '../redux/actionCreators';
+
  import { getItemWithDate } from '../functions/GetItemWithDate';
  import { getKeyItemOneProvincial } from '../functions/GetKeyItemProvincial';
- import moment from 'moment';
+ //LIBRARY VUỐT MÀN HÌNH TRÁI PHẢI
+ import GestureRecognizer, {swipeDirections} from 'react-native-swipe-gestures';
+
  var date_view;
  var result;
 
@@ -39,13 +47,55 @@ import {
     }
 
     componentWillUpdate(){
-        
+        console.log('RENDER LAI MAN KET QUA MB');
     }
 
+    //Vuốt màn hình sang trái
+    onSwipeLeft(gestureState) {
+        this.swipeLeftOrRight(1);
+      }
+    
+      // on sự kiện vuốt màn hình sang phải
+      onSwipeRight(gestureState) {
+        this.swipeLeftOrRight(-1);
+      }
+    
+      onSwipe(gestureName, gestureState) {
+        const {SWIPE_UP, SWIPE_DOWN, SWIPE_LEFT, SWIPE_RIGHT} = swipeDirections;
+        this.setState({gestureName: gestureName});
+        switch (gestureName) {
+          case SWIPE_UP:
+            // this.setState({backgroundColor: 'red'});
+            break;
+          case SWIPE_DOWN:
+            // this.setState({backgroundColor: 'green'});
+            break;
+          case SWIPE_LEFT:
+            // this.setState({backgroundColor: 'blue'});
+            
+            break;
+          case SWIPE_RIGHT:
+            // this.setState({backgroundColor: 'yellow'});
+            
+            break;
+        }
+      }
+
      render() {
+        const config = {
+            velocityThreshold: 0.3,
+            directionalOffsetThreshold: 30
+          };
          const {dataLottery} = this.props;
          console.log('DATA SAU KHI LAY SEVER VE ADD: ' + JSON.stringify(dataLottery));
          return (
+            <GestureRecognizer
+                onSwipe={(direction, state) => this.onSwipe(direction, state)}
+                onSwipeLeft={(state) => this.onSwipeLeft(state)}
+                onSwipeRight={(state) => this.onSwipeRight(state)}
+                config={config}
+                style={{flex: 1,}}
+            >
              <View style={styles.container}>
                 <Text style={styles.text_title_date}>{result.title}</Text>
 
@@ -218,7 +268,34 @@ import {
                 </ScrollView>
 
              </View>
+             </GestureRecognizer>
          );
+     }
+
+     //HÀM XỬ LÝ KHI NGƯỜI DÙNG VUỐT TRÁI, PHẢI
+     swipeLeftOrRight(action_type){
+        const {dataLottery} = this.props;
+        var resultTam;
+        if(action_type === -1){
+            var key_item = getKeyItemOneProvincial(date_view,'MB', -1);
+            resultTam = getItemWithDate(key_item, dataLottery);
+        }else{
+            var key_item = getKeyItemOneProvincial(date_view,'MB', 1);
+            resultTam = getItemWithDate(key_item, dataLottery);
+        }
+        if(resultTam !== null && resultTam !== undefined){
+            result = resultTam;
+            //GOi action creator
+            this.props.isSwipe();
+        }else {
+            // if ngày vuốt tới mà ko có kết quả thì thông báo và cập nhật date về ngày trước khi vuốt
+            ToastAndroid.show('Chưa có kết quả xổ số cho ngày ' + moment(date_view).format('DD-MM-YYYY'), ToastAndroid.SHORT);
+            if(action_type === 1){
+                date_view.setDate(date_view.getDate()-1);
+            }else {
+                date_view.setDate(date_view.getDate()+1);
+            }   
+        }
      }
  }
 
@@ -229,7 +306,7 @@ import {
      }
  }
 
- export default connect(mapStateToProps)(ResultMienBacComponent);
+ export default connect(mapStateToProps,{isSwipe})(ResultMienBacComponent);
 
  const styles = StyleSheet.create({
     container:{

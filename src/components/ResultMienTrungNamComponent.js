@@ -3,24 +3,34 @@ import {
     View,
     Text,
     StyleSheet,
-    ScrollView
+    ScrollView,
+    ToastAndroid
  } from 'react-native';
- //Tạo ds key_item các tỉnh quay miền trung hoặc nam
- import {getKeyItemProvincials} from '../functions/GetKeyItemProvincial';
-
  //Lấy ds kết quả các tỉnh quay của miền trung hoặc nam
  import {getListItemWithDate} from '../functions/GetItemWithDate';
  import GlobalValue from '../data/GlobalValue';
+ //REDUX
  import { connect } from 'react-redux';
+ //MOMENT
+ import moment from 'moment';
+
+ //LIBRARY VUỐT MÀN HÌNH TRÁI PHẢI
+ import GestureRecognizer, {swipeDirections} from 'react-native-swipe-gestures';
 
  var date_view;
  var arr_result_lottery;
  var checkWillUpdate;
+ var type_swipe;
+
+ //biến này dùng để lưu lại giá trị region được chọn khi vào màn, nếu người dùng click từ menu trái chọn miền khác thì set date về ngày có kết quả gần nhất
+ var regionSelectedTam;
 
  class ResultMienTrungNamComponent extends Component {
 
     constructor(props){
         super(props);
+        type_swipe = 0;
+        regionSelectedTam = this.props.regionSelected;
         checkWillUpdate = false;
         const regionSelected = this.props.regionSelected;
         const {dataLottery} = this.props;
@@ -41,19 +51,71 @@ import {
     }
 
     componentWillUpdate(){
+        console.log('RENDER LAI MAN KET QUA')
         checkWillUpdate = true;
     }
 
+    //Vuốt màn hình sang trái
+    onSwipeLeft(gestureState) {
+        type_swipe = 1;
+      }
+    
+      // on sự kiện vuốt màn hình sang phải
+      onSwipeRight(gestureState) {
+        type_swipe = -1;
+      }
+    
+      onSwipe(gestureName, gestureState) {
+        const {SWIPE_UP, SWIPE_DOWN, SWIPE_LEFT, SWIPE_RIGHT} = swipeDirections;
+        this.setState({gestureName: gestureName});
+        switch (gestureName) {
+          case SWIPE_UP:
+            // this.setState({backgroundColor: 'red'});
+            break;
+          case SWIPE_DOWN:
+            // this.setState({backgroundColor: 'green'});
+            break;
+          case SWIPE_LEFT:
+            // this.setState({backgroundColor: 'blue'});
+            
+            break;
+          case SWIPE_RIGHT:
+            // this.setState({backgroundColor: 'yellow'});
+            
+            break;
+        }
+      }
+
      render() {
-         if(checkWillUpdate === true){
+        const config = {
+            velocityThreshold: 0.3,
+            directionalOffsetThreshold: 30
+          };
+
+         if(checkWillUpdate === true && type_swipe === 0){
             checkWillUpdate = false
             this.updateWhenStateChange();
          }
+
+        //SỬ LÝ DATA KHI NGƯỜI DÙNG VUỐT SANG TRÁI HOẶC PHẢI 
+        if(type_swipe !== 0){
+            let type_Tam = type_swipe;
+            type_swipe = 0;
+            console.log('Bat dau keo: ' + moment(date_view).format('DD-MM-YYYY') + ' voi type la: ' + type_Tam)
+            this.swipeLeftOrRight(type_Tam);
+        }
+    
          return (
+            <GestureRecognizer
+                onSwipe={(direction, state) => this.onSwipe(direction, state)}
+                onSwipeLeft={(state) => this.onSwipeLeft(state)}
+                onSwipeRight={(state) => this.onSwipeRight(state)}
+                config={config}
+                style={{flex: 1,}}
+            >
              <View style={styles.container}>
                 <Text style={styles.text_title_date}>{arr_result_lottery[0].title}</Text>
 
-                
                 <View style={{width:'100%', flexDirection:'row', backgroundColor:GlobalValue.Color.yellow_light, alignItems:'center', borderBottomWidth:1, borderBottomColor:GlobalValue.Color.vien}}>
                         <Text style={{flex:0.6}}></Text>
                         <View style={{flex:4, flexDirection:'row', height:'100%'}}>
@@ -505,6 +567,7 @@ import {
                 </ScrollView>
 
              </View>
+             </GestureRecognizer>
          );
      }
 
@@ -512,7 +575,10 @@ import {
      updateWhenStateChange(){
         const {dataLottery} = this.props;
         console.log('WIllUPDATE: ' + this.props.regionSelected)
-        date_view = new Date();
+        if(regionSelectedTam !== this.props.regionSelected){
+            regionSelectedTam = this.props.regionSelected;
+            date_view = new Date();
+        }
         //Lay ds ket qua cac tinh quay hom do
         arr_result_lottery = getListItemWithDate(date_view, this.props.regionSelected, dataLottery, 0);
         //Neu ngay hien tai chua co ket qua thi lui lai mot ngay
@@ -524,6 +590,29 @@ import {
 
         
      }
+
+    //HÀM XỬ LÝ KHI NGƯỜI DÙNG VUỐT TRÁI, PHẢI
+    swipeLeftOrRight(action_type){
+        const {dataLottery} = this.props;
+        var arr_result_lottery_tam=[];
+        if(action_type === -1){
+            arr_result_lottery_tam = getListItemWithDate(date_view, this.props.regionSelected, dataLottery, -1);
+        }else{
+            arr_result_lottery_tam = getListItemWithDate(date_view, this.props.regionSelected, dataLottery, 1);
+        }
+        if(arr_result_lottery_tam.length>0){
+            arr_result_lottery = arr_result_lottery_tam;
+           console.log('Data ResultL: ' + arr_result_lottery.length);
+        }else {
+            // if ngày vuốt tới mà ko có kết quả thì thông báo và cập nhật date về ngày trước khi vuốt
+            ToastAndroid.show('Chưa có kết quả xổ số cho ngày ' + moment(date_view).format('DD-MM-YYYY'), ToastAndroid.SHORT);
+            if(action_type === 1){
+                date_view.setDate(date_view.getDate()-1);
+            }else {
+                date_view.setDate(date_view.getDate()+1);
+            }   
+        }
+     } 
      
 
  }

@@ -11,6 +11,13 @@ import {
  import ResultMienTrungNamComponent from './ResultMienTrungNamComponent';
  import { connect } from 'react-redux';
 
+ //library exit app
+import {
+    handleAndroidBackButton,
+    removeAndroidBackButtonHandler
+  } from '../functions/BackHandlerXoSo';
+import {exitAlert} from '../functions/AlertXoSo';
+
 class ResultLotteryComponent extends Component {
 
     constructor(props){
@@ -24,6 +31,10 @@ class ResultLotteryComponent extends Component {
 
     componentWillUpdate(){
         console.log('WIllUPDATE: ' + this.props.regionSelected)
+    }
+
+    componentDidMount(){
+        handleAndroidBackButton(exitAlert);
     }
 
      render() {
