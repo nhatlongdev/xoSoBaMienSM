@@ -3,7 +3,8 @@ import {
     View,
     Text,
     StyleSheet,
-    TouchableOpacity
+    TouchableOpacity,
+    Image,
  } from 'react-native';
 
  export default class SoMoComponent extends Component {
