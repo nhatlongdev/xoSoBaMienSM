@@ -6,7 +6,6 @@ import {
     TouchableOpacity,
     StyleSheet,
     ScrollView,
-    ToastAndroid
  } from 'react-native';
  import ItemRowDauDuoi from '../components/ItemRowDauDuoi';
  import moment from 'moment';
