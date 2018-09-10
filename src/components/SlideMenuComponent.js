@@ -186,7 +186,7 @@ import {
 
                 case '7':
                     //Xem sổ mơ
-                   this.props.navigation.navigate('ScheduleRotateLottery');
+                   this.props.navigation.navigate('SoMoComponent');
                    this.props.navigation.closeDrawer();
                 break;
 
