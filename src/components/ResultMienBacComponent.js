@@ -20,6 +20,9 @@ import {
  //LIBRARY VUỐT MÀN HÌNH TRÁI PHẢI
  import GestureRecognizer, {swipeDirections} from 'react-native-swipe-gestures';
 
+ //TOAS ANDROID , IOS
+ import Toast, {DURATION} from 'react-native-easy-toast'
+
  var date_view;
  var result;
 
@@ -266,7 +269,7 @@ import {
                       </View>  
                 </View>
                 </ScrollView>
-
+                <Toast ref="toast"/>
              </View>
              </GestureRecognizer>
          );
@@ -289,7 +292,8 @@ import {
             this.props.isSwipe();
         }else {
             // if ngày vuốt tới mà ko có kết quả thì thông báo và cập nhật date về ngày trước khi vuốt
-            ToastAndroid.show('Chưa có kết quả xổ số cho ngày ' + moment(date_view).format('DD-MM-YYYY'), ToastAndroid.SHORT);
+            // ToastAndroid.show('Chưa có kết quả xổ số cho ngày ' + moment(date_view).format('DD-MM-YYYY'), ToastAndroid.SHORT);
+            this.refs.toast.show('Chưa có kết quả xổ số cho ngày ' + moment(date_view).format('DD-MM-YYYY'), 3000);
             if(action_type === 1){
                 date_view.setDate(date_view.getDate()-1);
             }else {

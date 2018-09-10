@@ -5,7 +5,8 @@ import {
     Image,
     TouchableOpacity,
     StyleSheet,
-    ScrollView
+    ScrollView, 
+    Platform
  } from 'react-native';
  import ResultMienBacComponent from './ResultMienBacComponent';
  import ResultMienTrungNamComponent from './ResultMienTrungNamComponent';
@@ -40,7 +41,7 @@ class ResultLotteryComponent extends Component {
      render() {
         console.log('RENDER: ' + this.props.regionSelected)
          return (
-             <View style={styles.container}>
+            <View style={[styles.container,{marginTop:Platform.OS === 'ios'?30:0}]}>
                 <View style = {styles.header_style}>
                     <TouchableOpacity onPress = {()=>
                         {this.props.navigation.openDrawer()}

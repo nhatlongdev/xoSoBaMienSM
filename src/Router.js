@@ -12,6 +12,7 @@ import {
   import SlideMenuComponent from './components/SlideMenuComponent';
   import ResultLotteryComponent from './components/ResultLotteryComponent';
   import ScheduleRotateLottery from './components/ScheduleRotateLottery';
+  import SoMoComponent from './components/SoMoComponent';
 
   export const HomeStack = StackNavigator({
     SplashComponent: {
@@ -34,6 +35,12 @@ import {
     },
     ScheduleRotateLottery:{
         screen:ScheduleRotateLottery,
+        navigationOptions:{
+            header:null
+        }
+    },
+    SoMoComponent:{
+        screen:SoMoComponent,
         navigationOptions:{
             header:null
         }

@@ -134,25 +134,11 @@ import {
                     }>
                         <Image
                             style ={{width: 50, height: 50}}
-                            source = {require('../images/setting.png')}
-                        />
-                        <Text style={styles.text_option}>Cài đặt</Text>
-                    </TouchableOpacity>
-
-                </View>
-
-                <View style={{flexDirection:'row', marginHorizontal: 5, marginTop: 20}}>
-
-                    <TouchableOpacity style={[styles.touch_style]}
-                        onPress={()=>
-                        this.clickOption(1)
-                    }>
-                        <Image
-                            style ={{width: 50, height: 50}}
                             source = {require('../images/pay.png')}
                         />
-                        <Text style={styles.text_option}>Thanh Toán</Text>
+                        <Text style={styles.text_option}>Thanh toán</Text>
                     </TouchableOpacity>
+
                 </View>
 
              </View>
@@ -199,7 +185,9 @@ import {
                 break;
 
                 case '7':
-                    alert('click');
+                    //Xem sổ mơ
+                   this.props.navigation.navigate('ScheduleRotateLottery');
+                   this.props.navigation.closeDrawer();
                 break;
 
                 case '8':
