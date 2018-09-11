@@ -97,7 +97,7 @@ class ResultLotteryComponent extends Component {
      },
      header_style: {
         width: '100%',
-        height: 50,
+        height: 45,
         backgroundColor: '#3F51B5',
         flexDirection: 'row',
         alignItems: 'center',
