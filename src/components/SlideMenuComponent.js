@@ -5,12 +5,16 @@ import {
     Dimensions,
     StyleSheet,
     Image,
+    Share,
     TouchableOpacity
  } from 'react-native';
- var heightScreen = Dimensions.get('window').height;
- 
+
+ //REDUX
  import { connect } from 'react-redux';
  import {selectRegion} from '../redux/actionCreators';
+
+ var heightScreen = Dimensions.get('window').height;
+ var linkDB = 'https://dacbiet.vn';
 
   class SlideMenuComponent extends Component {
 
@@ -172,16 +176,20 @@ import {
 
                 case '4':
                    //Xem kết quả theo ngày
-                   this.props.navigation.navigate('ScheduleRotateLottery');
+                   this.props.navigation.navigate('ResultWithDayComponent');
                    this.props.navigation.closeDrawer();
                 break;
 
                 case '5':
-                    alert('click');
+                     //chuyển đến màn dò số
+                   this.props.navigation.navigate('DoSoComponent');
+                   this.props.navigation.closeDrawer();
                 break;
 
                 case '6':
-                    alert('click');
+                     //chuyển đến màn thống kê
+                   this.props.navigation.navigate('StatisticsComponent');
+                   this.props.navigation.closeDrawer();
                 break;
 
                 case '7':
@@ -191,7 +199,9 @@ import {
                 break;
 
                 case '8':
-                    alert('click');
+                    Share.share({
+                        message:'http://dacbiet.vn'
+                    })
                 break;
 
                 case '9':

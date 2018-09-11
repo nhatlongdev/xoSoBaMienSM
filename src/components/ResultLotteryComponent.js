@@ -10,7 +10,9 @@ import {
  } from 'react-native';
  import ResultMienBacComponent from './ResultMienBacComponent';
  import ResultMienTrungNamComponent from './ResultMienTrungNamComponent';
+ import ResultWithDaySelectedComponent from './ResultWithDaySelectedComponent';
  import { connect } from 'react-redux';
+ import GlobaleValue from '../data/GlobalValue';
 
  //library exit app
 import {
@@ -60,7 +62,7 @@ class ResultLotteryComponent extends Component {
                 </View> 
                 {
                   this.props.regionSelected === '1'?
-                  <ResultMienBacComponent/>:
+                  <ResultMienBacComponent/>:this.props.regionSelected === '4'?GlobaleValue.codeProvincialSelected === 'MB'?<ResultMienBacComponent/>: <ResultWithDaySelectedComponent/>:
                   <ResultMienTrungNamComponent/>
                 }
                         
@@ -77,6 +79,8 @@ class ResultLotteryComponent extends Component {
             str = 'KẾT QUẢ MIỀN TRUNG';
         }else if(value_region === '3'){
             str = 'KẾT QUẢ MIỀN NAM';
+        }else if(value_region === '4'){
+            str = 'KẾT QUẢ ' + GlobaleValue.nameProvincialSelected.toUpperCase();
         }
         return str;
      }
@@ -85,6 +89,7 @@ class ResultLotteryComponent extends Component {
  function mapStateToProps(state){
     return{
         regionSelected: state.regionSelected,
+        clickCalendar: state.clickCalendar,
     };
  };
 

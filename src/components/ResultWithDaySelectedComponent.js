@@ -2,45 +2,29 @@ import React, { Component } from 'react';
 import { 
     View,
     Text,
-    Image,
-    TouchableOpacity,
     StyleSheet,
-    ScrollView,
+    ScrollView
  } from 'react-native';
+ import GlobalValue from '../data/GlobalValue';
  import ItemRowDauDuoi from '../components/ItemRowDauDuoi';
  import moment from 'moment';
-
- //REDUX
- import { connect } from 'react-redux';
- 
  import { getItemWithDate } from '../functions/GetItemWithDate';
  import { getKeyItemOneProvincial } from '../functions/GetKeyItemProvincial';
- //LIBRARY VUỐT MÀN HÌNH TRÁI PHẢI
- import GestureRecognizer, {swipeDirections} from 'react-native-swipe-gestures';
-
- //TOAS ANDROID , IOS
- import Toast, {DURATION} from 'react-native-easy-toast'
+ //REDUX
+ import { connect } from 'react-redux';
 
  var date_view;
  var result;
 
- class ResultMienBacComponent extends Component {
-    
+ class ResultWithDaySelectedComponent extends Component {
+
     constructor(props){
         super(props);
         const {dataLottery} = this.props;
-        date_view = new Date();
-        var key_item = getKeyItemOneProvincial(date_view,'MB', 0);
+        date_view = new Date(GlobalValue.daySelected);
+        var key_item = getKeyItemOneProvincial(date_view,GlobalValue.codeProvincialSelected, 0);
         result = getItemWithDate(key_item, dataLottery);
-        if(result === undefined){ //TH dữ liệu ngày date_view chưa có kết quả
-            key_item = getKeyItemOneProvincial(date_view,'MB', -1);
-            result = getItemWithDate(key_item, dataLottery);
-        }
         console.log('OBJ RESULT: ' + JSON.stringify(result))
-    }
-
-    componentWillMount(){
-
     }
 
     shouldComponentUpdate(){
@@ -48,62 +32,63 @@ import {
     }
 
     componentWillUpdate(){
-        console.log('RENDER LAI MAN KET QUA MB');
+        this.updateData();
     }
 
-    //Vuốt màn hình sang trái
-    onSwipeLeft(gestureState) {
-        this.swipeLeftOrRight(1);
-      }
-    
-      // on sự kiện vuốt màn hình sang phải
-      onSwipeRight(gestureState) {
-        this.swipeLeftOrRight(-1);
-      }
-    
-      onSwipe(gestureName, gestureState) {
-        const {SWIPE_UP, SWIPE_DOWN, SWIPE_LEFT, SWIPE_RIGHT} = swipeDirections;
-        this.setState({gestureName: gestureName});
-        switch (gestureName) {
-          case SWIPE_UP:
-            // this.setState({backgroundColor: 'red'});
-            break;
-          case SWIPE_DOWN:
-            // this.setState({backgroundColor: 'green'});
-            break;
-          case SWIPE_LEFT:
-            // this.setState({backgroundColor: 'blue'});
-            
-            break;
-          case SWIPE_RIGHT:
-            // this.setState({backgroundColor: 'yellow'});
-            
-            break;
-        }
-      }
-
      render() {
-        const config = {
-            velocityThreshold: 0.3,
-            directionalOffsetThreshold: 30
-          };
-         const {dataLottery} = this.props;
-         console.log('DATA SAU KHI LAY SEVER VE ADD: ' + JSON.stringify(dataLottery));
          return (
-            <GestureRecognizer
-                onSwipe={(direction, state) => this.onSwipe(direction, state)}
-                onSwipeLeft={(state) => this.onSwipeLeft(state)}
-                onSwipeRight={(state) => this.onSwipeRight(state)}
-                config={config}
-                style={{flex: 1,}}
-            >
-             <View style={styles.container}>
+            <View style={styles.container}>
                 <Text style={styles.text_title_date}>{result.title}</Text>
 
                 <ScrollView>
                 <View style={styles.row_result}>
-                     <Text style={styles.text_db_g1_title}>ĐB</Text>  
-                     <Text style={[styles.text_db_g1_result,{color:'red', fontWeight:'bold'}]}>{result.arr_kq[0]}</Text> 
+                     <Text style={styles.text_db_g1_title}>G.8</Text>  
+                     <Text style={[styles.text_db_g1_result,{color:'red', fontWeight:'bold'}]}>{result.arr_kq[17]}</Text> 
+                </View>
+
+                <View style={[styles.row_result,{backgroundColor:'#EEEEEE'}]}>
+                     <Text style={styles.text_db_g1_title}>G.7</Text>  
+                     <Text style={styles.text_db_g1_result}>{result.arr_kq[16]}</Text> 
+                </View>
+
+                <View style={styles.row_result}>
+                    <Text style={styles.text_db_g1_title}>G.6</Text>  
+                    <Text style={[styles.text_db_g1_result,{flex:1.99}]}>{result.arr_kq[13]}</Text> 
+                    <Text style={[styles.text_db_g1_result,{flex:1.99}]}>{result.arr_kq[14]}</Text>
+                    <Text style={[styles.text_db_g1_result,{flex:1.99}]}>{result.arr_kq[15]}</Text> 
+                </View>
+
+                <View style={[styles.row_result,{backgroundColor:'#EEEEEE'}]}>
+                     <Text style={styles.text_db_g1_title}>G.5</Text>  
+                     <Text style={styles.text_db_g1_result}>{result.arr_kq[12]}</Text> 
+                </View>
+
+                <View style={styles.row_result}>
+                    <Text style={styles.text_db_g1_title}>G.4</Text>  
+                    <View style={{flex:6, borderLeftWidth:1, borderLeftColor:'#DDDDDD',}}>
+                        <View style={{flexDirection:'row', borderBottomWidth:1, borderBottomColor:'#DDDDDD'}}>
+                            <Text style={[styles.text_db_g1_result,{flex:1, borderLeftWidth:0}]}>{result.arr_kq[5]}</Text>
+                            <Text style={[styles.text_db_g1_result,{flex:1}]}>{result.arr_kq[6]}</Text> 
+                            <Text style={[styles.text_db_g1_result,{flex:1}]}>{result.arr_kq[7]}</Text> 
+                            <Text style={[styles.text_db_g1_result,{flex:1}]}>{result.arr_kq[8]}</Text>  
+                        </View>
+                        <View style={{flexDirection:'row'}}>
+                            <Text style={[styles.text_db_g1_result,{flex:1, borderLeftWidth:0}]}>{result.arr_kq[9]}</Text>
+                            <Text style={[styles.text_db_g1_result,{flex:1}]}>{result.arr_kq[10]}</Text> 
+                            <Text style={[styles.text_db_g1_result,{flex:1}]}>{result.arr_kq[11]}</Text>  
+                        </View>
+                    </View>    
+                </View>
+
+                <View style={[styles.row_result,{backgroundColor:'#EEEEEE'}]}>
+                    <Text style={styles.text_db_g1_title}>G.3</Text>  
+                    <Text style={[styles.text_db_g1_result,{flex:2.99}]}>{result.arr_kq[3]}</Text> 
+                    <Text style={[styles.text_db_g1_result,{flex:2.99}]}>{result.arr_kq[4]}</Text> 
+                </View>
+
+                <View style={styles.row_result}>
+                     <Text style={styles.text_db_g1_title}>G.2</Text>  
+                     <Text style={styles.text_db_g1_result}>{result.arr_kq[2]}</Text> 
                 </View>
 
                 <View style={[styles.row_result,{backgroundColor:'#EEEEEE'}]}>
@@ -112,64 +97,8 @@ import {
                 </View>
 
                 <View style={styles.row_result}>
-                    <Text style={styles.text_db_g1_title}>G.2</Text>  
-                    <Text style={[styles.text_db_g1_result,{flex:2.99}]}>{result.arr_kq[2]}</Text> 
-                    <Text style={[styles.text_db_g1_result,{flex:2.99}]}>{result.arr_kq[3]}</Text> 
-                </View>
-
-                <View style={[styles.row_result,{backgroundColor:'#EEEEEE'}]}>
-                    <Text style={styles.text_db_g1_title}>G.3</Text>  
-                    <View style={{flex:6, borderLeftWidth:1, borderLeftColor:'#DDDDDD',}}>
-                        <View style={{flexDirection:'row', borderBottomWidth:1, borderBottomColor:'#DDDDDD'}}>
-                            <Text style={[styles.text_db_g1_result,{flex:1, borderLeftWidth:0}]}>{result.arr_kq[4]}</Text>
-                            <Text style={[styles.text_db_g1_result,{flex:1}]}>{result.arr_kq[5]}</Text> 
-                            <Text style={[styles.text_db_g1_result,{flex:1}]}>{result.arr_kq[6]}</Text>  
-                        </View>
-                        <View style={{flexDirection:'row'}}>
-                            <Text style={[styles.text_db_g1_result,{flex:1, borderLeftWidth:0}]}>{result.arr_kq[7]}</Text>
-                            <Text style={[styles.text_db_g1_result,{flex:1}]}>{result.arr_kq[8]}</Text> 
-                            <Text style={[styles.text_db_g1_result,{flex:1}]}>{result.arr_kq[9]}</Text>  
-                        </View>
-                    </View>    
-                </View>
-
-                <View style={styles.row_result}>
-                    <Text style={styles.text_db_g1_title}>G.4</Text>  
-                    <Text style={[styles.text_db_g1_result,{flex:1.48}]}>{result.arr_kq[10]}</Text> 
-                    <Text style={[styles.text_db_g1_result,{flex:1.48}]}>{result.arr_kq[11]}</Text>
-                    <Text style={[styles.text_db_g1_result,{flex:1.48}]}>{result.arr_kq[12]}</Text> 
-                    <Text style={[styles.text_db_g1_result,{flex:1.48}]}>{result.arr_kq[13]}</Text> 
-                </View>
-
-                <View style={[styles.row_result,{backgroundColor:'#EEEEEE'}]}>
-                    <Text style={styles.text_db_g1_title}>G.5</Text>  
-                    <View style={{flex:6, borderLeftWidth:1, borderLeftColor:'#DDDDDD',}}>
-                        <View style={{flexDirection:'row', borderBottomWidth:1, borderBottomColor:'#DDDDDD'}}>
-                            <Text style={[styles.text_db_g1_result,{flex:1, borderLeftWidth:0}]}>{result.arr_kq[14]}</Text>
-                            <Text style={[styles.text_db_g1_result,{flex:1}]}>{result.arr_kq[15]}</Text> 
-                            <Text style={[styles.text_db_g1_result,{flex:1}]}>{result.arr_kq[16]}</Text>  
-                        </View>
-                        <View style={{flexDirection:'row'}}>
-                            <Text style={[styles.text_db_g1_result,{flex:1, borderLeftWidth:0}]}>{result.arr_kq[17]}</Text>
-                            <Text style={[styles.text_db_g1_result,{flex:1}]}>{result.arr_kq[18]}</Text> 
-                            <Text style={[styles.text_db_g1_result,{flex:1}]}>{result.arr_kq[19]}</Text>  
-                        </View>
-                    </View>    
-                </View>
-
-                <View style={styles.row_result}>
-                    <Text style={styles.text_db_g1_title}>G.6</Text>  
-                    <Text style={[styles.text_db_g1_result,{flex:1.99}]}>{result.arr_kq[20]}</Text> 
-                    <Text style={[styles.text_db_g1_result,{flex:1.99}]}>{result.arr_kq[21]}</Text>
-                    <Text style={[styles.text_db_g1_result,{flex:1.99}]}>{result.arr_kq[22]}</Text> 
-                </View>
-
-                <View style={[styles.row_result,{backgroundColor:'#EEEEEE'}]}>
-                    <Text style={styles.text_db_g1_title}>G.7</Text>  
-                    <Text style={[styles.text_db_g1_result,{flex:1.48}]}>{result.arr_kq[23]}</Text> 
-                    <Text style={[styles.text_db_g1_result,{flex:1.48}]}>{result.arr_kq[24]}</Text>
-                    <Text style={[styles.text_db_g1_result,{flex:1.48}]}>{result.arr_kq[25]}</Text> 
-                    <Text style={[styles.text_db_g1_result,{flex:1.48}]}>{result.arr_kq[26]}</Text> 
+                     <Text style={styles.text_db_g1_title}>ĐB</Text>  
+                     <Text style={[styles.text_db_g1_result,{color:'red', fontWeight:'bold'}]}>{result.arr_kq[0]}</Text> 
                 </View>
 
                 <View style={{marginHorizontal:5, marginTop: 10, marginBottom:5, flexDirection:'row'}}>
@@ -267,46 +196,28 @@ import {
                       </View>  
                 </View>
                 </ScrollView>
-                <Toast ref="toast"/>
              </View>
-             </GestureRecognizer>
          );
      }
 
-     //HÀM XỬ LÝ KHI NGƯỜI DÙNG VUỐT TRÁI, PHẢI
-     swipeLeftOrRight(action_type){
+     //FUNCTION UPDATE LAI DATA 
+     updateData(){
         const {dataLottery} = this.props;
-        var resultTam;
-        if(action_type === -1){
-            var key_item = getKeyItemOneProvincial(date_view,'MB', -1);
-            resultTam = getItemWithDate(key_item, dataLottery);
-        }else{
-            var key_item = getKeyItemOneProvincial(date_view,'MB', 1);
-            resultTam = getItemWithDate(key_item, dataLottery);
-        }
-        if(resultTam !== null && resultTam !== undefined){
-            result = resultTam;
-        }else {
-            // if ngày vuốt tới mà ko có kết quả thì thông báo và cập nhật date về ngày trước khi vuốt
-            // ToastAndroid.show('Chưa có kết quả xổ số cho ngày ' + moment(date_view).format('DD-MM-YYYY'), ToastAndroid.SHORT);
-            this.refs.toast.show('Chưa có kết quả xổ số cho ngày ' + moment(date_view).format('DD-MM-YYYY'), 3000);
-            if(action_type === 1){
-                date_view.setDate(date_view.getDate()-1);
-            }else {
-                date_view.setDate(date_view.getDate()+1);
-            }   
-        }
+        date_view = new Date(GlobalValue.daySelected);
+        var key_item = getKeyItemOneProvincial(date_view,GlobalValue.codeProvincialSelected, 0);
+        result = getItemWithDate(key_item, dataLottery);
+        console.log('OBJ RESULT: ' + JSON.stringify(result))
      }
  }
 
  //function map state to props
  function mapStateToProps(state){
-     return {
-        dataLottery: state.dataLottery,
-     }
- }
-
- export default connect(mapStateToProps)(ResultMienBacComponent);
+    return {
+       dataLottery: state.dataLottery,
+       clickCalendar: state.clickCalendar,
+    }
+}
+export default connect(mapStateToProps)(ResultWithDaySelectedComponent);
 
  const styles = StyleSheet.create({
     container:{

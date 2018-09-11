@@ -8,7 +8,12 @@ export function addResultLottery(result_full){
     return {type: 'ADD_RESULT_LOTTERY', result_full}
 }
 
-//SU KIEN VUOT MAN HINH XEM KET QUA
-export function isSwipe(){
-    return {type: 'SWIPE'}
+//SU KIEN CLICK TIM KIEM SO MO
+export function searchSoMo(){
+    return {type: 'SEARCH_SO_MO'}
+}
+
+//SU KIEN CLICK CALENDAR DE XEM KET QUA THEO NGAY
+export function clickCalendar(){
+    return {type: 'CLICK_CALENDAR'}
 }

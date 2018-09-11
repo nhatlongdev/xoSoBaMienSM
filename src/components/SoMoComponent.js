@@ -7,13 +7,16 @@ import {
     Image,
     BackHandler,
     TextInput,
-    FlatList,
-    ScrollView
  } from 'react-native';
  import somo from '../data/somo';
  import ItemSoMo from './ItemSoMo';
+ import FlatlistSoMoComponent from './FlatListSoMoComponent';
 
- export default class SoMoComponent extends Component {
+ //REDUX
+ import { connect } from 'react-redux';
+ import { searchSoMo } from '../redux/actionCreators';
+
+class SoMoComponent extends Component {
 
     constructor(props){
         super(props);
@@ -67,12 +70,12 @@ import {
                                 this.searchData(this.state.content_search):
                                 this.refreshAllData()}
                     >
-                    <Text style={{flex: 1, textAlign: 'center', color: 'black', fontWeight: 'bold'}}>TÌM KIẾM</Text>   
-                    <Image
-                        source={require('../images/right_arrow31.png')}
-                    />
-                </TouchableOpacity>
-                </View>
+                         <Text style={{flex: 1, textAlign: 'center', color: 'black', fontWeight: 'bold'}}>TÌM KIẾM</Text>   
+                        <Image
+                        source = {require('../images/right_arrow31.png')}
+                        />
+                    </TouchableOpacity>
+                </View>  
 
                 {
                     this.state.dataSearch.length >0?
@@ -84,21 +87,7 @@ import {
                     </View>:null
                 }
                 
-                <ScrollView style={{flex:1}}>   
-                    <FlatList
-                        style={{marginHorizontal: 5,marginBottom: 5,}}
-                        data={this.state.dataSearch}
-                        renderItem = {({item, index})=>{
-                            return(
-                            <ItemSoMo
-                                    item={item} index={index}
-                            />         
-                            );
-                        }}
-                        keyExtractor={(item, index)=> item.toString()}
-                    >
-                    </FlatList>
-                </ScrollView>
+                <FlatlistSoMoComponent data={this.state.dataSearch}/>
                
              </View>
          );
@@ -118,6 +107,7 @@ import {
         this.setState({
             dataSearch:somo,
         })
+        this.props.searchSoMo();
     }
    
     //Hàm tìm kiếm dữ liệu
@@ -177,8 +167,12 @@ import {
         if(dataSearch.length === 0){
             alert('Không tìm thấy dữ liệu trùng với giấc mơ của bạn, vui lòng nhập nội dung khác')
         }
+
+        this.props.searchSoMo();
     }
  }
+
+ export default connect(null,{searchSoMo})(SoMoComponent);
 
  const styles = StyleSheet.create({
      container:{
