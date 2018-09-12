@@ -10,8 +10,10 @@ import {
  import dataInAppPurchase from '../data/ListProductInAppPurchase';
  import {getDataLottery} from '../network/Server';
  import {formatDataLotteryToKeyValue} from '../functions/ConvertDataLotteryToKeyValue';
+ //REDUX
  import { connect } from 'react-redux';
- import {addResultLottery} from '../redux/actionCreators';
+ import {addResultLottery, addResultDoSo} from '../redux/actionCreators';
+ import {createArrResultDoSo} from '../functions/CreateArrResultDoSo';
 
  class SplashComponent extends Component {
 
@@ -96,10 +98,14 @@ import {
     getDataLottery(){
         getDataLottery().then((data)=>{
             //CONVERT DATA TO FORMAT KEY_VALUE
-            console.log("DATA KEY VALUE: " + JSON.stringify(data))
-            var d = formatDataLotteryToKeyValue(data);       
+            // console.log("DATA KEY VALUE: " + JSON.stringify(data))
+
+            var d = formatDataLotteryToKeyValue(data);  
+            var dataDoSo = createArrResultDoSo(data);     
             //CAP NHAT DU LIEU CHO STORE
             this.props.addResultLottery(d);
+            this.props.addResultDoSo(dataDoSo);
+            
             this.getRegionSelected();
         }).catch((error)=>{
             console.log(error)
@@ -108,7 +114,7 @@ import {
 
  }
 
- export default connect(null, {addResultLottery})(SplashComponent);
+ export default connect(null, {addResultLottery, addResultDoSo})(SplashComponent);
 
  const styles = StyleSheet.create({
      container:{

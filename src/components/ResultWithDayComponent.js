@@ -102,7 +102,7 @@ class ResultWithDayComponent extends Component {
                         }else {
                             var d = new Date(GlobalValue.daySelected);
                             let indexDay = d.getDay() + 1;
-                            if(schedule_lottery_with_provincial[GlobalValue.codeProvincialSelected].weekdays.indexOf(indexDay+'') !== -1){
+                            if(schedule_lottery_with_provincial[GlobalValue.codeProvincialSelected].weekdays.indexOf(indexDay+'') === -1){
                                 alert('Ngày ' + moment(d).format('DD/MM/YYYY') + ' xổ số ' + GlobalValue.nameProvincialSelected + ' không có lịch quay')
                             }else {
                                 alert('Chưa có kết quả xổ số cho ngày ' + moment(d).format('DD/MM/YYYY'))

@@ -7,6 +7,10 @@ var GlobalValue = {
     daySelected: '',
     codeProvincialSelected: '',
     nameProvincialSelected: '',
+    soLanQuay: '30',
+    chuoiSoDo: '',
+    arrSoDo: [],
+    objResultDoSo: {},
 }
 
 export default GlobalValue;

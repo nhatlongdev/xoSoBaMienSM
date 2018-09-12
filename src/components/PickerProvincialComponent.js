@@ -20,8 +20,8 @@ import {
 
      render() {
          return (
-             <View style={styles.container}>
-                <Text style={{fontSize: 15, fontWeight: 'bold', color: 'black', marginTop: 10, marginHorizontal:5}}>Chọn tỉnh/thành phố:</Text>
+             <View >
+                <Text style={styles.text_title}>Chọn tỉnh/thành phố:</Text>
                 <Picker 
                     selectedValue = {this.state.provincial_selected}
                     onValueChange={
@@ -51,5 +51,12 @@ import {
  const styles = StyleSheet.create({
      container:{
          flex:1,
+     },
+     text_title:{
+        fontSize: 15, 
+        fontWeight: 'bold', 
+        color: 'black', 
+        marginTop: 10, 
+        marginHorizontal:5
      }
  })
