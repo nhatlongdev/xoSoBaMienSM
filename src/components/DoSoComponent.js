@@ -70,7 +70,8 @@ import {
                 >
                         <Text style={{flex: 1, textAlign: 'center', color: 'black', fontWeight: 'bold'}}>TRA CỨU LÔ TÔ, DÒ SỐ</Text>   
                         <Image
-                        source={require('../images/right_arrow31.png')}
+                            style={{tintColor:'#0000FF'}}
+                            source={require('../images/arrow_next.png')}
                         />
                 </TouchableOpacity>
                 <ResultDoSoComponent arrSoDo={arrSoDo} objResultDoSo={objResultDoSo}/>    

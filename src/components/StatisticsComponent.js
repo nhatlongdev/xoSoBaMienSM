@@ -7,8 +7,19 @@ import {
     Image,
     BackHandler,
  } from 'react-native';
+ import PickerProvincialComponent from './PickerProvincialComponent';
+ import InputSoLanQuayComponent from './InputSoLanQuayComponent';
+ import GlobalValue from '../data/GlobalValue';
+ import {thongKeDau_} from '../functions/ThongKeDau';
+ import {thongKeDuoi_} from '../functions/ThongKeDuoi';
+ import {thongKeTongHaiSoCuoi_} from '../functions/ThongKeTong2SoCuoi';
+ import {thongKe_00_99} from '../functions/ThongKe_00_99';
+ import {ThongKeLoKhan} from '../functions/ThongKeLoKhan';
+ //REDUX
+ import { connect } from 'react-redux';
+ import { clickButtonStatistics } from '../redux/actionCreators';
 
- export default class StatisticsComponent extends Component {
+class StatisticsComponent extends Component {
 
     constructor(props){
         super(props);
@@ -42,10 +53,129 @@ import {
                     </TouchableOpacity>
                     <Text style = {styles.text_title}>THỐNG KÊ</Text>
                 </View> 
+                <PickerProvincialComponent/>  
+                <InputSoLanQuayComponent/> 
+
+                <TouchableOpacity style={styles.button_style}
+                    onPress = {()=>this.thongKeDauDuoi()}
+                >
+                        <Text style={{flex: 1, textAlign: 'center', color: 'black', fontWeight: 'bold'}}>THỐNG KÊ ĐẦU, ĐUÔI LÔ TÔ</Text>   
+                        <Image
+                            style={{tintColor:'#0000FF'}}
+                            source={require('../images/arrow_next.png')}
+                        />
+                </TouchableOpacity>
+
+                <TouchableOpacity style={styles.button_style}
+                    onPress = {()=>this.thongKeHaiSoCuoi()}
+                >
+                        <Text style={{flex: 1, textAlign: 'center', color: 'black', fontWeight: 'bold'}}>THỐNG KÊ TỔNG 2 SỐ CUỐI</Text>   
+                        <Image
+                            style={{tintColor:'#0000FF'}}
+                            source={require('../images/arrow_next.png')}
+                        />
+                </TouchableOpacity>
+
+                <TouchableOpacity style={styles.button_style}
+                    onPress = {()=>this.thongKe0099()}             
+                >
+                        <Text style={{flex: 1, textAlign: 'center', color: 'black', fontWeight: 'bold'}}>THỐNG KÊ 00 - 99</Text>   
+                        <Image
+                            style={{tintColor:'#0000FF'}}
+                            source={require('../images/arrow_next.png')}
+                        />
+                </TouchableOpacity>
+
+                <TouchableOpacity style={styles.button_style}
+                    onPress = {()=>this.thongKeCacSoVeNhieu()}                   
+                >
+                        <Text style={{flex: 1, textAlign: 'center', color: 'black', fontWeight: 'bold'}}>THỐNG KÊ CÁC SỐ VỀ NHIỀU</Text>   
+                        <Image
+                            style={{tintColor:'#0000FF'}}
+                            source={require('../images/arrow_next.png')}
+                        />
+                </TouchableOpacity>
+
+                <TouchableOpacity style={styles.button_style}
+                    onPress = {()=>this.thongKeCacSoLauRa()}                   
+                >
+                        <Text style={{flex: 1, textAlign: 'center', color: 'black', fontWeight: 'bold'}}>THỐNG KÊ CÁC SỐ LÂU RA</Text>   
+                        <Image
+                            style={{tintColor:'#0000FF'}}
+                            source={require('../images/arrow_next.png')}
+                        />
+                </TouchableOpacity>
+
             </View>
          );
      }
+
+      //HAM THONG KE DAU DUOI
+      thongKeDauDuoi(){
+        const {dataDoSo} = this.props;
+        let data = dataDoSo[GlobalValue.codeProvincialSelected];
+        GlobalValue.arrDau = thongKeDau_(data, GlobalValue.soLanQuay);
+        GlobalValue.arrDuoi = thongKeDuoi_(data, GlobalValue.soLanQuay);
+        //actionCreator
+        this.props.clickButtonStatistics('DAU_DUOI');
+        this.props.navigation.navigate('ResultStatisticsComponent');
+     }  
+
+     //HAM THONG KE TONG HAI SO CUOI
+     thongKeHaiSoCuoi(){
+        const {dataDoSo} = this.props;
+        let data = dataDoSo[GlobalValue.codeProvincialSelected];
+        GlobalValue.arrTongHaiSoCuoi = thongKeTongHaiSoCuoi_(data, GlobalValue.soLanQuay);
+        //actionCreator
+        this.props.clickButtonStatistics('TONG_2_SO_CUOI');
+        this.props.navigation.navigate('ResultStatisticsComponent');
+    }
+    
+    //HAM THONG KE 00 - 99
+    thongKe0099(){
+        const {dataDoSo} = this.props;
+        let data = dataDoSo[GlobalValue.codeProvincialSelected];
+        GlobalValue.arr0099 = thongKe_00_99(data, GlobalValue.soLanQuay);
+        //actionCreator
+        this.props.clickButtonStatistics('TK_00_99');
+        this.props.navigation.navigate('ResultStatisticsComponent');
+    }
+
+    //HAM THONG KE CAC SO VE NHIEU
+    thongKeCacSoVeNhieu(){
+        const {dataDoSo} = this.props;
+        let data = dataDoSo[GlobalValue.codeProvincialSelected];
+        var arr_00_99 = thongKe_00_99(data, GlobalValue.soLanQuay);
+        var _ = require('underscore');
+        var arrVeNhieuTam = _.sortBy(arr_00_99, 'countLoTo');
+        var arrVeNhieu_ = arrVeNhieuTam.reverse();
+        GlobalValue.arrVeNhieu = arrVeNhieu_.slice(0, 40); 
+        //actionCreator
+        this.props.clickButtonStatistics('TK_VE_NHIEU');
+        this.props.navigation.navigate('ResultStatisticsComponent');
+    }
+
+    //HAM THONG KE CAC SO LAU RA
+    thongKeCacSoLauRa(){
+        const {dataDoSo} = this.props;
+        let data = dataDoSo[GlobalValue.codeProvincialSelected];
+        var arr_lo_khan = ThongKeLoKhan(data, GlobalValue.soLanQuay);
+        var _ = require('underscore');
+        var arrLoKhan = _.sortBy(arr_lo_khan, 'soNgayLoKhan');
+        GlobalValue.arrLauRa = arrLoKhan.reverse(); 
+        //actionCreator
+        this.props.clickButtonStatistics('TK_LAU_RA');
+        this.props.navigation.navigate('ResultStatisticsComponent');
+    }
  }
+
+function mapStateToProps(state){
+    return {
+        dataDoSo: state.dataDoSo,
+    }
+}
+
+ export default connect(mapStateToProps,{clickButtonStatistics})(StatisticsComponent);
 
  const styles = StyleSheet.create({
      container:{
@@ -67,4 +197,12 @@ import {
         color: 'white',
         textAlign: 'center'
     },
+    button_style:{
+        flexDirection: 'row', 
+        alignItems: 'center',
+        borderRadius: 2, 
+        backgroundColor: '#CCCCCC', 
+        height: 50,padding: 5,
+        marginBottom: 10,
+    }
  })

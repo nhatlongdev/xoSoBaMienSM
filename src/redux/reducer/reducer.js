@@ -6,6 +6,7 @@ import isSearchSoMoReducer from './isSearchSoMoReducer';
 import clickCalendarReducer from './clickCalendarReducer';
 import dataDoSoReducer from './dataDoSoReducer';
 import clickButtonDoSoReducer from './clickButtonDoSoReducer';
+import clickButtonStatisticsReducer from './clickButtonStatisticsReducer';
 
 const reducer = combineReducers({
     dataLottery: dataLotteryReducer,
@@ -15,6 +16,7 @@ const reducer = combineReducers({
     clickCalendar: clickCalendarReducer,
     dataDoSo: dataDoSoReducer,
     clickButtonDoSo: clickButtonDoSoReducer,
+    clickButtonStatistics: clickButtonStatisticsReducer,
 })
 
 export default reducer;

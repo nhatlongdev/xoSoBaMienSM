@@ -27,3 +27,8 @@ export function clickCalendar(){
 export function clickButtonDoSo(){
     return {type: 'CLICK_BUTTON_DO_SO'}
 }
+
+//SU KIEN CLICK MOT TRONG CAC BUTTON COMPONENT STATISTICS
+export function clickButtonStatistics(type){
+    return { type: type}
+}
