@@ -113,19 +113,22 @@ class SoMoComponent extends Component {
     //Hàm tìm kiếm dữ liệu
     searchData(str){
         var arr_str = str.split(' ');
+        var arr_str_new = arr_str.filter((e) => {
+            return e !== '';
+        })
         dataSearch = [];
         var dataTam = [];
-        if(arr_str.length >0){
+        if(arr_str_new.length >0){
             for(let i = 0; i< somo.length; i++){
                 var sum = 0;
                 var arr_title = somo[i].title.split(' ');
                 var arr_khong_dau = somo[i].khongDau.split(' ');
                 for(let j=0; j<arr_title.length; j++){
-                    for(let a =0; a<arr_str.length; a++){
-                        if(arr_title[j].toLowerCase()=== arr_str[a].toLowerCase()){
+                    for(let a =0; a<arr_str_new.length; a++){
+                        if(arr_title[j].toLowerCase()=== arr_str_new[a].toLowerCase()){
                             console.log('VAO DK TITLE 1: ')
                             sum = sum + 1;
-                        }else if(arr_title[j].toLowerCase().indexOf(arr_str[a].toLowerCase()) !== -1){
+                        }else if(arr_title[j].toLowerCase().indexOf(arr_str_new[a].toLowerCase()) !== -1){
                             console.log('VAO DK TITLE 2: ')
                             sum = sum + 0.1;
                         }
@@ -133,11 +136,11 @@ class SoMoComponent extends Component {
                 }
 
                 for(let j=0; j<arr_khong_dau.length; j++){
-                    for(let a =0; a<arr_str.length; a++){
-                        if(arr_khong_dau[j].toLowerCase()=== arr_str[a].toLowerCase()){
+                    for(let a =0; a<arr_str_new.length; a++){
+                        if(arr_khong_dau[j].toLowerCase()=== arr_str_new[a].toLowerCase()){
                             console.log('VAO DK TITLE 1: ')
                             sum = sum + 1;
-                        }else if(arr_khong_dau[j].toLowerCase().indexOf(arr_str[a].toLowerCase()) !== -1){
+                        }else if(arr_khong_dau[j].toLowerCase().indexOf(arr_str_new[a].toLowerCase()) !== -1){
                             console.log('VAO DK TITLE 2: ')
                             sum = sum + 0.1;
                         }

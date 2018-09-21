@@ -6,6 +6,7 @@ import {
     TouchableOpacity,
     Image,
     BackHandler,
+    ScrollView
  } from 'react-native';
  import PickerProvincialComponent from './PickerProvincialComponent';
  import InputSoLanQuayComponent from './InputSoLanQuayComponent';
@@ -18,6 +19,7 @@ import {
  //REDUX
  import { connect } from 'react-redux';
  import { clickButtonDoSo } from '../redux/actionCreators';
+ import * as Progress from 'react-native-progress';
 
  var item_provincial;
  var objResultDoSo = {};
@@ -32,6 +34,9 @@ import {
         this.handleBackButtonClick = this.handleBackButtonClick.bind(this);
         GlobalValue.arrSoDo = [];
         GlobalValue.objResultDoSo = {};
+        this.state={
+            pro:false,
+        }
     }
 
     componentWillMount() {
@@ -61,20 +66,26 @@ import {
                     </TouchableOpacity>
                     <Text style = {styles.text_title}>DÒ SỐ</Text>
                 </View> 
-                <PickerProvincialComponent/>  
-                <InputSoLanQuayComponent/>  
-                <InputChuoiSoDoComponent/>
-                <TouchableOpacity style={styles.button_style}
-                                    onPress = {()=>this.checkStringInputLegal() === 'ok'? 
-                                    this.numberDetector(item_provincial, GlobalValue.chuoiSoDo, GlobalValue.soLanQuay):alert(this.checkStringInputLegal())}
-                >
-                        <Text style={{flex: 1, textAlign: 'center', color: 'black', fontWeight: 'bold'}}>TRA CỨU LÔ TÔ, DÒ SỐ</Text>   
-                        <Image
-                            style={{tintColor:'#0000FF'}}
-                            source={require('../images/arrow_next.png')}
-                        />
-                </TouchableOpacity>
-                <ResultDoSoComponent arrSoDo={arrSoDo} objResultDoSo={objResultDoSo}/>    
+                <ScrollView>
+                    <PickerProvincialComponent/>  
+                    <InputSoLanQuayComponent/>  
+                    <InputChuoiSoDoComponent/>
+                    <TouchableOpacity style={styles.button_style}
+                                        onPress = {()=>this.checkStringInputLegal() === 'ok'? 
+                                        this.numberDetector(item_provincial, GlobalValue.chuoiSoDo, GlobalValue.soLanQuay):alert(this.checkStringInputLegal())}
+                    >
+                            <Text style={{flex: 1, textAlign: 'center', color: 'black', fontWeight: 'bold'}}>TRA CỨU LÔ TÔ, DÒ SỐ</Text>   
+                            <Image
+                                style={{tintColor:'#0000FF'}}
+                                source={require('../images/arrow_next.png')}
+                            />
+                    </TouchableOpacity>
+                    {
+                        this.state.pro === true?<Progress.Circle style={{alignSelf:'center', marginTop:20}} size={30} indeterminate={true} />:null
+                    }
+                    
+                    <ResultDoSoComponent arrSoDo={arrSoDo} objResultDoSo={objResultDoSo}/> 
+                </ScrollView>       
             </View>
          );
      }
@@ -100,6 +111,9 @@ import {
 
     //TIM MANG KET QUA TU CHUOI SO NGUOI DUNG NHAP VAO
     numberDetector(item_provincial, chuoiSoDo, soLanQuay){
+        this.setState({
+            pro:true,
+        })
        //Tách chuỗi nhập vào ra thành mảng number
        arrSoDo = [];
        objResultDoSo = {};

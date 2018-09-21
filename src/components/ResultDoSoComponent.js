@@ -3,7 +3,6 @@ import {
     View,
     Text,
     StyleSheet,
-    ScrollView
  } from 'react-native';
  import ItemFlatListDoSo from './ItemFLatListDoSo';
  import GlobalValue from '../data/GlobalValue';
@@ -27,7 +26,6 @@ import {
 
      render() {
          return (
-             <ScrollView>
              <View styles={styles.container}> 
                     {
                         GlobalValue.arrSoDo.length>0?
@@ -107,7 +105,6 @@ import {
                         <ItemFlatListDoSo soTraCuu={GlobalValue.arrSoDo[15]} data={GlobalValue.objResultDoSo[GlobalValue.arrSoDo[15]]}/>:null
                     }  
              </View>
-             </ScrollView>
          );
      }
  }
