@@ -45,24 +45,26 @@ function getListItemWithDate(date_view, regionSelected, dataLottery, action_type
             arr_item.push(dataLottery[key_]);
         }else{
             //Tao mo obj mau
-            let obj = {
-                "s1": "",
-                "s2": "",
-                "p1": "",
-                "p2": "",
-                "p3": "",
-                "p4": "",
-                "p5": "",
-                "p6": "",
-                "p7": "",
-                "p8": "",
-                "arr_kq": ["","","","","","","","","","","","","","","","","",""
-                ],
-                "arr_dau_loto": ["","","","","","","","","",""
-                ],
-                "arr_duoi_loto": ["","","","","","","","","",""
-                ],
-            }
+            let obj = {};
+            obj.name = arr_key[i].name_provincial;
+            // let obj = {
+            //     "s1": "",
+            //     "s2": "",
+            //     "p1": "",
+            //     "p2": "",
+            //     "p3": "",
+            //     "p4": "",
+            //     "p5": "",
+            //     "p6": "",
+            //     "p7": "",
+            //     "p8": "",
+            //     "arr_kq": ["","","","","","","","","","","","","","","","","",""
+            //     ],
+            //     "arr_dau_loto": ["","","","","","","","","",""
+            //     ],
+            //     "arr_duoi_loto": ["","","","","","","","","",""
+            //     ],
+            // }
             arr_item.push(obj);
         }
     }

@@ -7,6 +7,7 @@ import clickCalendarReducer from './clickCalendarReducer';
 import dataDoSoReducer from './dataDoSoReducer';
 import clickButtonDoSoReducer from './clickButtonDoSoReducer';
 import clickButtonStatisticsReducer from './clickButtonStatisticsReducer';
+import updateLotteryReducer from './updateLotteryReducer';
 
 const reducer = combineReducers({
     dataLottery: dataLotteryReducer,
@@ -17,6 +18,7 @@ const reducer = combineReducers({
     dataDoSo: dataDoSoReducer,
     clickButtonDoSo: clickButtonDoSoReducer,
     clickButtonStatistics: clickButtonStatisticsReducer,
+    updateLottery: updateLotteryReducer,
 })
 
 export default reducer;

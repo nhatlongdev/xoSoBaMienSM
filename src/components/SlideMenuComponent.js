@@ -11,7 +11,8 @@ import {
 
  //REDUX
  import { connect } from 'react-redux';
- import {selectRegion} from '../redux/actionCreators';
+ import {selectRegion, updateResultLottery} from '../redux/actionCreators';
+ import GlobalValue from '../data/GlobalValue';
 
  var heightScreen = Dimensions.get('window').height;
  var linkDB = 'https://dacbiet.vn';
@@ -155,21 +156,35 @@ import {
             switch(value_click){
                 case '1':
                     //Chuyển sang màn xem kết quả miền bắc
+                    GlobalValue.dragLottery = '0';
+                    //Action creator
                     this.props.selectRegion(value_click);
+                    this.props.updateResultLottery();
+
                     this.props.navigation.closeDrawer();
                     this.props.navigation.navigate('ResultLotteryComponent');
                 break;
 
                 case '2':
-                    //Chuyển sang màn xem kết quả miền bắc
+                    //Chuyển sang màn xem kết quả miền trung
+                    GlobalValue.dragLottery = '0';
+
+                    //Action creator
                     this.props.selectRegion(value_click);
+                    this.props.updateResultLottery();
+
                     this.props.navigation.closeDrawer();
                     this.props.navigation.navigate('ResultLotteryComponent');
                 break;
 
                 case '3':
-                    //Chuyển sang màn xem kết quả miền bắc
+                    //Chuyển sang màn xem kết quả miền nam
+                    GlobalValue.dragLottery = '0';
+
+                    //Action creator
                     this.props.selectRegion(value_click);
+                    this.props.updateResultLottery();
+                    
                     this.props.navigation.closeDrawer();
                     this.props.navigation.navigate('ResultLotteryComponent');
                 break;
@@ -213,7 +228,7 @@ import {
 
  }
 
- export default connect(null, {selectRegion})(SlideMenuComponent);
+ export default connect(null, {selectRegion, updateResultLottery})(SlideMenuComponent);
 
  const styles = StyleSheet.create({
      container:{

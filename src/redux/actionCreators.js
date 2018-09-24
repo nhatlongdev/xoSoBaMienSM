@@ -32,3 +32,8 @@ export function clickButtonDoSo(){
 export function clickButtonStatistics(type){
     return { type: type}
 }
+
+//UPDATE RESULT LOTTERY 
+export function updateResultLottery(){
+    return { type:'UPDATE_LOTTERY' }
+}

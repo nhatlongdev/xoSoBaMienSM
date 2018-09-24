@@ -37,9 +37,12 @@ import {
         date_view = new Date();
         //Lay ds ket qua cac tinh quay hom do
         arr_result_lottery = getListItemWithDate(date_view, regionSelected, dataLottery, 0);
+        console.log('chay toi day roi')
         if(arr_result_lottery.length === 0){
+            console.log('chay toi day roi 1')
             arr_result_lottery = getListItemWithDate(date_view, regionSelected, dataLottery, -1);
         }
+        ToastAndroid.show('Vuốt màn hình để xem kết quả ngày khác', ToastAndroid.SHORT);
     }
 
     componentWillMount(){
@@ -57,11 +60,13 @@ import {
 
     //Vuốt màn hình sang trái
     onSwipeLeft(gestureState) {
+        GlobalValue.dragLottery = '1';
         type_swipe = 1;
       }
     
       // on sự kiện vuốt màn hình sang phải
       onSwipeRight(gestureState) {
+        GlobalValue.dragLottery = '-1';  
         type_swipe = -1;
       }
     
@@ -87,6 +92,22 @@ import {
       }
 
      render() {
+
+        if(GlobalValue.dragLottery === '0'){
+            GlobalValue.dragLottery = '2'
+            type_swipe = 0;
+            regionSelectedTam = this.props.regionSelected;
+            checkWillUpdate = false;
+            const regionSelected = this.props.regionSelected;
+            const {dataLottery} = this.props;
+            date_view = new Date();
+            //Lay ds ket qua cac tinh quay hom do
+            arr_result_lottery = getListItemWithDate(date_view, regionSelected, dataLottery, 0);
+            if(arr_result_lottery.length === 0){
+                arr_result_lottery = getListItemWithDate(date_view, regionSelected, dataLottery, -1);
+            }
+        }
+
         const config = {
             velocityThreshold: 0.3,
             directionalOffsetThreshold: 30
@@ -114,7 +135,7 @@ import {
                 style={{flex: 1,}}
             >
              <View style={styles.container}>
-                <Text style={styles.text_title_date}>{arr_result_lottery[0].title}</Text>
+                <Text style={styles.text_title_date}>{this.setTitleForDayWatching()}</Text>
 
                 <View style={{width:'100%', flexDirection:'row', backgroundColor:GlobalValue.Color.yellow_light, alignItems:'center', borderBottomWidth:1, borderBottomColor:GlobalValue.Color.vien}}>
                         <Text style={{flex:0.6}}></Text>
@@ -135,30 +156,30 @@ import {
                 <View style={styles.view_row}>
                      <Text style={styles.row_text_title}>G.8</Text>
                      <View style={{flex:4, flexDirection:'row', height:'100%'}}>
-                        <Text style={[styles.row_text_result,{color:'red', fontWeight:'bold'}]}>{arr_result_lottery[0].arr_kq[17]}</Text>
-                        <Text style={[styles.row_text_result,{color:'red', fontWeight:'bold'}]}>{arr_result_lottery[1].arr_kq[17]}</Text>
+                        <Text style={[styles.row_text_result,{color:'red', fontWeight:'bold'}]}>{arr_result_lottery[0].arr_kq[0]?arr_result_lottery[0].arr_kq[0]:null}</Text>
+                        <Text style={[styles.row_text_result,{color:'red', fontWeight:'bold'}]}>{arr_result_lottery[1].arr_kq[0]?arr_result_lottery[1].arr_kq[0]:null}</Text>
                         {
                             arr_result_lottery.length >= 3 ?
-                            <Text style={[styles.row_text_result,{color:'red', fontWeight:'bold'}]}>{arr_result_lottery[2].arr_kq[17]}</Text>: null
+                            <Text style={[styles.row_text_result,{color:'red', fontWeight:'bold'}]}>{arr_result_lottery[2].arr_kq[0]?arr_result_lottery[2].arr_kq[0]:null}</Text>: null
                         }
                         {
                             arr_result_lottery.length === 4 ?
-                            <Text style={[styles.row_text_result,{color:'red', fontWeight:'bold'}]}>{arr_result_lottery[3].arr_kq[17]}</Text>:null
+                            <Text style={[styles.row_text_result,{color:'red', fontWeight:'bold'}]}>{arr_result_lottery[3].arr_kq[0]?arr_result_lottery[3].arr_kq[0]:null}</Text>:null
                         }  
                      </View>
                 </View>
                 <View style={[styles.view_row,{backgroundColor:GlobalValue.Color.bg}]}>
                      <Text style={styles.row_text_title}>G.7</Text>
                      <View style={{flex:4, flexDirection:'row', height:'100%'}}>
-                        <Text style={styles.row_text_result}>{arr_result_lottery[0].arr_kq[16]}</Text>
-                        <Text style={styles.row_text_result}>{arr_result_lottery[1].arr_kq[16]}</Text>
+                        <Text style={styles.row_text_result}>{arr_result_lottery[0].arr_kq[1]?arr_result_lottery[0].arr_kq[1]:null}</Text>
+                        <Text style={styles.row_text_result}>{arr_result_lottery[1].arr_kq[1]?arr_result_lottery[1].arr_kq[1]:null}</Text>
                         {
                             arr_result_lottery.length >= 3 ?
-                            <Text style={styles.row_text_result}>{arr_result_lottery[2].arr_kq[16]}</Text>: null
+                            <Text style={styles.row_text_result}>{arr_result_lottery[2].arr_kq[1]?arr_result_lottery[2].arr_kq[1]:null}</Text>: null
                         }
                         {
                             arr_result_lottery.length === 4 ?
-                            <Text style={styles.row_text_result}>{arr_result_lottery[3].arr_kq[16]}</Text>:null
+                            <Text style={styles.row_text_result}>{arr_result_lottery[3].arr_kq[1]?arr_result_lottery[3].arr_kq[1]:null}</Text>:null
                         }  
                      </View>
                 </View>
@@ -167,41 +188,41 @@ import {
                      <Text style={styles.row_text_title}>G.6</Text>
                      <View style={{flex:4, borderLeftWidth:1, borderLeftColor:GlobalValue.Color.vien, height:'100%'}}>
                          <View style={styles.view_row}>
-                            <Text style={[styles.row_text_result, {borderLeftWidth:0}]}>{arr_result_lottery[0].arr_kq[13]}</Text>
-                            <Text style={styles.row_text_result}>{arr_result_lottery[1].arr_kq[13]}</Text>
+                            <Text style={[styles.row_text_result, {borderLeftWidth:0}]}>{arr_result_lottery[0].arr_kq[2]?arr_result_lottery[0].arr_kq[2]:null}</Text>
+                            <Text style={styles.row_text_result}>{arr_result_lottery[1].arr_kq[2]?arr_result_lottery[1].arr_kq[2]:null}</Text>
                             {
                                 arr_result_lottery.length >= 3 ?
-                                <Text style={styles.row_text_result}>{arr_result_lottery[2].arr_kq[13]}</Text>: null
+                                <Text style={styles.row_text_result}>{arr_result_lottery[2].arr_kq[2]?arr_result_lottery[2].arr_kq[2]:null}</Text>: null
                             }
                             {
                                 arr_result_lottery.length === 4 ?
-                                <Text style={styles.row_text_result}>{arr_result_lottery[3].arr_kq[13]}</Text>:null
+                                <Text style={styles.row_text_result}>{arr_result_lottery[3].arr_kq[2]?arr_result_lottery[3].arr_kq[2]:null}</Text>:null
                             }                                 
                          </View>
                          
                          <View style={styles.view_row}>
-                            <Text style={[styles.row_text_result, {borderLeftWidth:0}]}>{arr_result_lottery[0].arr_kq[14]}</Text>
-                            <Text style={styles.row_text_result}>{arr_result_lottery[1].arr_kq[14]}</Text>
+                            <Text style={[styles.row_text_result, {borderLeftWidth:0}]}>{arr_result_lottery[0].arr_kq[3]?arr_result_lottery[0].arr_kq[3]:null}</Text>
+                            <Text style={styles.row_text_result}>{arr_result_lottery[1].arr_kq[3]?arr_result_lottery[1].arr_kq[3]:null}</Text>
                             {
                                 arr_result_lottery.length >= 3 ?
-                                <Text style={styles.row_text_result}>{arr_result_lottery[2].arr_kq[14]}</Text>: null
+                                <Text style={styles.row_text_result}>{arr_result_lottery[2].arr_kq[3]?arr_result_lottery[2].arr_kq[3]:null}</Text>: null
                             }
                             {
                                 arr_result_lottery.length === 4 ?
-                                <Text style={styles.row_text_result}>{arr_result_lottery[3].arr_kq[14]}</Text>:null
+                                <Text style={styles.row_text_result}>{arr_result_lottery[3].arr_kq[3]?arr_result_lottery[3].arr_kq[3]:null}</Text>:null
                             }                               
                          </View> 
 
                          <View style={[styles.view_row, {borderBottomWidth:0}]}>
-                            <Text style={[styles.row_text_result, {borderLeftWidth:0}]}>{arr_result_lottery[0].arr_kq[15]}</Text>
-                            <Text style={styles.row_text_result}>{arr_result_lottery[1].arr_kq[15]}</Text>
+                            <Text style={[styles.row_text_result, {borderLeftWidth:0}]}>{arr_result_lottery[0].arr_kq[4]?arr_result_lottery[0].arr_kq[4]:null}</Text>
+                            <Text style={styles.row_text_result}>{arr_result_lottery[1].arr_kq[4]?arr_result_lottery[1].arr_kq[4]:null}</Text>
                             {
                                 arr_result_lottery.length >= 3 ?
-                                <Text style={styles.row_text_result}>{arr_result_lottery[2].arr_kq[15]}</Text>: null
+                                <Text style={styles.row_text_result}>{arr_result_lottery[2].arr_kq[4]?arr_result_lottery[2].arr_kq[4]:null}</Text>: null
                             }
                             {
                                 arr_result_lottery.length === 4 ?
-                                <Text style={styles.row_text_result}>{arr_result_lottery[3].arr_kq[15]}</Text>:null
+                                <Text style={styles.row_text_result}>{arr_result_lottery[3].arr_kq[4]?arr_result_lottery[3].arr_kq[4]:null}</Text>:null
                             }   
                          </View> 
                      </View>  
@@ -210,15 +231,15 @@ import {
                 <View style={[styles.view_row,{backgroundColor:GlobalValue.Color.bg}]}>
                      <Text style={styles.row_text_title}>G.5</Text>
                      <View style={{flex:4, flexDirection:'row', height:'100%'}}>
-                        <Text style={styles.row_text_result}>{arr_result_lottery[0].arr_kq[12]}</Text>
-                        <Text style={styles.row_text_result}>{arr_result_lottery[1].arr_kq[12]}</Text>
+                        <Text style={styles.row_text_result}>{arr_result_lottery[0].arr_kq[5]?arr_result_lottery[0].arr_kq[5]:null}</Text>
+                        <Text style={styles.row_text_result}>{arr_result_lottery[1].arr_kq[5]?arr_result_lottery[1].arr_kq[5]:null}</Text>
                         {
                             arr_result_lottery.length >= 3 ?
-                            <Text style={styles.row_text_result}>{arr_result_lottery[2].arr_kq[12]}</Text>: null
+                            <Text style={styles.row_text_result}>{arr_result_lottery[2].arr_kq[5]?arr_result_lottery[2].arr_kq[5]:null}</Text>: null
                         }
                         {
                             arr_result_lottery.length === 4 ?
-                            <Text style={styles.row_text_result}>{arr_result_lottery[3].arr_kq[12]}</Text>:null
+                            <Text style={styles.row_text_result}>{arr_result_lottery[3].arr_kq[5]?arr_result_lottery[3].arr_kq[5]:null}</Text>:null
                         }                      
                      </View>
                 </View>
@@ -227,93 +248,93 @@ import {
                      <Text style={styles.row_text_title}>G.4</Text>
                      <View style={{flex:4, borderLeftWidth:1, borderLeftColor:GlobalValue.Color.vien, height:'100%'}}>
                          <View style={styles.view_row}>
-                            <Text style={[styles.row_text_result, {borderLeftWidth:0}]}>{arr_result_lottery[0].arr_kq[5]}</Text>
-                            <Text style={styles.row_text_result}>{arr_result_lottery[1].arr_kq[5]}</Text>
+                            <Text style={[styles.row_text_result, {borderLeftWidth:0}]}>{arr_result_lottery[0].arr_kq[6]?arr_result_lottery[0].arr_kq[6]:null}</Text>
+                            <Text style={styles.row_text_result}>{arr_result_lottery[1].arr_kq[6]?arr_result_lottery[1].arr_kq[6]:null}</Text>
                             {
                                 arr_result_lottery.length >= 3 ?
-                                <Text style={styles.row_text_result}>{arr_result_lottery[2].arr_kq[5]}</Text>: null
+                                <Text style={styles.row_text_result}>{arr_result_lottery[2].arr_kq[6]?arr_result_lottery[2].arr_kq[6]:null}</Text>: null
                             }
                             {
                                 arr_result_lottery.length === 4 ?
-                                <Text style={styles.row_text_result}>{arr_result_lottery[3].arr_kq[5]}</Text>:null
+                                <Text style={styles.row_text_result}>{arr_result_lottery[3].arr_kq[6]?arr_result_lottery[3].arr_kq[6]:null}</Text>:null
                             }                          
                          </View>
                          
                          <View style={styles.view_row}>
-                            <Text style={[styles.row_text_result, {borderLeftWidth:0}]}>{arr_result_lottery[0].arr_kq[6]}</Text>
-                            <Text style={styles.row_text_result}>{arr_result_lottery[1].arr_kq[6]}</Text>
+                            <Text style={[styles.row_text_result, {borderLeftWidth:0}]}>{arr_result_lottery[0].arr_kq[7]?arr_result_lottery[0].arr_kq[7]:null}</Text>
+                            <Text style={styles.row_text_result}>{arr_result_lottery[1].arr_kq[7]?arr_result_lottery[1].arr_kq[7]:null}</Text>
                             {
                                 arr_result_lottery.length >= 3 ?
-                                <Text style={styles.row_text_result}>{arr_result_lottery[2].arr_kq[6]}</Text>: null
+                                <Text style={styles.row_text_result}>{arr_result_lottery[2].arr_kq[7]?arr_result_lottery[2].arr_kq[7]:null}</Text>: null
                             }
                             {
                                 arr_result_lottery.length === 4 ?
-                                <Text style={styles.row_text_result}>{arr_result_lottery[3].arr_kq[6]}</Text>:null
+                                <Text style={styles.row_text_result}>{arr_result_lottery[3].arr_kq[7]?arr_result_lottery[3].arr_kq[7]:null}</Text>:null
                             }                                   
                          </View> 
 
                          <View style={styles.view_row}>
-                            <Text style={[styles.row_text_result, {borderLeftWidth:0}]}>{arr_result_lottery[0].arr_kq[7]}</Text>
-                            <Text style={styles.row_text_result}>{arr_result_lottery[1].arr_kq[7]}</Text>
+                            <Text style={[styles.row_text_result, {borderLeftWidth:0}]}>{arr_result_lottery[0].arr_kq[8]?arr_result_lottery[0].arr_kq[8]:null}</Text>
+                            <Text style={styles.row_text_result}>{arr_result_lottery[1].arr_kq[8]?arr_result_lottery[1].arr_kq[8]:null}</Text>
                             {
                                 arr_result_lottery.length >= 3 ?
-                                <Text style={styles.row_text_result}>{arr_result_lottery[2].arr_kq[7]}</Text>: null
+                                <Text style={styles.row_text_result}>{arr_result_lottery[2].arr_kq[8]?arr_result_lottery[2].arr_kq[8]:null}</Text>: null
                             }
                             {
                                 arr_result_lottery.length === 4 ?
-                                <Text style={styles.row_text_result}>{arr_result_lottery[3].arr_kq[7]}</Text>:null
+                                <Text style={styles.row_text_result}>{arr_result_lottery[3].arr_kq[8]?arr_result_lottery[3].arr_kq[8]:null}</Text>:null
                             }                                                          
                          </View> 
                          
                          <View style={styles.view_row}>
-                            <Text style={[styles.row_text_result, {borderLeftWidth:0}]}>{arr_result_lottery[0].arr_kq[8]}</Text>
-                            <Text style={styles.row_text_result}>{arr_result_lottery[1].arr_kq[8]}</Text>
+                            <Text style={[styles.row_text_result, {borderLeftWidth:0}]}>{arr_result_lottery[0].arr_kq[9]?arr_result_lottery[0].arr_kq[9]:null}</Text>
+                            <Text style={styles.row_text_result}>{arr_result_lottery[1].arr_kq[9]?arr_result_lottery[1].arr_kq[9]:null}</Text>
                             {
                                 arr_result_lottery.length >= 3 ?
-                                <Text style={styles.row_text_result}>{arr_result_lottery[2].arr_kq[8]}</Text>: null
+                                <Text style={styles.row_text_result}>{arr_result_lottery[2].arr_kq[9]?arr_result_lottery[2].arr_kq[9]:null}</Text>: null
                             }
                             {
                                 arr_result_lottery.length === 4 ?
-                                <Text style={styles.row_text_result}>{arr_result_lottery[3].arr_kq[8]}</Text>:null
+                                <Text style={styles.row_text_result}>{arr_result_lottery[3].arr_kq[9]?arr_result_lottery[3].arr_kq[9]:null}</Text>:null
                             }                                                           
                          </View>  
 
                          <View style={styles.view_row}>
-                            <Text style={[styles.row_text_result, {borderLeftWidth:0}]}>{arr_result_lottery[0].arr_kq[9]}</Text>
-                            <Text style={styles.row_text_result}>{arr_result_lottery[1].arr_kq[9]}</Text>
+                            <Text style={[styles.row_text_result, {borderLeftWidth:0}]}>{arr_result_lottery[0].arr_kq[10]?arr_result_lottery[0].arr_kq[10]:null}</Text>
+                            <Text style={styles.row_text_result}>{arr_result_lottery[1].arr_kq[10]?arr_result_lottery[1].arr_kq[10]:null}</Text>
                             {
                                 arr_result_lottery.length >= 3 ?
-                                <Text style={styles.row_text_result}>{arr_result_lottery[2].arr_kq[9]}</Text>: null
+                                <Text style={styles.row_text_result}>{arr_result_lottery[2].arr_kq[10]?arr_result_lottery[2].arr_kq[10]:null}</Text>: null
                             }
                             {
                                 arr_result_lottery.length === 4 ?
-                                <Text style={styles.row_text_result}>{arr_result_lottery[3].arr_kq[9]}</Text> :null
+                                <Text style={styles.row_text_result}>{arr_result_lottery[3].arr_kq[10]?arr_result_lottery[3].arr_kq[10]:null}</Text> :null
                             }                                                           
                          </View>  
 
                          <View style={styles.view_row}>
-                            <Text style={[styles.row_text_result, {borderLeftWidth:0}]}>{arr_result_lottery[0].arr_kq[10]}</Text>
-                            <Text style={styles.row_text_result}>{arr_result_lottery[1].arr_kq[10]}</Text>
+                            <Text style={[styles.row_text_result, {borderLeftWidth:0}]}>{arr_result_lottery[0].arr_kq[11]?arr_result_lottery[0].arr_kq[11]:null}</Text>
+                            <Text style={styles.row_text_result}>{arr_result_lottery[1].arr_kq[11]?arr_result_lottery[1].arr_kq[11]:null}</Text>
                             {
                                 arr_result_lottery.length >= 3 ?
-                                <Text style={styles.row_text_result}>{arr_result_lottery[2].arr_kq[10]}</Text>: null
+                                <Text style={styles.row_text_result}>{arr_result_lottery[2].arr_kq[11]?arr_result_lottery[2].arr_kq[11]:null}</Text>: null
                             }
                             {
                                 arr_result_lottery.length === 4 ?
-                                <Text style={styles.row_text_result}>{arr_result_lottery[3].arr_kq[10]}</Text> :null
+                                <Text style={styles.row_text_result}>{arr_result_lottery[3].arr_kq[11]?arr_result_lottery[3].arr_kq[11]:null}</Text> :null
                             }                                                         
                          </View>  
 
                          <View style={[styles.view_row, {borderBottomWidth:0}]}>
-                            <Text style={[styles.row_text_result, {borderLeftWidth:0}]}>{arr_result_lottery[0].arr_kq[11]}</Text>
-                            <Text style={styles.row_text_result}>{arr_result_lottery[1].arr_kq[11]}</Text>
+                            <Text style={[styles.row_text_result, {borderLeftWidth:0}]}>{arr_result_lottery[0].arr_kq[12]?arr_result_lottery[0].arr_kq[12]:null}</Text>
+                            <Text style={styles.row_text_result}>{arr_result_lottery[1].arr_kq[12]?arr_result_lottery[1].arr_kq[12]:null}</Text>
                             {
                                 arr_result_lottery.length >= 3 ?
-                                <Text style={styles.row_text_result}>{arr_result_lottery[2].arr_kq[11]}</Text>: null
+                                <Text style={styles.row_text_result}>{arr_result_lottery[2].arr_kq[12]?arr_result_lottery[2].arr_kq[12]:null}</Text>: null
                             }
                             {
                                 arr_result_lottery.length === 4 ?
-                                <Text style={styles.row_text_result}>{arr_result_lottery[3].arr_kq[11]}</Text> :null
+                                <Text style={styles.row_text_result}>{arr_result_lottery[3].arr_kq[12]?arr_result_lottery[3].arr_kq[12]:null}</Text> :null
                             }                                                          
                          </View> 
                      </View>  
@@ -323,28 +344,28 @@ import {
                      <Text style={styles.row_text_title}>G.3</Text>
                      <View style={{flex:4, borderLeftWidth:1, borderLeftColor:GlobalValue.Color.vien, height:'100%'}}>
                          <View style={styles.view_row}>
-                            <Text style={[styles.row_text_result, {borderLeftWidth:0}]}>{arr_result_lottery[0].arr_kq[3]}</Text>
-                            <Text style={styles.row_text_result}>{arr_result_lottery[1].arr_kq[3]}</Text>
+                            <Text style={[styles.row_text_result, {borderLeftWidth:0}]}>{arr_result_lottery[0].arr_kq[13]?arr_result_lottery[0].arr_kq[13]:null}</Text>
+                            <Text style={styles.row_text_result}>{arr_result_lottery[1].arr_kq[13]?arr_result_lottery[1].arr_kq[13]:null}</Text>
                             {
                                 arr_result_lottery.length >= 3 ?
-                                <Text style={styles.row_text_result}>{arr_result_lottery[2].arr_kq[3]}</Text>: null
+                                <Text style={styles.row_text_result}>{arr_result_lottery[2].arr_kq[13]?arr_result_lottery[2].arr_kq[13]:null}</Text>: null
                             }
                             {
                                 arr_result_lottery.length === 4 ?
-                                <Text style={styles.row_text_result}>{arr_result_lottery[3].arr_kq[3]}</Text>:null
+                                <Text style={styles.row_text_result}>{arr_result_lottery[3].arr_kq[13]?arr_result_lottery[3].arr_kq[13]:null}</Text>:null
                             }                                                         
                          </View>
                          
                          <View style={[styles.view_row, {borderBottomWidth:0}]}>
-                            <Text style={[styles.row_text_result, {borderLeftWidth:0}]}>{arr_result_lottery[0].arr_kq[4]}</Text>
-                            <Text style={styles.row_text_result}>{arr_result_lottery[1].arr_kq[4]}</Text>
+                            <Text style={[styles.row_text_result, {borderLeftWidth:0}]}>{arr_result_lottery[0].arr_kq[14]?arr_result_lottery[0].arr_kq[14]:null}</Text>
+                            <Text style={styles.row_text_result}>{arr_result_lottery[1].arr_kq[14]?arr_result_lottery[1].arr_kq[14]:null}</Text>
                             {
                                 arr_result_lottery.length >= 3 ?
-                                <Text style={styles.row_text_result}>{arr_result_lottery[2].arr_kq[4]}</Text>: null
+                                <Text style={styles.row_text_result}>{arr_result_lottery[2].arr_kq[14]?arr_result_lottery[2].arr_kq[14]:null}</Text>: null
                             }
                             {
                                 arr_result_lottery.length === 4 ?
-                                <Text style={styles.row_text_result}>{arr_result_lottery[3].arr_kq[4]}</Text>:null
+                                <Text style={styles.row_text_result}>{arr_result_lottery[3].arr_kq[14]?arr_result_lottery[3].arr_kq[14]:null}</Text>:null
                             }                                                           
                          </View> 
                      </View>  
@@ -353,15 +374,15 @@ import {
                 <View style={styles.view_row}>
                      <Text style={styles.row_text_title}>G.2</Text>
                      <View style={{flex:4, flexDirection:'row', height:'100%'}}>
-                        <Text style={styles.row_text_result}>{arr_result_lottery[0].arr_kq[2]}</Text>
-                        <Text style={styles.row_text_result}>{arr_result_lottery[1].arr_kq[2]}</Text>
+                        <Text style={styles.row_text_result}>{arr_result_lottery[0].arr_kq[15]?arr_result_lottery[0].arr_kq[15]:null}</Text>
+                        <Text style={styles.row_text_result}>{arr_result_lottery[1].arr_kq[15]?arr_result_lottery[1].arr_kq[15]:null}</Text>
                         {
                             arr_result_lottery.length >= 3 ?
-                            <Text style={styles.row_text_result}>{arr_result_lottery[2].arr_kq[2]}</Text>: null
+                            <Text style={styles.row_text_result}>{arr_result_lottery[2].arr_kq[15]?arr_result_lottery[2].arr_kq[15]:null}</Text>: null
                         }
                         {
                             arr_result_lottery.length === 4 ?
-                            <Text style={styles.row_text_result}>{arr_result_lottery[3].arr_kq[2]}</Text>:null
+                            <Text style={styles.row_text_result}>{arr_result_lottery[3].arr_kq[15]?arr_result_lottery[3].arr_kq[15]:null}</Text>:null
                         }                                                
                      </View>
                 </View>
@@ -369,15 +390,15 @@ import {
                 <View style={[styles.view_row,{backgroundColor:GlobalValue.Color.bg}]}>
                      <Text style={styles.row_text_title}>G.1</Text>
                      <View style={{flex:4, flexDirection:'row', height:'100%'}}>
-                        <Text style={styles.row_text_result}>{arr_result_lottery[0].arr_kq[1]}</Text>
-                        <Text style={styles.row_text_result}>{arr_result_lottery[1].arr_kq[1]}</Text>
+                        <Text style={styles.row_text_result}>{arr_result_lottery[0].arr_kq[16]?arr_result_lottery[0].arr_kq[16]:null}</Text>
+                        <Text style={styles.row_text_result}>{arr_result_lottery[1].arr_kq[16]?arr_result_lottery[1].arr_kq[16]:null}</Text>
                         {
                             arr_result_lottery.length >= 3 ?
-                            <Text style={styles.row_text_result}>{arr_result_lottery[2].arr_kq[1]}</Text>: null
+                            <Text style={styles.row_text_result}>{arr_result_lottery[2].arr_kq[16]?arr_result_lottery[2].arr_kq[16]:null}</Text>: null
                         }
                         {
                             arr_result_lottery.length === 4 ?
-                            <Text style={styles.row_text_result}>{arr_result_lottery[3].arr_kq[1]}</Text>:null
+                            <Text style={styles.row_text_result}>{arr_result_lottery[3].arr_kq[16]?arr_result_lottery[3].arr_kq[16]:null}</Text>:null
                         }                                              
                      </View>
                 </View>
@@ -385,15 +406,15 @@ import {
                 <View style={styles.view_row}>
                      <Text style={styles.row_text_title}>ĐB</Text>
                      <View style={{flex:4, flexDirection:'row', height:'100%'}}>
-                        <Text style={[styles.row_text_result,{color:'red',fontWeight:'bold'}]}>{arr_result_lottery[0].arr_kq[0]}</Text>
-                        <Text style={[styles.row_text_result,{color:'red',fontWeight:'bold'}]}>{arr_result_lottery[1].arr_kq[0]}</Text>
+                        <Text style={[styles.row_text_result,{color:'red',fontWeight:'bold'}]}>{arr_result_lottery[0].arr_kq[17]?arr_result_lottery[0].arr_kq[17]:null}</Text>
+                        <Text style={[styles.row_text_result,{color:'red',fontWeight:'bold'}]}>{arr_result_lottery[1].arr_kq[17]?arr_result_lottery[1].arr_kq[17]:null}</Text>
                         {
                             arr_result_lottery.length >= 3 ?
-                            <Text style={[styles.row_text_result,{color:'red',fontWeight:'bold'}]}>{arr_result_lottery[2].arr_kq[0]}</Text>: null
+                            <Text style={[styles.row_text_result,{color:'red',fontWeight:'bold'}]}>{arr_result_lottery[2].arr_kq[17]?arr_result_lottery[2].arr_kq[17]:null}</Text>: null
                         }
                         {
                             arr_result_lottery.length === 4 ?
-                            <Text style={[styles.row_text_result,{color:'red',fontWeight:'bold'}]}>{arr_result_lottery[3].arr_kq[0]}</Text>:null
+                            <Text style={[styles.row_text_result,{color:'red',fontWeight:'bold'}]}>{arr_result_lottery[3].arr_kq[17]?arr_result_lottery[3].arr_kq[17]:null}</Text>:null
                         }                                               
                      </View>
                 </View>
@@ -571,6 +592,18 @@ import {
          );
      }
 
+     //HAM SET TITLE CHO NGAY DANG XEM
+     setTitleForDayWatching(){
+         var str = '';
+         for(let i=0; i<arr_result_lottery.length; i++){
+             if(arr_result_lottery[i].title){
+                str = arr_result_lottery[i].title;
+                break;
+             }
+         }
+        return str;
+     }
+
      //FUNCTION UPDATE DATA WHEN STATE CHANGE
      updateWhenStateChange(){
         const {dataLottery} = this.props;
@@ -622,6 +655,7 @@ import {
     return{
         dataLottery: state.dataLottery,
         regionSelected: state.regionSelected,
+        updateLottery: state.updateLottery,
     };
  };
 

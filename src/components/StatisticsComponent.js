@@ -57,7 +57,7 @@ class StatisticsComponent extends Component {
                 <InputSoLanQuayComponent/> 
 
                 <TouchableOpacity style={styles.button_style}
-                    onPress = {()=>this.thongKeDauDuoi()}
+                    onPress = {()=>this.checkStringInputLegal(GlobalValue.soLanQuay) === 'ok'?this.thongKeDauDuoi():null}
                 >
                         <Text style={{flex: 1, textAlign: 'center', color: 'black', fontWeight: 'bold'}}>THỐNG KÊ ĐẦU, ĐUÔI LÔ TÔ</Text>   
                         <Image
@@ -67,7 +67,7 @@ class StatisticsComponent extends Component {
                 </TouchableOpacity>
 
                 <TouchableOpacity style={styles.button_style}
-                    onPress = {()=>this.thongKeHaiSoCuoi()}
+                    onPress = {()=>this.checkStringInputLegal(GlobalValue.soLanQuay) === 'ok'?this.thongKeHaiSoCuoi():null}
                 >
                         <Text style={{flex: 1, textAlign: 'center', color: 'black', fontWeight: 'bold'}}>THỐNG KÊ TỔNG 2 SỐ CUỐI</Text>   
                         <Image
@@ -77,7 +77,7 @@ class StatisticsComponent extends Component {
                 </TouchableOpacity>
 
                 <TouchableOpacity style={styles.button_style}
-                    onPress = {()=>this.thongKe0099()}             
+                    onPress = {()=>this.checkStringInputLegal(GlobalValue.soLanQuay) === 'ok'?this.thongKe0099():null}             
                 >
                         <Text style={{flex: 1, textAlign: 'center', color: 'black', fontWeight: 'bold'}}>THỐNG KÊ 00 - 99</Text>   
                         <Image
@@ -87,7 +87,7 @@ class StatisticsComponent extends Component {
                 </TouchableOpacity>
 
                 <TouchableOpacity style={styles.button_style}
-                    onPress = {()=>this.thongKeCacSoVeNhieu()}                   
+                    onPress = {()=>this.checkStringInputLegal(GlobalValue.soLanQuay) === 'ok'?this.thongKeCacSoVeNhieu():null}                   
                 >
                         <Text style={{flex: 1, textAlign: 'center', color: 'black', fontWeight: 'bold'}}>THỐNG KÊ CÁC SỐ VỀ NHIỀU</Text>   
                         <Image
@@ -97,7 +97,7 @@ class StatisticsComponent extends Component {
                 </TouchableOpacity>
 
                 <TouchableOpacity style={styles.button_style}
-                    onPress = {()=>this.thongKeCacSoLauRa()}                   
+                    onPress = {()=>this.checkStringInputLegal(GlobalValue.soLanQuay) === 'ok'?this.thongKeCacSoLauRa():null}                   
                 >
                         <Text style={{flex: 1, textAlign: 'center', color: 'black', fontWeight: 'bold'}}>THỐNG KÊ CÁC SỐ LÂU RA</Text>   
                         <Image
@@ -109,6 +109,25 @@ class StatisticsComponent extends Component {
             </View>
          );
      }
+
+     //Sử dụng reg để kiểm tra chuỗi ký tự nhập vào có hợp lệ ko
+    checkStringInputLegal(soLanQuay){
+        var str ='ok';
+        if(soLanQuay.length === 0){
+            str = '';
+            alert('Bạn chưa nhập số lần quay');
+        }else{
+            var pattern_1 = /^[0-9]{1,2}$/;
+            if(pattern_1.test(soLanQuay) === false){
+                alert('Số lần quay không đúng định dạng, vui lòng nhập lại');
+                str = '';
+            }else if(soLanQuay === '0' || soLanQuay === '00'){
+                alert('Số lần quay phải lớn hơn 0, vui lòng nhập lại');
+                str = '';
+            }
+        }
+        return str;
+    }
 
       //HAM THONG KE DAU DUOI
       thongKeDauDuoi(){

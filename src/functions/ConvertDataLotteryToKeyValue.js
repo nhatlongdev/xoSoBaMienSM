@@ -1,8 +1,8 @@
 import moment from 'moment';
 import { setTitleResultLottery } from '../functions/SetTitleResultLottery';
 import { createArrDauLoto, createArrDuoiLoto } from '../functions/CreateArrDauDuoi';
-function formatDataLotteryToKeyValue(data){
-    var dataLotteryWithKey = {};
+function formatDataLotteryToKeyValue(dataLotteryWithKey, data){
+    // var dataLotteryWithKey = {};
     for(let value of data){
         let key = value.pc + '_' + moment(value.rd).format('YYYYMMDD');
         //set title cho item
@@ -20,6 +20,7 @@ function formatDataLotteryToKeyValue(data){
                 arr_kq = arrTam.concat(arr);
             }
         }else{
+            var arr_kq_tam = [];
             var db = '';
             if(value.s1 !== null){
                 db = db + value.s1;
@@ -27,13 +28,14 @@ function formatDataLotteryToKeyValue(data){
             if(value.s1 !== null){
                 db = db + value.s2;
             }
-            arr_kq.push(db);
+            arr_kq_tam.push(db);
             for (let i=1; i<9; i++){
                 let key = 'p'+ i;
                 let arr = value[key].split(' - ');
-                let arrTam = arr_kq;
-                arr_kq = arrTam.concat(arr);
+                let arrTam = arr_kq_tam;
+                arr_kq_tam = arrTam.concat(arr);
             }
+            arr_kq = arr_kq_tam.reverse();
         }
         value.arr_kq = arr_kq;
     

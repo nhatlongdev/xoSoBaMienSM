@@ -8,24 +8,53 @@ import {
     ScrollView, 
     Platform
  } from 'react-native';
+ import moment from 'moment';
  import ResultMienBacComponent from './ResultMienBacComponent';
  import ResultMienTrungNamComponent from './ResultMienTrungNamComponent';
  import ResultWithDaySelectedComponent from './ResultWithDaySelectedComponent';
- import { connect } from 'react-redux';
- import GlobaleValue from '../data/GlobalValue';
+ //FUNCTION FORMAT DATA
+ import {formatDataLotteryToKeyValue} from '../functions/ConvertDataLotteryToKeyValue';
+ import {createArrResultDoSo} from '../functions/CreateArrResultDoSo';
+ import {getDataFromServerTrucTiep} from '../network/Server';
 
+ //REDUX
+ import { connect } from 'react-redux';
+ import {addResultLottery, addResultDoSo} from '../redux/actionCreators';
+
+ import GlobaleValue from '../data/GlobalValue';
  //library exit app
-import {
+ import {
     handleAndroidBackButton,
     removeAndroidBackButtonHandler
   } from '../functions/BackHandlerXoSo';
-import {exitAlert} from '../functions/AlertXoSo';
+ import {exitAlert} from '../functions/AlertXoSo';
+//thoi gian bat dau quay, thoi gian dung quay
+var dateTimeBatDauQuayMienNam, dateTimeDungQuayMienNam, dateTimeBatDauQuayMienTrung, dateTimeDungQuayMienTrung, dateTimeBatDauQuayMienBac, dateTimeDungQuayMienBac;
 
 class ResultLotteryComponent extends Component {
 
     constructor(props){
         super(props);
+        //set thời điểm bắt đầu và kết thúc quay xổ số ba miền
+        dateTimeBatDauQuayMienNam = moment(moment().format('YYYY-MM-DD') + ' 16:15'); //.format('YYYY/MM/DD HH:mm:ss')
+        dateTimeDungQuayMienNam = moment(moment().format('YYYY-MM-DD' + ' 16:40'));
+        dateTimeBatDauQuayMienTrung = moment(moment().format('YYYY-MM-DD') + ' 17:15'); //.format('YYYY/MM/DD HH:mm:ss')
+        dateTimeDungQuayMienTrung = moment(moment().format('YYYY-MM-DD' + ' 17:40'));
+        dateTimeBatDauQuayMienBac = moment(moment().format('YYYY-MM-DD') + ' 18:15'); //.format('YYYY/MM/DD HH:mm:ss')
+        dateTimeDungQuayMienBac = moment(moment().format('YYYY-MM-DD' + ' 18:40'));
+    }
 
+    componentWillMount(){
+        //Nếu trong khung giờ quay trực tiếp thì 10s request lấy dữ liệu một lần
+        var interval = setInterval(()=>{
+            console.log("INTERVAL CHAY .....");
+            var timeCurrent = moment();
+            if((timeCurrent>= dateTimeBatDauQuayMienNam && timeCurrent< dateTimeDungQuayMienNam) || (timeCurrent>= dateTimeBatDauQuayMienTrung && timeCurrent< dateTimeDungQuayMienTrung) 
+                || (timeCurrent>= dateTimeBatDauQuayMienBac && timeCurrent< dateTimeDungQuayMienBac)){
+                // đến khung giờ quay trực tiếp thì 10s request server một lần lấy kết quả
+                this.refreshFromServer10s();
+            }
+        },10000);
     }
 
     shouldComponentUpdate(){
@@ -84,16 +113,35 @@ class ResultLotteryComponent extends Component {
         }
         return str;
      }
+
+     //ham 10s goi api lay ket qua tu server
+    refreshFromServer10s = ()=>{
+        var dateCurrent = new Date();
+        var paramsDateCurrent = moment(dateCurrent).format('YYYY-MM-DD');
+        getDataFromServerTrucTiep(paramsDateCurrent).then((data_)=>{
+            var dataLotteProvinces_ = data_;
+            console.log("API TRA VE KET QUA TU REQUEST SERVER 10s: " + JSON.stringify(dataLotteProvinces_));
+            if(dataLotteProvinces_.length > 0){ //Đã có kết quả quay trực tiếp
+                var d = formatDataLotteryToKeyValue(this.props.dataLottery, data);  
+                // var dataDoSo = createArrResultDoSo(data);     
+                //CAP NHAT DU LIEU CHO STORE
+                this.props.addResultLottery(d);
+            }
+        }).catch((error) =>{
+
+        });
+    }
  }
 
  function mapStateToProps(state){
     return{
         regionSelected: state.regionSelected,
         clickCalendar: state.clickCalendar,
+        dataLottery: state.dataLottery,
     };
  };
 
- export default connect(mapStateToProps)(ResultLotteryComponent);
+ export default connect(mapStateToProps,{addResultLottery, addResultDoSo})(ResultLotteryComponent);
 
  const styles = StyleSheet.create({
      container:{

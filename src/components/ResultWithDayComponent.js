@@ -23,7 +23,7 @@ LocaleConfig.locales['fr'] = {
 LocaleConfig.defaultLocale = 'fr';
 //REDUX
 import { connect } from 'react-redux';
-import { selectRegion, clickCalendar } from '../redux/actionCreators';
+import { selectRegion, clickCalendar, updateResultLottery } from '../redux/actionCreators';
 
 class ResultWithDayComponent extends Component {
 
@@ -97,6 +97,8 @@ class ResultWithDayComponent extends Component {
                             //Goi actionCreator
                             this.props.selectRegion('4');
                             this.props.clickCalendar();
+                            this.props.updateResultLottery();
+
                             //chuyển tới màn hình xem kết quả theo ngày của từng tỉnh
                             this.props.navigation.navigate('ResultLotteryComponent');
                         }else {
@@ -123,7 +125,7 @@ class ResultWithDayComponent extends Component {
     }
 }
 
- export default connect(mapStateToProps, {selectRegion, clickCalendar})(ResultWithDayComponent);
+ export default connect(mapStateToProps, {selectRegion, clickCalendar, updateResultLottery})(ResultWithDayComponent);
 
  const styles = StyleSheet.create({
      container:{

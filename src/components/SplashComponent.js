@@ -10,11 +10,11 @@ import {
  import dataInAppPurchase from '../data/ListProductInAppPurchase';
  import {getDataLottery} from '../network/Server';
  import {formatDataLotteryToKeyValue} from '../functions/ConvertDataLotteryToKeyValue';
+ import {createArrResultDoSo} from '../functions/CreateArrResultDoSo';
  //REDUX
  import { connect } from 'react-redux';
  import {addResultLottery, addResultDoSo} from '../redux/actionCreators';
- import {createArrResultDoSo} from '../functions/CreateArrResultDoSo';
-
+ 
  class SplashComponent extends Component {
 
 
@@ -99,8 +99,8 @@ import {
         getDataLottery().then((data)=>{
             //CONVERT DATA TO FORMAT KEY_VALUE
             // console.log("DATA KEY VALUE: " + JSON.stringify(data))
-
-            var d = formatDataLotteryToKeyValue(data);  
+            var d_ = {};
+            var d = formatDataLotteryToKeyValue(d_, data);  
             var dataDoSo = createArrResultDoSo(data);     
             //CAP NHAT DU LIEU CHO STORE
             this.props.addResultLottery(d);

@@ -13,7 +13,7 @@ import {
  import FlatlistCacSoVeNhieuComponent from './FlatlistCacSoVeNhieuComponent';
  //REDUX
  import { connect } from 'react-redux';
-import FlatlistCacSoLauRaComponent from './FlatlistCacSoLauRaComponent';
+ import FlatlistCacSoLauRaComponent from './FlatlistCacSoLauRaComponent';
 
 class ResultStatisticsComponent extends Component {
 

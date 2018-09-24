@@ -6,9 +6,11 @@ import {
     TouchableOpacity,
     StyleSheet,
     ScrollView,
+    ToastAndroid
  } from 'react-native';
  import ItemRowDauDuoi from '../components/ItemRowDauDuoi';
  import moment from 'moment';
+ import GlobalValue from '../data/GlobalValue';
 
  //REDUX
  import { connect } from 'react-redux';
@@ -29,14 +31,19 @@ import {
     constructor(props){
         super(props);
         const {dataLottery} = this.props;
-        date_view = new Date();
+        if(this.props.regionSelected === '1'){
+            date_view = new Date();
+        }else if(this.props.regionSelected === '4'){
+            date_view = new Date(GlobalValue.daySelected);
+        }
         var key_item = getKeyItemOneProvincial(date_view,'MB', 0);
         result = getItemWithDate(key_item, dataLottery);
         if(result === undefined){ //TH dữ liệu ngày date_view chưa có kết quả
             key_item = getKeyItemOneProvincial(date_view,'MB', -1);
             result = getItemWithDate(key_item, dataLottery);
         }
-        console.log('OBJ RESULT: ' + JSON.stringify(result))
+        console.log('OBJ RESULT: ' + JSON.stringify(result)) 
+        ToastAndroid.show('Vuốt màn hình để xem kết quả ngày khác', ToastAndroid.SHORT);
     }
 
     componentWillMount(){
@@ -48,16 +55,18 @@ import {
     }
 
     componentWillUpdate(){
-        console.log('RENDER LAI MAN KET QUA MB');
+        
     }
 
     //Vuốt màn hình sang trái
     onSwipeLeft(gestureState) {
+        GlobalValue.dragLottery = '1';
         this.swipeLeftOrRight(1);
       }
     
       // on sự kiện vuốt màn hình sang phải
       onSwipeRight(gestureState) {
+        GlobalValue.dragLottery = '-1';
         this.swipeLeftOrRight(-1);
       }
     
@@ -83,6 +92,31 @@ import {
       }
 
      render() {
+        //TH người dùng click từ màn xem kết quả theo ngày 
+       if(GlobalValue.daySelected !== ''){
+            date_view = new Date(GlobalValue.daySelected);
+            var key_item = getKeyItemOneProvincial(date_view,'MB', 0);
+            result = getItemWithDate(key_item, this.props.dataLottery);
+            GlobalValue.daySelected = '';
+        }else {
+            if(GlobalValue.dragLottery === '0'){
+                GlobalValue.dragLottery = '2'
+                const {dataLottery} = this.props;
+                if(this.props.regionSelected === '1'){
+                    date_view = new Date();
+                }else if(this.props.regionSelected === '4'){
+                    date_view = new Date(GlobalValue.daySelected);
+                }
+                var key_item = getKeyItemOneProvincial(date_view,'MB', 0);
+                result = getItemWithDate(key_item, dataLottery);
+                if(result === undefined){ //TH dữ liệu ngày date_view chưa có kết quả
+                    key_item = getKeyItemOneProvincial(date_view,'MB', -1);
+                    result = getItemWithDate(key_item, dataLottery);
+                }
+
+            }
+        }
+
         const config = {
             velocityThreshold: 0.3,
             directionalOffsetThreshold: 30
@@ -302,7 +336,9 @@ import {
  //function map state to props
  function mapStateToProps(state){
      return {
+        regionSelected: state.regionSelected,
         dataLottery: state.dataLottery,
+        updateLottery: state.updateLottery,
      }
  }
 
