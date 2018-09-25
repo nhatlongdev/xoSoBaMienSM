@@ -6,7 +6,8 @@ import {
     StyleSheet,
     Image,
     Share,
-    TouchableOpacity
+    TouchableOpacity,
+    AsyncStorage
  } from 'react-native';
 
  //REDUX
@@ -21,7 +22,7 @@ import {
 
      constructor(props){
          super(props);
-          
+         this.getListProduct(); 
      }
 
      render() {
@@ -220,11 +221,23 @@ import {
                 break;
 
                 case '9':
-                    alert('click');
+                    //Xem sổ mơ
+                    this.props.navigation.navigate('ProductComponent');
+                    this.props.navigation.closeDrawer();
                 break;
             }
      }
 
+     //FUNCTION GET CAKE LIST PRODUCT IN APP PURCHARSE (AsyncStorage) 
+     async getListProduct() {
+        try {
+            const value = await AsyncStorage.getItem('key_list_product');
+            GlobalValue.listProduct = JSON.parse(value);
+            return value;
+            } catch (error) {
+            console.log("Error retrieving data" + error);
+        }
+    }
 
  }
 

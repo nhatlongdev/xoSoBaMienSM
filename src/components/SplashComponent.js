@@ -8,15 +8,15 @@ import {
     Image
  } from 'react-native';
  import dataInAppPurchase from '../data/ListProductInAppPurchase';
- import {getDataLottery} from '../network/Server';
+ import {getDataLottery, apiGetListProducts} from '../network/Server';
  import {formatDataLotteryToKeyValue} from '../functions/ConvertDataLotteryToKeyValue';
  import {createArrResultDoSo} from '../functions/CreateArrResultDoSo';
+
  //REDUX
  import { connect } from 'react-redux';
- import {addResultLottery, addResultDoSo} from '../redux/actionCreators';
+ import {addResultLottery, addResultDoSo, selectRegion} from '../redux/actionCreators';
  
  class SplashComponent extends Component {
-
 
     componentWillMount(){
         //add event listener status connect net
@@ -37,8 +37,14 @@ import {
 
     //CHECK STATUS NET
     handler(isConnected) {
-        //KIỂM TRA MẠNG
-        this.getListProduct(isConnected);
+        if(isConnected.type === 'wifi' || isConnected.type === 'WIFI'){
+            //TH CO MANG goi api lay ds goi dv va api lay data lottery
+            this.getListProductToServer();
+        }else {
+            //TH KO CO MANG kiem tra cake(neu co lay cake ra su dung)
+            alert('Để cập nhật kết quả mới nhất, vui lòng kiểm tra kết nối mạng!')
+            this.getListProduct();
+        }    
      }
 
     //FUNCTION SAVE AND GET CAKE LIST PRODUCT IN APP PURCHARSE (AsyncStorage) 
@@ -50,19 +56,63 @@ import {
         }
     }
 
-    async getListProduct(isConnected) {
+    async getListProduct() {
         try {
           const value = await AsyncStorage.getItem('key_list_product');
             if(value === null){
-                this.saveListProduct(JSON.stringify(dataInAppPurchase))
-            }
-            if(isConnected.type === 'wifi' || isConnected.type === 'WIFI'){
-                //CÓ MẠNG LẤY DATA TỪ SERVER
+                //không có mạng và app cũng chưa đăng nhập lần nào
+                alert('Không tải được dữ liệu, vui lòng kiểm tra kết nối mạng9!')
+            }else{
+                //lấy kết quả xổ số trong cake
                 this.getDataLottery();
-            }else {
-                //KO CÓ MẠNG LẤY DỮ LIỆU TRONG CAKE
-                // this.getKey(false); 
             }
+          return value;
+        } catch (error) {
+          console.log("Error retrieving data" + error);
+        }
+    }
+
+    //FUNCTION SAVE AND GET CAKE DATA LOTTERY (AsyncStorage) 
+    async saveDataLottery(value) {
+        try {
+          await AsyncStorage.setItem('key_data_lottery',value);
+        } catch (error) {
+          console.log("Error saving data" + error);
+        }
+    }
+
+    async getDataLottery() {
+        try {
+          const value = await AsyncStorage.getItem('key_data_lottery');
+          if(value === null){
+              //không có mạng và app cũng chưa đăng nhập lần nào
+              alert('Không tải được dữ liệu, vui lòng kiểm tra kết nối mạng8!')
+          }else {
+             //CONVERT DATA TO FORMAT KEY_VALUE
+                var d_ = {};
+                var d = formatDataLotteryToKeyValue(d_, JSON.parse(value));  
+                var dataDoSo = createArrResultDoSo(JSON.parse(value));  
+            //CAP NHAT DU LIEU CHO STORE
+                this.props.addResultLottery(d);
+                this.props.addResultDoSo(dataDoSo);
+            //kiểm tra xem giá trị vùng miền được chọn, nếu giá trị khác null thì app đã từng đăng nhập
+                this.getRegionSelected().then((value)=>{
+                    if(value === null){ 
+                        //Chưa đăng nhập lần nào
+                        //GOI LENH VAO MAN HOME
+                        this.props.navigation.replace('HomeComponent');
+                    }else {
+                        //Đã từng đăng nhập vào thẳng màn kết quả
+                        if(value === '1' || value === '2' || value === '3'){
+                            //GOI LENH VAO MAN KET QUA
+                            this.props.selectRegion(value);
+                            this.props.navigation.replace('ResultLotteryComponent');
+                        }
+                    }
+                }).catch((error)=>{
+                    console.log(error)
+                });
+          }  
           return value;
         } catch (error) {
           console.log("Error retrieving data" + error);
@@ -81,12 +131,6 @@ import {
     async getRegionSelected() {
         try {
           const value = await AsyncStorage.getItem('key_region_selected');
-            if(value === null){
-                this.saveRegionSelected('0');
-            }
-            //GOI LENH VAO MAN HOME
-            //TO DO
-            this.props.navigation.replace('HomeComponent');
           return value;
         } catch (error) {
           console.log("Error retrieving data" + error);
@@ -95,18 +139,47 @@ import {
 
 
     //LOAD DATA LOTTERY TO SERVER
-    getDataLottery(){
+    getDataLotteryToServer(){
         getDataLottery().then((data)=>{
+            //SAVE DATA LOTTERY, DATA THONG KE TO CAKE
+            this.saveDataLottery(JSON.stringify(data)); 
             //CONVERT DATA TO FORMAT KEY_VALUE
-            // console.log("DATA KEY VALUE: " + JSON.stringify(data))
             var d_ = {};
             var d = formatDataLotteryToKeyValue(d_, data);  
-            var dataDoSo = createArrResultDoSo(data);     
+            var dataDoSo = createArrResultDoSo(data);
+    
             //CAP NHAT DU LIEU CHO STORE
             this.props.addResultLottery(d);
             this.props.addResultDoSo(dataDoSo);
-            
-            this.getRegionSelected();
+            //kiểm tra xem giá trị vùng miền được chọn, nếu giá trị khác null thì app đã từng đăng nhập
+            this.getRegionSelected().then((value)=>{
+                if(value === null){ 
+                    //Chưa đăng nhập lần nào
+                    //GOI LENH VAO MAN HOME
+                    this.props.navigation.replace('HomeComponent');
+                }else {
+                    //Đã từng đăng nhập vào thẳng màn kết quả
+                    if(value === '1' || value === '2' || value === '3'){
+                        //GOI LENH VAO MAN KET QUA
+                        this.props.selectRegion(value);
+                        this.props.navigation.replace('ResultLotteryComponent');
+                    }
+                }
+            }).catch((error)=>{
+                console.log(error)
+            });
+        }).catch((error)=>{
+            console.log(error)
+        });
+    }
+
+    //LOAD DS GOI DV TU SERVER
+    getListProductToServer(){
+        apiGetListProducts().then((data)=>{
+            //lay duoc du lieu save cake
+            this.saveListProduct(JSON.stringify(data));
+            //goi api lay data lottery
+            this.getDataLotteryToServer();
         }).catch((error)=>{
             console.log(error)
         });
@@ -114,7 +187,7 @@ import {
 
  }
 
- export default connect(null, {addResultLottery, addResultDoSo})(SplashComponent);
+ export default connect(null, {addResultLottery, addResultDoSo, selectRegion})(SplashComponent);
 
  const styles = StyleSheet.create({
      container:{

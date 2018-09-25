@@ -137,73 +137,73 @@ import {
                 <ScrollView>
                 <View style={styles.row_result}>
                      <Text style={styles.text_db_g1_title}>ĐB</Text>  
-                     <Text style={[styles.text_db_g1_result,{color:'red', fontWeight:'bold'}]}>{result.arr_kq[0]}</Text> 
+                     <Text style={[styles.text_db_g1_result,{color:'red', fontWeight:'bold'}]}>{result.arr_kq[26]?result.arr_kq[26]:''}</Text> 
                 </View>
 
                 <View style={[styles.row_result,{backgroundColor:'#EEEEEE'}]}>
                      <Text style={styles.text_db_g1_title}>G.1</Text>  
-                     <Text style={styles.text_db_g1_result}>{result.arr_kq[1]}</Text> 
+                     <Text style={styles.text_db_g1_result}>{result.arr_kq[0]?result.arr_kq[0]:''}</Text> 
                 </View>
 
                 <View style={styles.row_result}>
                     <Text style={styles.text_db_g1_title}>G.2</Text>  
-                    <Text style={[styles.text_db_g1_result,{flex:2.99}]}>{result.arr_kq[2]}</Text> 
-                    <Text style={[styles.text_db_g1_result,{flex:2.99}]}>{result.arr_kq[3]}</Text> 
+                    <Text style={[styles.text_db_g1_result,{flex:2.99}]}>{result.arr_kq[1]?result.arr_kq[1]:''}</Text> 
+                    <Text style={[styles.text_db_g1_result,{flex:2.99}]}>{result.arr_kq[2]?result.arr_kq[2]:''}</Text> 
                 </View>
 
                 <View style={[styles.row_result,{backgroundColor:'#EEEEEE'}]}>
                     <Text style={styles.text_db_g1_title}>G.3</Text>  
                     <View style={{flex:6, borderLeftWidth:1, borderLeftColor:'#DDDDDD',}}>
                         <View style={{flexDirection:'row', borderBottomWidth:1, borderBottomColor:'#DDDDDD'}}>
-                            <Text style={[styles.text_db_g1_result,{flex:1, borderLeftWidth:0}]}>{result.arr_kq[4]}</Text>
-                            <Text style={[styles.text_db_g1_result,{flex:1}]}>{result.arr_kq[5]}</Text> 
-                            <Text style={[styles.text_db_g1_result,{flex:1}]}>{result.arr_kq[6]}</Text>  
+                            <Text style={[styles.text_db_g1_result,{flex:1, borderLeftWidth:0}]}>{result.arr_kq[3]?result.arr_kq[3]:''}</Text>
+                            <Text style={[styles.text_db_g1_result,{flex:1}]}>{result.arr_kq[4]?result.arr_kq[4]:''}</Text> 
+                            <Text style={[styles.text_db_g1_result,{flex:1}]}>{result.arr_kq[5]?result.arr_kq[5]:''}</Text>  
                         </View>
                         <View style={{flexDirection:'row'}}>
-                            <Text style={[styles.text_db_g1_result,{flex:1, borderLeftWidth:0}]}>{result.arr_kq[7]}</Text>
-                            <Text style={[styles.text_db_g1_result,{flex:1}]}>{result.arr_kq[8]}</Text> 
-                            <Text style={[styles.text_db_g1_result,{flex:1}]}>{result.arr_kq[9]}</Text>  
+                            <Text style={[styles.text_db_g1_result,{flex:1, borderLeftWidth:0}]}>{result.arr_kq[6]?result.arr_kq[6]:''}</Text>
+                            <Text style={[styles.text_db_g1_result,{flex:1}]}>{result.arr_kq[7]?result.arr_kq[7]:''}</Text> 
+                            <Text style={[styles.text_db_g1_result,{flex:1}]}>{result.arr_kq[8]?result.arr_kq[8]:''}</Text>  
                         </View>
                     </View>    
                 </View>
 
                 <View style={styles.row_result}>
                     <Text style={styles.text_db_g1_title}>G.4</Text>  
-                    <Text style={[styles.text_db_g1_result,{flex:1.48}]}>{result.arr_kq[10]}</Text> 
-                    <Text style={[styles.text_db_g1_result,{flex:1.48}]}>{result.arr_kq[11]}</Text>
-                    <Text style={[styles.text_db_g1_result,{flex:1.48}]}>{result.arr_kq[12]}</Text> 
-                    <Text style={[styles.text_db_g1_result,{flex:1.48}]}>{result.arr_kq[13]}</Text> 
+                    <Text style={[styles.text_db_g1_result,{flex:1.48}]}>{result.arr_kq[9]?result.arr_kq[9]:''}</Text> 
+                    <Text style={[styles.text_db_g1_result,{flex:1.48}]}>{result.arr_kq[10]?result.arr_kq[10]:''}</Text>
+                    <Text style={[styles.text_db_g1_result,{flex:1.48}]}>{result.arr_kq[11]?result.arr_kq[11]:''}</Text> 
+                    <Text style={[styles.text_db_g1_result,{flex:1.48}]}>{result.arr_kq[12]?result.arr_kq[12]:''}</Text> 
                 </View>
 
                 <View style={[styles.row_result,{backgroundColor:'#EEEEEE'}]}>
                     <Text style={styles.text_db_g1_title}>G.5</Text>  
                     <View style={{flex:6, borderLeftWidth:1, borderLeftColor:'#DDDDDD',}}>
                         <View style={{flexDirection:'row', borderBottomWidth:1, borderBottomColor:'#DDDDDD'}}>
-                            <Text style={[styles.text_db_g1_result,{flex:1, borderLeftWidth:0}]}>{result.arr_kq[14]}</Text>
-                            <Text style={[styles.text_db_g1_result,{flex:1}]}>{result.arr_kq[15]}</Text> 
-                            <Text style={[styles.text_db_g1_result,{flex:1}]}>{result.arr_kq[16]}</Text>  
+                            <Text style={[styles.text_db_g1_result,{flex:1, borderLeftWidth:0}]}>{result.arr_kq[13]?result.arr_kq[13]:''}</Text>
+                            <Text style={[styles.text_db_g1_result,{flex:1}]}>{result.arr_kq[14]?result.arr_kq[14]:''}</Text> 
+                            <Text style={[styles.text_db_g1_result,{flex:1}]}>{result.arr_kq[15]?result.arr_kq[15]:''}</Text>  
                         </View>
                         <View style={{flexDirection:'row'}}>
-                            <Text style={[styles.text_db_g1_result,{flex:1, borderLeftWidth:0}]}>{result.arr_kq[17]}</Text>
-                            <Text style={[styles.text_db_g1_result,{flex:1}]}>{result.arr_kq[18]}</Text> 
-                            <Text style={[styles.text_db_g1_result,{flex:1}]}>{result.arr_kq[19]}</Text>  
+                            <Text style={[styles.text_db_g1_result,{flex:1, borderLeftWidth:0}]}>{result.arr_kq[16]?result.arr_kq[16]:''}</Text>
+                            <Text style={[styles.text_db_g1_result,{flex:1}]}>{result.arr_kq[17]?result.arr_kq[17]:''}</Text> 
+                            <Text style={[styles.text_db_g1_result,{flex:1}]}>{result.arr_kq[18]?result.arr_kq[18]:''}</Text>  
                         </View>
                     </View>    
                 </View>
 
                 <View style={styles.row_result}>
                     <Text style={styles.text_db_g1_title}>G.6</Text>  
-                    <Text style={[styles.text_db_g1_result,{flex:1.99}]}>{result.arr_kq[20]}</Text> 
-                    <Text style={[styles.text_db_g1_result,{flex:1.99}]}>{result.arr_kq[21]}</Text>
-                    <Text style={[styles.text_db_g1_result,{flex:1.99}]}>{result.arr_kq[22]}</Text> 
+                    <Text style={[styles.text_db_g1_result,{flex:1.99}]}>{result.arr_kq[19]?result.arr_kq[19]:''}</Text> 
+                    <Text style={[styles.text_db_g1_result,{flex:1.99}]}>{result.arr_kq[20]?result.arr_kq[20]:''}</Text>
+                    <Text style={[styles.text_db_g1_result,{flex:1.99}]}>{result.arr_kq[21]?result.arr_kq[21]:''}</Text> 
                 </View>
 
                 <View style={[styles.row_result,{backgroundColor:'#EEEEEE'}]}>
                     <Text style={styles.text_db_g1_title}>G.7</Text>  
-                    <Text style={[styles.text_db_g1_result,{flex:1.48}]}>{result.arr_kq[23]}</Text> 
-                    <Text style={[styles.text_db_g1_result,{flex:1.48}]}>{result.arr_kq[24]}</Text>
-                    <Text style={[styles.text_db_g1_result,{flex:1.48}]}>{result.arr_kq[25]}</Text> 
-                    <Text style={[styles.text_db_g1_result,{flex:1.48}]}>{result.arr_kq[26]}</Text> 
+                    <Text style={[styles.text_db_g1_result,{flex:1.48}]}>{result.arr_kq[22]?result.arr_kq[22]:''}</Text> 
+                    <Text style={[styles.text_db_g1_result,{flex:1.48}]}>{result.arr_kq[23]?result.arr_kq[23]:''}</Text>
+                    <Text style={[styles.text_db_g1_result,{flex:1.48}]}>{result.arr_kq[24]?result.arr_kq[24]:''}</Text> 
+                    <Text style={[styles.text_db_g1_result,{flex:1.48}]}>{result.arr_kq[25]?result.arr_kq[25]:''}</Text> 
                 </View>
 
                 <View style={{marginHorizontal:5, marginTop: 10, marginBottom:5, flexDirection:'row'}}>

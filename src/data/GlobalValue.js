@@ -17,6 +17,7 @@ var GlobalValue = {
     arrSoDo: [],
     objResultDoSo: {},
     dragLottery:'0', //0--click vao moi hoac vao lai, 1 keo phai, -1 keo trai,  2 khong lam gi
+    listProduct:[],
 }
 
 export default GlobalValue;

@@ -1,12 +1,25 @@
 
 import moment from 'moment';
 import {getListProvincialRotateWithDay} from './GetListProvincialRotateWithDay';
+import { setTitleResultLottery } from '../functions/SetTitleResultLottery';
+//lay ds ket qua mien bac
 function getItemWithDate(key_item, dataLottery){
     if(dataLottery[key_item] !== null) return dataLottery[key_item];
     return null;
 }
 
+//lay ds ket qua cac tinh cho truong hop mien nam , mien trung
 function getListItemWithDate(date_view, regionSelected, dataLottery, action_type){
+    //thoi gian bat dau quay, thoi gian dung quay
+    var dateTimeBatDauQuayMienNam, dateTimeDungQuayMienNam, dateTimeBatDauQuayMienTrung, dateTimeDungQuayMienTrung;
+    //set thời điểm bắt đầu và kết thúc quay xổ số ba miền
+    dateTimeBatDauQuayMienNam = moment(moment().format('YYYY-MM-DD') + ' 16:10'); //.format('YYYY/MM/DD HH:mm:ss')
+    dateTimeDungQuayMienNam = moment(moment().format('YYYY-MM-DD' + ' 16:40'));
+    dateTimeBatDauQuayMienTrung = moment(moment().format('YYYY-MM-DD') + ' 16:10'); //.format('YYYY/MM/DD HH:mm:ss')
+    dateTimeDungQuayMienTrung = moment(moment().format('YYYY-MM-DD' + ' 17:40'));
+    // dateTimeBatDauQuayMienBac = moment(moment().format('YYYY-MM-DD') + ' 18:15'); //.format('YYYY/MM/DD HH:mm:ss')
+    // dateTimeDungQuayMienBac = moment(moment().format('YYYY-MM-DD' + ' 18:40'));
+
     if(action_type === 1){
         date_view.setDate(date_view.getDate() + 1);
     }else if(action_type === -1){
@@ -25,12 +38,7 @@ function getListItemWithDate(date_view, regionSelected, dataLottery, action_type
         arr_key.push(obj);
     }
 
-    // console.log('ARR KEY: ' + arr_key.length);
-    // console.log('ARR KEY===>: ' + JSON.stringify(arr_key[0]));
-    // console.log('DATA===>: ' + JSON.stringify(dataLottery));
-
     var arr_item = [];
-
     //Kiem tra xem ngay nay da co ket quar chua
     var check = false;
     for(let i = 0; i< arr_key.length; i++){
@@ -47,6 +55,8 @@ function getListItemWithDate(date_view, regionSelected, dataLottery, action_type
             //Tao mo obj mau
             let obj = {};
             obj.name = arr_key[i].name_provincial;
+            //set title cho item
+            obj.title = setTitleResultLottery(moment().format('YYYY-MM-DD'));
             // let obj = {
             //     "s1": "",
             //     "s2": "",
@@ -68,9 +78,29 @@ function getListItemWithDate(date_view, regionSelected, dataLottery, action_type
             arr_item.push(obj);
         }
     }
+    var timeCurrent = moment();
     if(check === false){
-        arr_item = [];
+        if((timeCurrent >= dateTimeBatDauQuayMienNam && timeCurrent<= dateTimeDungQuayMienNam) || (timeCurrent>= dateTimeBatDauQuayMienTrung && timeCurrent<= dateTimeDungQuayMienTrung)){
+            if(moment() < moment(date_view)){ //xoa du lieu
+                arr_item = [];
+            }else {
+                //ko xoa du lieu
+                var str = '';
+                if(regionSelected === '2'){
+                    str = " (Quay lúc 17h15')";
+                }else if(regionSelected === '3'){
+                    str = " (Quay lúc 16h15')";
+                }
+                arr_item[0].comment = str;
+            }      
+       }else {
+           arr_item = [];
+       }
+    }else {
+        //set comment dang quay cho truong hop tat ca cac tinh chua co day du ket qua
+        
     }
+     
     return arr_item;
 }
 

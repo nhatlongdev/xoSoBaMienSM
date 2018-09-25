@@ -5,7 +5,8 @@ import {
     StyleSheet,
     Platform,
     TouchableOpacity,
-    Image
+    Image,
+    AsyncStorage
  } from 'react-native';
 
 import { connect } from 'react-redux';
@@ -59,11 +60,22 @@ import { selectRegion } from '../redux/actionCreators';
      }
 
      //HÀM XỬ LÝ SỰ KIỆN CLICK VÀO VÙNG MIỀN
-     clickRegion(value_region){
-        //Chuyển sang màn xem kết quả
-        this.props.selectRegion(value_region);
-        this.props.navigation.replace('ResultLotteryComponent');
-     }
+        clickRegion(value_region){
+            //Chuyển sang màn xem kết quả
+            this.props.selectRegion(value_region);
+            //save async 
+            this.saveRegionSelected(value_region);
+            this.props.navigation.replace('ResultLotteryComponent');
+        }
+
+     //FUNCTION SAVE CAKE REGION SELECTED (AsyncStorage) 
+        async saveRegionSelected(value) {
+            try {
+            await AsyncStorage.setItem('key_region_selected',value);
+            } catch (error) {
+            console.log("Error saving data" + error);
+            }
+        }
  }
 
  export default connect(null,{selectRegion})(HomeComponent);

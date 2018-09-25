@@ -11,7 +11,6 @@ function formatDataLotteryToKeyValue(dataLotteryWithKey, data){
         //Tao list ket qua
         var arr_kq = [];
         if(value.pc === 'MB'){
-            arr_kq.push(value.s1);
             arr_kq.push(value.p1);
             for (let i=2; i<8; i++){
                 let key = 'p'+ i;
@@ -19,6 +18,7 @@ function formatDataLotteryToKeyValue(dataLotteryWithKey, data){
                 let arrTam = arr_kq;
                 arr_kq = arrTam.concat(arr);
             }
+            arr_kq.push(value.s1);
         }else{
             var arr_kq_tam = [];
             var db = '';
@@ -32,8 +32,9 @@ function formatDataLotteryToKeyValue(dataLotteryWithKey, data){
             for (let i=1; i<9; i++){
                 let key = 'p'+ i;
                 let arr = value[key].split(' - ');
+                let arr_ = arr.reverse();
                 let arrTam = arr_kq_tam;
-                arr_kq_tam = arrTam.concat(arr);
+                arr_kq_tam = arrTam.concat(arr_);
             }
             arr_kq = arr_kq_tam.reverse();
         }

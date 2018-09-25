@@ -48,4 +48,5 @@ function createArrDuoiLoto(arr_kq){
     return arr_duoi_loto;
 }
 
+
 export {createArrDauLoto, createArrDuoiLoto};

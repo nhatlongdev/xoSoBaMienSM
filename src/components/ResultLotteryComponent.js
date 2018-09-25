@@ -19,7 +19,7 @@ import {
 
  //REDUX
  import { connect } from 'react-redux';
- import {addResultLottery, addResultDoSo} from '../redux/actionCreators';
+ import {addResultLottery, addResultDoSo, updateResultLottery} from '../redux/actionCreators';
 
  import GlobaleValue from '../data/GlobalValue';
  //library exit app
@@ -122,10 +122,11 @@ class ResultLotteryComponent extends Component {
             var dataLotteProvinces_ = data_;
             console.log("API TRA VE KET QUA TU REQUEST SERVER 10s: " + JSON.stringify(dataLotteProvinces_));
             if(dataLotteProvinces_.length > 0){ //Đã có kết quả quay trực tiếp
-                var d = formatDataLotteryToKeyValue(this.props.dataLottery, data);  
+                var d = formatDataLotteryToKeyValue(this.props.dataLottery, dataLotteProvinces_);  
                 // var dataDoSo = createArrResultDoSo(data);     
                 //CAP NHAT DU LIEU CHO STORE
                 this.props.addResultLottery(d);
+                this.props.updateResultLottery();
             }
         }).catch((error) =>{
 
@@ -141,7 +142,7 @@ class ResultLotteryComponent extends Component {
     };
  };
 
- export default connect(mapStateToProps,{addResultLottery, addResultDoSo})(ResultLotteryComponent);
+ export default connect(mapStateToProps,{addResultLottery, addResultDoSo, updateResultLottery})(ResultLotteryComponent);
 
  const styles = StyleSheet.create({
      container:{
