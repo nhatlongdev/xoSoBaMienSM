@@ -3,24 +3,28 @@ import moment from 'moment';
 import {getListProvincialRotateWithDay} from './GetListProvincialRotateWithDay';
 import { setTitleResultLottery } from '../functions/SetTitleResultLottery';
 //lay ds ket qua mien bac
-function getItemWithDate(date_view, key_item, dataLottery){
+function getItemWithDate(regionSelected, date_view, key_item, dataLottery){
     //thoi gian bat dau quay, thoi gian dung quay
     var dateTimeBatDauQuayMienBac, dateTimeDungQuayMienBac;
     //set thời điểm bắt đầu và kết thúc quay xổ số ba miền
-    dateTimeBatDauQuayMienBac = moment(moment().format('YYYY-MM-DD') + ' 18:15'); //.format('YYYY/MM/DD HH:mm:ss')
+    dateTimeBatDauQuayMienBac = moment(moment().format('YYYY-MM-DD') + ' 18:10'); //.format('YYYY/MM/DD HH:mm:ss')
     dateTimeDungQuayMienBac = moment(moment().format('YYYY-MM-DD' + ' 18:40'));
-    if(dataLottery[key_item] !== null){
+
+    if(dataLottery[key_item] !== undefined && dataLottery[key_item] !== null){
+        if(dataLottery[key_item].s === '1'){
+            dataLottery[key_item].comment = 'Đang quay ...';
+        }
         return dataLottery[key_item];
     }else {
-        if((timeCurrent >= dateTimeBatDauQuayMienBac && timeCurrent<= dateTimeDungQuayMienBac)){
-            if(moment() === moment(date_view)) {
-                
+        var timeCurrent = moment();
+        if(timeCurrent >= dateTimeBatDauQuayMienBac && timeCurrent<= dateTimeDungQuayMienBac){
+            if(moment() >= moment(date_view)) {
                 //Tao mo obj mau
-                let obj = {};
-                obj.name = arr_key[i].name_provincial;
+                var obj = {};
                 //set title cho item
                 obj.title = setTitleResultLottery(moment().format('YYYY-MM-DD'));
-
+                obj.arr_dau_loto = ["","","","","","","","","",""];
+                obj.arr_duoi_loto = ["","","","","","","","","",""];
                 var str = '';
                 if(regionSelected === '1'){
                     str = " (Quay lúc 18h15')";
@@ -29,7 +33,8 @@ function getItemWithDate(date_view, key_item, dataLottery){
                 }else if(regionSelected === '3'){
                     str = " (Quay lúc 16h15')";
                 }
-                arr_item[0].comment = str;
+                obj.comment = str;
+                return obj;
             }else {
                 return null;
             } 
@@ -44,9 +49,9 @@ function getListItemWithDate(date_view, regionSelected, dataLottery, action_type
     //thoi gian bat dau quay, thoi gian dung quay
     var dateTimeBatDauQuayMienNam, dateTimeDungQuayMienNam, dateTimeBatDauQuayMienTrung, dateTimeDungQuayMienTrung;
     //set thời điểm bắt đầu và kết thúc quay xổ số ba miền
-    dateTimeBatDauQuayMienNam = moment(moment().format('YYYY-MM-DD') + ' 07:00'); //.format('YYYY/MM/DD HH:mm:ss')
+    dateTimeBatDauQuayMienNam = moment(moment().format('YYYY-MM-DD') + ' 16:10'); //.format('YYYY/MM/DD HH:mm:ss')
     dateTimeDungQuayMienNam = moment(moment().format('YYYY-MM-DD' + ' 16:40'));
-    dateTimeBatDauQuayMienTrung = moment(moment().format('YYYY-MM-DD') + ' 07:00'); //.format('YYYY/MM/DD HH:mm:ss')
+    dateTimeBatDauQuayMienTrung = moment(moment().format('YYYY-MM-DD') + ' 17:10'); //.format('YYYY/MM/DD HH:mm:ss')
     dateTimeDungQuayMienTrung = moment(moment().format('YYYY-MM-DD' + ' 17:40'));
 
     if(action_type === 1){

@@ -23,7 +23,10 @@ import {
         const {dataLottery} = this.props;
         date_view = new Date(GlobalValue.daySelected);
         var key_item = getKeyItemOneProvincial(date_view,GlobalValue.codeProvincialSelected, 0);
-        result = getItemWithDate(date_view, key_item, dataLottery);
+        result = getItemWithDate(this.props.regionSelected, date_view, key_item, dataLottery);
+        if(result.s === '1'){
+            result.moment = 'Đang quay ...';
+        }
         console.log('OBJ RESULT: ' + JSON.stringify(result))
     }
 
@@ -38,8 +41,11 @@ import {
      render() {
          return (
             <View style={styles.container}>
-                <Text style={styles.text_title_date}>{result.title}</Text>
-
+                <Text style={[styles.text_title_date,{borderBottomWidth:(result.comment !== null && result.comment !== undefined)?0:1}]}>{result.title}</Text>
+                {
+                    (result.comment !== null && result.comment !== undefined)? 
+                    <Text style={[styles.text_title_date,{padding:0, paddingBottom:2, color:'red', fontWeight:'normal'}]}>{result.comment}</Text>:null
+                }
                 <ScrollView>
                 <View style={styles.row_result}>
                      <Text style={styles.text_db_g1_title}>G.8</Text>  
@@ -205,8 +211,15 @@ import {
         const {dataLottery} = this.props;
         date_view = new Date(GlobalValue.daySelected);
         var key_item = getKeyItemOneProvincial(date_view,GlobalValue.codeProvincialSelected, 0);
-        result = getItemWithDate(date_view, key_item, dataLottery);
-        console.log('OBJ RESULT: ' + JSON.stringify(result))
+        result = getItemWithDate(this.props.regionSelected, date_view, key_item, dataLottery);
+        if(result.s === '1'){
+            result.moment = 'Đang quay ...';
+        }
+     }
+
+     //HAM SET GIAO DIEN KET QUA
+     setItemResult(index){
+        return result.arr_kq!==undefined?(result.arr_kq[index]!==null && result.arr_kq[index]!==undefined && result.arr_kq[index]!=='')?result.arr_kq[index]:' ':' ';
      }
  }
 
@@ -215,6 +228,7 @@ import {
     return {
        dataLottery: state.dataLottery,
        clickCalendar: state.clickCalendar,
+       updateLottery: state.updateLottery,
     }
 }
 export default connect(mapStateToProps)(ResultWithDaySelectedComponent);

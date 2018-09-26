@@ -37,12 +37,13 @@ import {
             date_view = new Date(GlobalValue.daySelected);
         }
         var key_item = getKeyItemOneProvincial(date_view,'MB', 0);
-        result = getItemWithDate(date_view, key_item, dataLottery);
-        if(result === undefined){ //TH dữ liệu ngày date_view chưa có kết quả
+        result = getItemWithDate(this.props.regionSelected, date_view, key_item, dataLottery);
+        if(result === undefined || result === null){ //TH dữ liệu ngày date_view chưa có kết quả
             key_item = getKeyItemOneProvincial(date_view,'MB', -1);
-            result = getItemWithDate(date_view, key_item, dataLottery);
+            result = getItemWithDate(this.props.regionSelected, date_view, key_item, dataLottery);
         }
-        console.log('OBJ RESULT: ' + JSON.stringify(result)) 
+        //set gia tri dragLottery de khi chay vao render ko xu ly du lieu nua
+        GlobalValue.dragLottery = '2';
         ToastAndroid.show('Vuốt màn hình để xem kết quả ngày khác', ToastAndroid.SHORT);
     }
 
@@ -96,7 +97,7 @@ import {
        if(GlobalValue.daySelected !== ''){
             date_view = new Date(GlobalValue.daySelected);
             var key_item = getKeyItemOneProvincial(date_view,'MB', 0);
-            result = getItemWithDate(date_view, key_item, this.props.dataLottery);
+            result = getItemWithDate(this.props.regionSelected, date_view, key_item, this.props.dataLottery);
             GlobalValue.daySelected = '';
         }else {
             if(GlobalValue.dragLottery === '0'){
@@ -104,16 +105,13 @@ import {
                 const {dataLottery} = this.props;
                 if(this.props.regionSelected === '1'){
                     date_view = new Date();
-                }else if(this.props.regionSelected === '4'){
-                    date_view = new Date(GlobalValue.daySelected);
                 }
                 var key_item = getKeyItemOneProvincial(date_view,'MB', 0);
-                result = getItemWithDate(date_view, key_item, dataLottery);
-                if(result === undefined){ //TH dữ liệu ngày date_view chưa có kết quả
+                result = getItemWithDate(this.props.regionSelected, date_view, key_item, dataLottery);
+                if(result === undefined || result === null){ //TH dữ liệu ngày date_view chưa có kết quả
                     key_item = getKeyItemOneProvincial(date_view,'MB', -1);
-                    result = getItemWithDate(date_view, key_item, dataLottery);
+                    result = getItemWithDate(this.props.regionSelected, date_view, key_item, dataLottery);
                 }
-
             }
         }
 
@@ -122,7 +120,6 @@ import {
             directionalOffsetThreshold: 30
           };
          const {dataLottery} = this.props;
-         console.log('DATA SAU KHI LAY SEVER VE ADD: ' + JSON.stringify(dataLottery));
          return (
             <GestureRecognizer
                 onSwipe={(direction, state) => this.onSwipe(direction, state)}
@@ -132,78 +129,81 @@ import {
                 style={{flex: 1,}}
             >
              <View style={styles.container}>
-                <Text style={styles.text_title_date}>{result.title}</Text>
-
+                <Text style={[styles.text_title_date,{borderBottomWidth:0}]}>{result.title}</Text>
+                {
+                    (result.comment !== null && result.comment !== undefined)? 
+                    <Text style={[styles.text_title_date,{padding:0, paddingBottom:2, color:'red', fontWeight:'normal'}]}>{result.comment}</Text>:null
+                }
                 <ScrollView>
                 <View style={styles.row_result}>
                      <Text style={styles.text_db_g1_title}>ĐB</Text>  
-                     <Text style={[styles.text_db_g1_result,{color:'red', fontWeight:'bold'}]}>{result.arr_kq[26]?result.arr_kq[26]:''}</Text> 
+                     <Text style={[styles.text_db_g1_result,{color:'red', fontWeight:'bold'}]}>{this.setItemResult(26)}</Text> 
                 </View>
 
                 <View style={[styles.row_result,{backgroundColor:'#EEEEEE'}]}>
                      <Text style={styles.text_db_g1_title}>G.1</Text>  
-                     <Text style={styles.text_db_g1_result}>{result.arr_kq[0]?result.arr_kq[0]:''}</Text> 
+                     <Text style={styles.text_db_g1_result}>{this.setItemResult(0)}</Text> 
                 </View>
 
                 <View style={styles.row_result}>
                     <Text style={styles.text_db_g1_title}>G.2</Text>  
-                    <Text style={[styles.text_db_g1_result,{flex:2.99}]}>{result.arr_kq[1]?result.arr_kq[1]:''}</Text> 
-                    <Text style={[styles.text_db_g1_result,{flex:2.99}]}>{result.arr_kq[2]?result.arr_kq[2]:''}</Text> 
+                    <Text style={[styles.text_db_g1_result,{flex:2.99}]}>{this.setItemResult(1)}</Text> 
+                    <Text style={[styles.text_db_g1_result,{flex:2.99}]}>{this.setItemResult(2)}</Text> 
                 </View>
 
                 <View style={[styles.row_result,{backgroundColor:'#EEEEEE'}]}>
                     <Text style={styles.text_db_g1_title}>G.3</Text>  
                     <View style={{flex:6, borderLeftWidth:1, borderLeftColor:'#DDDDDD',}}>
                         <View style={{flexDirection:'row', borderBottomWidth:1, borderBottomColor:'#DDDDDD'}}>
-                            <Text style={[styles.text_db_g1_result,{flex:1, borderLeftWidth:0}]}>{result.arr_kq[3]?result.arr_kq[3]:''}</Text>
-                            <Text style={[styles.text_db_g1_result,{flex:1}]}>{result.arr_kq[4]?result.arr_kq[4]:''}</Text> 
-                            <Text style={[styles.text_db_g1_result,{flex:1}]}>{result.arr_kq[5]?result.arr_kq[5]:''}</Text>  
+                            <Text style={[styles.text_db_g1_result,{flex:1, borderLeftWidth:0}]}>{this.setItemResult(3)}</Text>
+                            <Text style={[styles.text_db_g1_result,{flex:1}]}>{this.setItemResult(4)}</Text> 
+                            <Text style={[styles.text_db_g1_result,{flex:1}]}>{this.setItemResult(5)}</Text>  
                         </View>
                         <View style={{flexDirection:'row'}}>
-                            <Text style={[styles.text_db_g1_result,{flex:1, borderLeftWidth:0}]}>{result.arr_kq[6]?result.arr_kq[6]:''}</Text>
-                            <Text style={[styles.text_db_g1_result,{flex:1}]}>{result.arr_kq[7]?result.arr_kq[7]:''}</Text> 
-                            <Text style={[styles.text_db_g1_result,{flex:1}]}>{result.arr_kq[8]?result.arr_kq[8]:''}</Text>  
+                            <Text style={[styles.text_db_g1_result,{flex:1, borderLeftWidth:0}]}>{this.setItemResult(6)}</Text>
+                            <Text style={[styles.text_db_g1_result,{flex:1}]}>{this.setItemResult(7)}</Text> 
+                            <Text style={[styles.text_db_g1_result,{flex:1}]}>{this.setItemResult(8)}</Text>  
                         </View>
                     </View>    
                 </View>
 
                 <View style={styles.row_result}>
                     <Text style={styles.text_db_g1_title}>G.4</Text>  
-                    <Text style={[styles.text_db_g1_result,{flex:1.48}]}>{result.arr_kq[9]?result.arr_kq[9]:''}</Text> 
-                    <Text style={[styles.text_db_g1_result,{flex:1.48}]}>{result.arr_kq[10]?result.arr_kq[10]:''}</Text>
-                    <Text style={[styles.text_db_g1_result,{flex:1.48}]}>{result.arr_kq[11]?result.arr_kq[11]:''}</Text> 
-                    <Text style={[styles.text_db_g1_result,{flex:1.48}]}>{result.arr_kq[12]?result.arr_kq[12]:''}</Text> 
+                    <Text style={[styles.text_db_g1_result,{flex:1.48}]}>{this.setItemResult(9)}</Text> 
+                    <Text style={[styles.text_db_g1_result,{flex:1.48}]}>{this.setItemResult(10)}</Text>
+                    <Text style={[styles.text_db_g1_result,{flex:1.48}]}>{this.setItemResult(11)}</Text> 
+                    <Text style={[styles.text_db_g1_result,{flex:1.48}]}>{this.setItemResult(12)}</Text> 
                 </View>
 
                 <View style={[styles.row_result,{backgroundColor:'#EEEEEE'}]}>
                     <Text style={styles.text_db_g1_title}>G.5</Text>  
                     <View style={{flex:6, borderLeftWidth:1, borderLeftColor:'#DDDDDD',}}>
                         <View style={{flexDirection:'row', borderBottomWidth:1, borderBottomColor:'#DDDDDD'}}>
-                            <Text style={[styles.text_db_g1_result,{flex:1, borderLeftWidth:0}]}>{result.arr_kq[13]?result.arr_kq[13]:''}</Text>
-                            <Text style={[styles.text_db_g1_result,{flex:1}]}>{result.arr_kq[14]?result.arr_kq[14]:''}</Text> 
-                            <Text style={[styles.text_db_g1_result,{flex:1}]}>{result.arr_kq[15]?result.arr_kq[15]:''}</Text>  
+                            <Text style={[styles.text_db_g1_result,{flex:1, borderLeftWidth:0}]}>{this.setItemResult(13)}</Text>
+                            <Text style={[styles.text_db_g1_result,{flex:1}]}>{this.setItemResult(14)}</Text> 
+                            <Text style={[styles.text_db_g1_result,{flex:1}]}>{this.setItemResult(15)}</Text>  
                         </View>
                         <View style={{flexDirection:'row'}}>
-                            <Text style={[styles.text_db_g1_result,{flex:1, borderLeftWidth:0}]}>{result.arr_kq[16]?result.arr_kq[16]:''}</Text>
-                            <Text style={[styles.text_db_g1_result,{flex:1}]}>{result.arr_kq[17]?result.arr_kq[17]:''}</Text> 
-                            <Text style={[styles.text_db_g1_result,{flex:1}]}>{result.arr_kq[18]?result.arr_kq[18]:''}</Text>  
+                            <Text style={[styles.text_db_g1_result,{flex:1, borderLeftWidth:0}]}>{this.setItemResult(16)}</Text>
+                            <Text style={[styles.text_db_g1_result,{flex:1}]}>{this.setItemResult(17)}</Text> 
+                            <Text style={[styles.text_db_g1_result,{flex:1}]}>{this.setItemResult(18)}</Text>  
                         </View>
                     </View>    
                 </View>
 
                 <View style={styles.row_result}>
                     <Text style={styles.text_db_g1_title}>G.6</Text>  
-                    <Text style={[styles.text_db_g1_result,{flex:1.99}]}>{result.arr_kq[19]?result.arr_kq[19]:''}</Text> 
-                    <Text style={[styles.text_db_g1_result,{flex:1.99}]}>{result.arr_kq[20]?result.arr_kq[20]:''}</Text>
-                    <Text style={[styles.text_db_g1_result,{flex:1.99}]}>{result.arr_kq[21]?result.arr_kq[21]:''}</Text> 
+                    <Text style={[styles.text_db_g1_result,{flex:1.99}]}>{this.setItemResult(19)}</Text> 
+                    <Text style={[styles.text_db_g1_result,{flex:1.99}]}>{this.setItemResult(20)}</Text>
+                    <Text style={[styles.text_db_g1_result,{flex:1.99}]}>{this.setItemResult(21)}</Text> 
                 </View>
 
                 <View style={[styles.row_result,{backgroundColor:'#EEEEEE'}]}>
                     <Text style={styles.text_db_g1_title}>G.7</Text>  
-                    <Text style={[styles.text_db_g1_result,{flex:1.48}]}>{result.arr_kq[22]?result.arr_kq[22]:''}</Text> 
-                    <Text style={[styles.text_db_g1_result,{flex:1.48}]}>{result.arr_kq[23]?result.arr_kq[23]:''}</Text>
-                    <Text style={[styles.text_db_g1_result,{flex:1.48}]}>{result.arr_kq[24]?result.arr_kq[24]:''}</Text> 
-                    <Text style={[styles.text_db_g1_result,{flex:1.48}]}>{result.arr_kq[25]?result.arr_kq[25]:''}</Text> 
+                    <Text style={[styles.text_db_g1_result,{flex:1.48}]}>{this.setItemResult(22)}</Text> 
+                    <Text style={[styles.text_db_g1_result,{flex:1.48}]}>{this.setItemResult(23)}</Text>
+                    <Text style={[styles.text_db_g1_result,{flex:1.48}]}>{this.setItemResult(24)}</Text> 
+                    <Text style={[styles.text_db_g1_result,{flex:1.48}]}>{this.setItemResult(25)}</Text> 
                 </View>
 
                 <View style={{marginHorizontal:5, marginTop: 10, marginBottom:5, flexDirection:'row'}}>
@@ -313,10 +313,10 @@ import {
         var resultTam;
         if(action_type === -1){
             var key_item = getKeyItemOneProvincial(date_view,'MB', -1);
-            resultTam = getItemWithDate(date_view, key_item, dataLottery);
+            resultTam = getItemWithDate(this.props.regionSelected, date_view, key_item, dataLottery);
         }else{
             var key_item = getKeyItemOneProvincial(date_view,'MB', 1);
-            resultTam = getItemWithDate(date_view, key_item, dataLottery);
+            resultTam = getItemWithDate(this.props.regionSelected, date_view, key_item, dataLottery);
         }
         if(resultTam !== null && resultTam !== undefined){
             result = resultTam;
@@ -330,6 +330,11 @@ import {
                 date_view.setDate(date_view.getDate()+1);
             }   
         }
+     }
+
+     //HAM SET GIAO DIEN KET QUA
+     setItemResult(index){
+        return result.arr_kq!==undefined?(result.arr_kq[index]!==null && result.arr_kq[index]!==undefined && result.arr_kq[index]!=='')?result.arr_kq[index]:' ':' ';
      }
  }
 

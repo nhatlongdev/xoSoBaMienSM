@@ -642,11 +642,13 @@ import {
 
      //HAM SET GIAO DIEN KET QUA
      setItemResult(index1, index2){
-         return arr_result_lottery[index1].arr_kq!==undefined?(arr_result_lottery[index1].arr_kq[index2]!==null && arr_result_lottery[index1].arr_kq[index2]!==undefined)?arr_result_lottery[index1].arr_kq[index2] !== ''?arr_result_lottery[index1].arr_kq[index2]:' ':' ':' ';
+         return arr_result_lottery[index1].arr_kq!==undefined?(arr_result_lottery[index1].arr_kq[index2]!==null && arr_result_lottery[index1].arr_kq[index2]!==undefined && arr_result_lottery[index1].arr_kq[index2]!=='')?
+         arr_result_lottery[index1].arr_kq[index2]:' ':' ';
      }
 
      setItemResult_loto(index1, index2){
-        return arr_result_lottery[index1].arr_dau_loto!==undefined?arr_result_lottery[index1].arr_dau_loto[index2]!==null?arr_result_lottery[index1].arr_dau_loto[index2]:' ':' ';
+        return arr_result_lottery[index1].arr_dau_loto!==undefined?(arr_result_lottery[index1].arr_dau_loto[index2]!==null && arr_result_lottery[index1].arr_dau_loto[index2]!==undefined && arr_result_lottery[index1].arr_dau_loto[index2]!=='')?
+        arr_result_lottery[index1].arr_dau_loto[index2]:' ':' ';
     }
      
 
