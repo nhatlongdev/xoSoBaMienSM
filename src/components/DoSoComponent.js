@@ -19,8 +19,6 @@ import {
  //REDUX
  import { connect } from 'react-redux';
  import { clickButtonDoSo } from '../redux/actionCreators';
- import * as Progress from 'react-native-progress';
-
  var item_provincial;
  var objResultDoSo = {};
  var arrSoDo;

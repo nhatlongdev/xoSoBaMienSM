@@ -23,7 +23,7 @@ import {
         const {dataLottery} = this.props;
         date_view = new Date(GlobalValue.daySelected);
         var key_item = getKeyItemOneProvincial(date_view,GlobalValue.codeProvincialSelected, 0);
-        result = getItemWithDate(key_item, dataLottery);
+        result = getItemWithDate(date_view, key_item, dataLottery);
         console.log('OBJ RESULT: ' + JSON.stringify(result))
     }
 
@@ -205,7 +205,7 @@ import {
         const {dataLottery} = this.props;
         date_view = new Date(GlobalValue.daySelected);
         var key_item = getKeyItemOneProvincial(date_view,GlobalValue.codeProvincialSelected, 0);
-        result = getItemWithDate(key_item, dataLottery);
+        result = getItemWithDate(date_view, key_item, dataLottery);
         console.log('OBJ RESULT: ' + JSON.stringify(result))
      }
  }

@@ -37,10 +37,10 @@ import {
             date_view = new Date(GlobalValue.daySelected);
         }
         var key_item = getKeyItemOneProvincial(date_view,'MB', 0);
-        result = getItemWithDate(key_item, dataLottery);
+        result = getItemWithDate(date_view, key_item, dataLottery);
         if(result === undefined){ //TH dữ liệu ngày date_view chưa có kết quả
             key_item = getKeyItemOneProvincial(date_view,'MB', -1);
-            result = getItemWithDate(key_item, dataLottery);
+            result = getItemWithDate(date_view, key_item, dataLottery);
         }
         console.log('OBJ RESULT: ' + JSON.stringify(result)) 
         ToastAndroid.show('Vuốt màn hình để xem kết quả ngày khác', ToastAndroid.SHORT);
@@ -96,7 +96,7 @@ import {
        if(GlobalValue.daySelected !== ''){
             date_view = new Date(GlobalValue.daySelected);
             var key_item = getKeyItemOneProvincial(date_view,'MB', 0);
-            result = getItemWithDate(key_item, this.props.dataLottery);
+            result = getItemWithDate(date_view, key_item, this.props.dataLottery);
             GlobalValue.daySelected = '';
         }else {
             if(GlobalValue.dragLottery === '0'){
@@ -108,10 +108,10 @@ import {
                     date_view = new Date(GlobalValue.daySelected);
                 }
                 var key_item = getKeyItemOneProvincial(date_view,'MB', 0);
-                result = getItemWithDate(key_item, dataLottery);
+                result = getItemWithDate(date_view, key_item, dataLottery);
                 if(result === undefined){ //TH dữ liệu ngày date_view chưa có kết quả
                     key_item = getKeyItemOneProvincial(date_view,'MB', -1);
-                    result = getItemWithDate(key_item, dataLottery);
+                    result = getItemWithDate(date_view, key_item, dataLottery);
                 }
 
             }
@@ -313,10 +313,10 @@ import {
         var resultTam;
         if(action_type === -1){
             var key_item = getKeyItemOneProvincial(date_view,'MB', -1);
-            resultTam = getItemWithDate(key_item, dataLottery);
+            resultTam = getItemWithDate(date_view, key_item, dataLottery);
         }else{
             var key_item = getKeyItemOneProvincial(date_view,'MB', 1);
-            resultTam = getItemWithDate(key_item, dataLottery);
+            resultTam = getItemWithDate(date_view, key_item, dataLottery);
         }
         if(resultTam !== null && resultTam !== undefined){
             result = resultTam;

@@ -37,9 +37,6 @@ import {
         date_view = new Date();
         //Lay ds ket qua cac tinh quay hom do
         arr_result_lottery = getListItemWithDate(date_view, regionSelected, dataLottery, 0);
-        console.log('chay toi day roi '+ JSON.stringify(arr_result_lottery[0]))
-        console.log('chay toi day roi '+ JSON.stringify(arr_result_lottery[1]))
-        console.log('chay toi day roi '+ JSON.stringify(arr_result_lottery[2]))
         if(arr_result_lottery.length === 0){
             console.log('chay toi day roi 1')
             arr_result_lottery = getListItemWithDate(date_view, regionSelected, dataLottery, -1);
