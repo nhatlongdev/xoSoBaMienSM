@@ -43,7 +43,7 @@ import {
             result = getItemWithDate(this.props.regionSelected, date_view, key_item, dataLottery);
         }
         //set gia tri dragLottery de khi chay vao render ko xu ly du lieu nua
-        GlobalValue.dragLottery = '2';
+        GlobalValue.dragLottery = '-2';
         ToastAndroid.show('Vuốt màn hình để xem kết quả ngày khác', ToastAndroid.SHORT);
     }
 
@@ -101,6 +101,7 @@ import {
             GlobalValue.daySelected = '';
         }else {
             if(GlobalValue.dragLottery === '0'){
+                //Trường hợp click chọn miền bắc từ menuleft trong khi màn hình hiện tại đang là kết quả miền bắc
                 GlobalValue.dragLottery = '2'
                 const {dataLottery} = this.props;
                 if(this.props.regionSelected === '1'){
@@ -112,6 +113,13 @@ import {
                     key_item = getKeyItemOneProvincial(date_view,'MB', -1);
                     result = getItemWithDate(this.props.regionSelected, date_view, key_item, dataLottery);
                 }
+            }else if(GlobalValue.dragLottery === '2'){
+                //Cập nhật lại kết quả của chính hôm đó(trương hợp vuốt màn hình lên và trường hợp đang quay trực tiếp)
+                // alert(getKeyItemOneProvincial(date_view,'MB', 0))
+                // var key_item = getKeyItemOneProvincial(date_view,'MB', 0);
+                // result = getItemWithDate(this.props.regionSelected, date_view, key_item, dataLottery);
+            }else if(GlobalValue.dragLottery === '-2'){
+                GlobalValue.dragLottery = '2';
             }
         }
 

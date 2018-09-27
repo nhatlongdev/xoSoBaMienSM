@@ -16,7 +16,7 @@ var GlobalValue = {
     chuoiSoDo: '',
     arrSoDo: [],
     objResultDoSo: {},
-    dragLottery:'0', //0--click vao moi hoac vao lai, 1 keo phai, -1 keo trai,  2 khong lam gi
+    dragLottery:'0', //0--click vao moi hoac vao lai, 1 keo phai, -1 keo trai,  2 khong lam gi, -2: khi mới vào màn lần đầu
     listProduct:[],
 }
 

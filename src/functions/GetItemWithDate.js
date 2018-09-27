@@ -2,6 +2,7 @@
 import moment from 'moment';
 import {getListProvincialRotateWithDay} from './GetListProvincialRotateWithDay';
 import { setTitleResultLottery } from '../functions/SetTitleResultLottery';
+
 //lay ds ket qua mien bac
 function getItemWithDate(regionSelected, date_view, key_item, dataLottery){
     //thoi gian bat dau quay, thoi gian dung quay
@@ -114,17 +115,20 @@ function getListItemWithDate(date_view, regionSelected, dataLottery, action_type
     }
     var timeCurrent = moment();
     if(check === false){
-        if((timeCurrent >= dateTimeBatDauQuayMienNam && timeCurrent<= dateTimeDungQuayMienNam) || (timeCurrent>= dateTimeBatDauQuayMienTrung && timeCurrent<= dateTimeDungQuayMienTrung)){
+        if(timeCurrent >= dateTimeBatDauQuayMienNam && timeCurrent<= dateTimeDungQuayMienNam && regionSelected === '3'){
             if(moment() < moment(date_view)){ //xoa du lieu
                 arr_item = [];
             }else {
                 //ko xoa du lieu
-                var str = '';
-                if(regionSelected === '2'){
-                    str = " (Quay lúc 17h15')";
-                }else if(regionSelected === '3'){
-                    str = " (Quay lúc 16h15')";
-                }
+                var str = " (Quay lúc 16h15')";
+                arr_item[0].comment = str;
+            }      
+       }else if(timeCurrent>= dateTimeBatDauQuayMienTrung && timeCurrent<= dateTimeDungQuayMienTrung && regionSelected === '2'){
+            if(moment() < moment(date_view)){ //xoa du lieu
+                arr_item = [];
+            }else {
+                //ko xoa du lieu
+                var str = " (Quay lúc 17h15')";
                 arr_item[0].comment = str;
             }      
        }else {
