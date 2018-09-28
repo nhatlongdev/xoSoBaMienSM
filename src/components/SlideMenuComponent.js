@@ -142,7 +142,30 @@ import {
                             style ={{width: 50, height: 50}}
                             source = {require('../images/pay.png')}
                         />
-                        <Text style={styles.text_option}>Thanh toán</Text>
+                        <Text style={styles.text_option}>Tiện ích</Text>
+                    </TouchableOpacity>
+
+                </View>
+
+                <View style={{flexDirection:'row', marginHorizontal: 5, marginTop: 20}}>
+
+                    <TouchableOpacity style={styles.touch_style}
+                        onPress={()=>
+                        this.clickOption('10')
+                    }>
+                        <Image
+                            style ={{width: 50, height: 50}}
+                            source = {require('../images/setting.png')}
+                        />
+                        <Text style={styles.text_option}>Cài đặt</Text>
+                    </TouchableOpacity>
+
+                    <TouchableOpacity style={styles.touch_style}
+                     >
+                    </TouchableOpacity>
+
+                    <TouchableOpacity style={styles.touch_style}
+                     >
                     </TouchableOpacity>
 
                 </View>
@@ -223,6 +246,12 @@ import {
                 case '9':
                     //Xem sổ mơ
                     this.props.navigation.navigate('ProductComponent');
+                    this.props.navigation.closeDrawer();
+                break;
+
+                case '10':
+                    //Xem cai dat
+                    this.props.navigation.navigate('SettingComponent');
                     this.props.navigation.closeDrawer();
                 break;
             }

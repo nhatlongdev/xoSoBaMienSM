@@ -18,6 +18,7 @@ import {
   import ResultWithDaySelectedComponent from './components/ResultWithDaySelectedComponent';
   import ResultStatisticsComponent from './components/ResultStatisticsComponent';
   import ProductComponent from './components/ProductComponent';
+  import SettingComponent from './components/SettingComponent';
 
   export const HomeStack = StackNavigator({
     SplashComponent: {
@@ -76,6 +77,12 @@ import {
     },
     ProductComponent:{
         screen:ProductComponent,
+        navigationOptions:{
+            header:null
+        }
+    },
+    SettingComponent:{
+        screen:SettingComponent,
         navigationOptions:{
             header:null
         }

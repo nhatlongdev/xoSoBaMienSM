@@ -115,9 +115,8 @@ import {
                 }
             }else if(GlobalValue.dragLottery === '2'){
                 //Cập nhật lại kết quả của chính hôm đó(trương hợp vuốt màn hình lên và trường hợp đang quay trực tiếp)
-                // alert(getKeyItemOneProvincial(date_view,'MB', 0))
-                // var key_item = getKeyItemOneProvincial(date_view,'MB', 0);
-                // result = getItemWithDate(this.props.regionSelected, date_view, key_item, dataLottery);
+                var key_item = getKeyItemOneProvincial(date_view,'MB', 0);
+                result = getItemWithDate(this.props.regionSelected, date_view, key_item, this.props.dataLottery);
             }else if(GlobalValue.dragLottery === '-2'){
                 GlobalValue.dragLottery = '2';
             }
