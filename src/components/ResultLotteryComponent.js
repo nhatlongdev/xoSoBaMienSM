@@ -6,7 +6,8 @@ import {
     TouchableOpacity,
     StyleSheet,
     ScrollView, 
-    Platform
+    Platform,
+    Vibration
  } from 'react-native';
  import moment from 'moment';
  import ResultMienBacComponent from './ResultMienBacComponent';
@@ -31,10 +32,19 @@ import {
 //thoi gian bat dau quay, thoi gian dung quay
 var dateTimeBatDauQuayMienNam, dateTimeDungQuayMienNam, dateTimeBatDauQuayMienTrung, dateTimeDungQuayMienTrung, dateTimeBatDauQuayMienBac, dateTimeDungQuayMienBac;
 
+// Import the react-native-sound module
+var SoundPlayer = require('react-native-sound');
+var song;
+
+//BIEN KIEM TRA CO KET QUAR MOI
+var checkResultLotteryNew;
+
 class ResultLotteryComponent extends Component {
 
     constructor(props){
         super(props);
+        checkResultLotteryNew
+        song = null;
         //set thời điểm bắt đầu và kết thúc quay xổ số ba miền
         dateTimeBatDauQuayMienNam = moment(moment().format('YYYY-MM-DD') + ' 16:15'); //.format('YYYY/MM/DD HH:mm:ss')
         dateTimeDungQuayMienNam = moment(moment().format('YYYY-MM-DD' + ' 16:40'));
@@ -55,6 +65,16 @@ class ResultLotteryComponent extends Component {
                 this.refreshFromServer10s();
             }
         },10000);
+
+        //LOAD MUSIC
+        song = new SoundPlayer('tin_nhan_moi.mp3', SoundPlayer.MAIN_BUNDLE, (error) => {
+            if (error) {
+              alert('failed to load the sound')
+            return;
+            }
+            // loaded successfully
+            // console.log('duration in seconds: ' + whoosh.getDuration() + 'number of channels: ' + whoosh.getNumberOfChannels());
+        });
     }
 
     shouldComponentUpdate(){
@@ -122,6 +142,12 @@ class ResultLotteryComponent extends Component {
             var dataLotteProvinces_ = data_;
             console.log("API TRA VE KET QUA TU REQUEST SERVER 10s: " + JSON.stringify(dataLotteProvinces_));
             if(dataLotteProvinces_.length > 0){ //Đã có kết quả quay trực tiếp
+                if(checkResultLotteryNew !== JSON.stringify(data_)){
+                    checkResultLotteryNew = JSON.stringify(data_);
+                    this.onPlaySound();
+                    this.onPlayVibrate();   
+                }
+                
                 var d = formatDataLotteryToKeyValue(this.props.dataLottery, dataLotteProvinces_);  
                 // var dataDoSo = createArrResultDoSo(data);     
                 //CAP NHAT DU LIEU CHO STORE
@@ -131,6 +157,22 @@ class ResultLotteryComponent extends Component {
         }).catch((error) =>{
 
         });
+    }
+
+    // HAM PLAY MUSIC
+    onPlaySound(){
+        if(song != null){
+            song.play((success)=>{
+                if(!success) alert('play error');
+            })
+        }
+    }
+
+    //HAM VIBRATE
+    onPlayVibrate(){
+        const DURATION = 1000
+        const PATTERN = [1000, 2000, 3000]
+        Vibration.vibrate(DURATION);
     }
  }
 

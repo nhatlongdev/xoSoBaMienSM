@@ -7,15 +7,22 @@ import {
  } from 'react-native';
  import ItemSoMo from './ItemSoMo';
 
- //REDUX
- import { connect } from 'react-redux';
- 
- class FlatListSoMoComponent extends Component {
+ export default class FlatListSoMoComponent extends Component {
+
+    constructor(props){
+        super(props);
+
+    }
+
      render() {
          return (
              <View style={styles.container}>
                 <FlatList
                     style={{marginHorizontal: 5,marginBottom: 5,}}
+                    onEndReachedThreshold = {0.1}
+                    onEndReached = {() => {
+                    this.on_EndReached()
+                    }}
                     data={this.props.data}
                     renderItem = {({item, index})=>{
                         return(
@@ -30,15 +37,17 @@ import {
              </View>
          );
      }
- }
 
- function mapStateToProps(state){
-     return{
-        isSearchSoMo: state.isSearchSoMo
-     }
+     on_EndReached() {
+        // this.setState({
+        //   loading: true
+        // })
+        // console.log('onreach', this.state.loading)
+        // page = page + 10
+        // this.getAPI(0,page)
+        alert('red')
+      }
  }
-
- export default connect(mapStateToProps)(FlatListSoMoComponent);
 
  const styles = StyleSheet.create({
      container:{

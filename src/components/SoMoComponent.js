@@ -7,23 +7,28 @@ import {
     Image,
     BackHandler,
     TextInput,
+    FlatList,
+    ActivityIndicator
  } from 'react-native';
  import somo from '../data/somo';
  import ItemSoMo from './ItemSoMo';
- import FlatlistSoMoComponent from './FlatListSoMoComponent';
+ var dataSearch;
+ var page;
+ var checkStop;
 
- //REDUX
- import { connect } from 'react-redux';
- import { searchSoMo } from '../redux/actionCreators';
-
-class SoMoComponent extends Component {
+ export default class SoMoComponent extends Component {
 
     constructor(props){
         super(props);
-        dataSearch = JSON.parse(JSON.stringify(somo));
+        checkStop = false;
+        dataSearch = [];
+        page = -1;
+        dataSource = JSON.parse(JSON.stringify(somo));
+        this.addData(0, dataSource);
         this.state={
             content_search:'',
             dataSearch: dataSearch,
+            loading:false
         }
         this.handleBackButtonClick = this.handleBackButtonClick.bind(this);
     }
@@ -39,6 +44,14 @@ class SoMoComponent extends Component {
     handleBackButtonClick() {
         this.props.navigation.goBack(null);
         return true;
+    }
+
+    shouldComponentUpdate(){
+        return true;
+    }
+
+    componentWillUpdate(){
+       
     }
 
      render() {
@@ -87,10 +100,58 @@ class SoMoComponent extends Component {
                     </View>:null
                 }
                 
-                <FlatlistSoMoComponent data={this.state.dataSearch}/>
+                <FlatList
+                    style={{marginHorizontal: 5,marginBottom: 5,}}
+                    onEndReachedThreshold = {0.1}
+                    onEndReached = {() => {
+                    this.on_EndReached()
+                    }}
+                    data={this.state.dataSearch}
+                    renderItem = {({item, index})=>{
+                        return(
+                        <ItemSoMo
+                                item={item} index={index}
+                        />         
+                        );
+                    }}
+                    keyExtractor={(item, index)=> item.toString()}
+                >
+                </FlatList>
+                {
+                    this.state.loading?
+                    <View style={{flex:0.2,marginBottom:10}}>
+                        <ActivityIndicator size="small" color="red" />
+                    </View>:null
+                }    
                
              </View>
          );
+     }
+
+
+     on_EndReached() {
+        if(dataSource.length > 30){
+            this.setState({
+                loading:true
+            })
+        } 
+        var that = this;
+        setTimeout(function(){
+            that.addData(page, dataSource);
+            that.setState({
+                loading:false,
+            })
+        }, 3000);
+      }
+
+     //HAM LOAD MORE DATA
+     addData(index, data){
+        for(let i=index; i<=index + 30; i++){
+            if(data[i] !== undefined && data[i] !== null){
+                dataSearch.push(data[i]);
+                page = page + 1;
+            }
+        }
      }
 
         //Sử dụng reg để kiểm tra chuỗi ký tự nhập vào có hợp lệ ko
@@ -104,14 +165,19 @@ class SoMoComponent extends Component {
 
     //set data full khi nguoi dung ko nhap gi ma nhan tim kiem
     refreshAllData(){
+        // alert('vao day')
+        page = -1;
+        dataSearch=[];
+        dataSource = JSON.parse(JSON.stringify(somo));
+        this.addData(0, dataSource);
         this.setState({
-            dataSearch:somo,
+            dataSearch:dataSearch,
         })
-        this.props.searchSoMo();
     }
    
     //Hàm tìm kiếm dữ liệu
     searchData(str){
+        var soMoTam = JSON.parse(JSON.stringify(somo));
         var arr_str = str.split(' ');
         var arr_str_new = arr_str.filter((e) => {
             return e !== '';
@@ -119,10 +185,10 @@ class SoMoComponent extends Component {
         dataSearch = [];
         var dataTam = [];
         if(arr_str_new.length >0){
-            for(let i = 0; i< somo.length; i++){
+            for(let i = 0; i< soMoTam.length; i++){
                 var sum = 0;
-                var arr_title = somo[i].title.split(' ');
-                var arr_khong_dau = somo[i].khongDau.split(' ');
+                var arr_title = soMoTam[i].title.split(' ');
+                var arr_khong_dau = soMoTam[i].khongDau.split(' ');
                 for(let j=0; j<arr_title.length; j++){
                     for(let a =0; a<arr_str_new.length; a++){
                         if(arr_title[j].toLowerCase()=== arr_str_new[a].toLowerCase()){
@@ -147,8 +213,8 @@ class SoMoComponent extends Component {
                     }    
                 }
                 if(sum >0){
-                    somo[i].priority = sum;
-                    dataTam.push(somo[i]);
+                    soMoTam[i].priority = sum;
+                    dataTam.push(soMoTam[i]);
                 }  
             }    
         }
@@ -161,21 +227,19 @@ class SoMoComponent extends Component {
             var dataTam__ = dataTam_.reverse();
 
             var _ = require('underscore');	
-            dataSearch = _.uniq(dataTam__);
+            dataSource = _.uniq(dataTam__);
+        }
+        if(dataSource.length === 0){
+            dataSearch = [];
+            alert('Không tìm thấy dữ liệu trùng với giấc mơ của bạn, vui lòng nhập nội dung khác')
+        }else {
+            this.addData(0, dataSource);
         }
         this.setState({
-            dataSearch: dataSearch,
+            dataSearch:dataSearch,
         })
-        console.log('SEARCH: ' + JSON.stringify(dataSearch))
-        if(dataSearch.length === 0){
-            alert('Không tìm thấy dữ liệu trùng với giấc mơ của bạn, vui lòng nhập nội dung khác')
-        }
-
-        this.props.searchSoMo();
     }
  }
-
- export default connect(null,{searchSoMo})(SoMoComponent);
 
  const styles = StyleSheet.create({
      container:{
