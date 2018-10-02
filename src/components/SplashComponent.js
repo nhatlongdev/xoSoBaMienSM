@@ -15,15 +15,54 @@ import {
  //REDUX
  import { connect } from 'react-redux';
  import {addResultLottery, addResultDoSo, selectRegion} from '../redux/actionCreators';
- 
+
+ //REALM DATABASE
+ const Realm = require('realm');
+ let realm;
+ var obj;
+
  class SplashComponent extends Component {
+
+    constructor(props){
+        super(props);
+        realm = new Realm({
+            schema: [{
+              name: 'Global_cake',
+              properties:
+              {
+                emp_id: { type: 'int', default: 0 },
+                data_lottery: 'string',
+                region_value: 'string',
+                data_products: 'string',
+              }
+            }]
+          });
+          obj = realm.objects('Global_cake');
+          if(obj.length === 0){
+            //khoi tao cake
+            realm.write(() => {
+                var ID = realm.objects('Global_cake').length + 1;
+                realm.create('Global_cake', {
+                emp_id: ID,
+                data_lottery: '',
+                region_value: '',
+                data_products: '',
+                });
+            }); 
+            obj = realm.objects('Global_cake');  
+          }       
+    }
 
     componentWillMount(){
         //add event listener status connect net
         NetInfo.addEventListener('connectionChange', this.handler.bind(this));
     }
 
-     render() {
+    componentDidMount(){
+        
+    }
+
+     render() {     
          return (
              <View style={styles.container}>
                 <Image
@@ -141,8 +180,6 @@ import {
     //LOAD DATA LOTTERY TO SERVER
     getDataLotteryToServer(){
         getDataLottery().then((data)=>{
-            //SAVE DATA LOTTERY, DATA THONG KE TO CAKE
-            this.saveDataLottery(JSON.stringify(data)); 
             //CONVERT DATA TO FORMAT KEY_VALUE
             var d_ = {};
             var d = formatDataLotteryToKeyValue(d_, data);  
@@ -152,22 +189,24 @@ import {
             this.props.addResultLottery(d);
             this.props.addResultDoSo(dataDoSo);
             //kiểm tra xem giá trị vùng miền được chọn, nếu giá trị khác null thì app đã từng đăng nhập
-            this.getRegionSelected().then((value)=>{
-                if(value === null){ 
-                    //Chưa đăng nhập lần nào
+             //lay duoc du lieu save REALM
+            if(obj.length >0){
+                realm.write(() => {
+                    obj[0].data_lottery = JSON.stringify(data);
+                  })
+                if(obj[0].region_value === ''){
+                    //lam dau dang nhap
                     //GOI LENH VAO MAN HOME
-                    this.props.navigation.replace('HomeComponent');
+                    this.props.navigation.replace('HomeComponent');   
                 }else {
                     //Đã từng đăng nhập vào thẳng màn kết quả
-                    if(value === '1' || value === '2' || value === '3'){
+                    if(obj[0].region_value === '1' || obj[0].region_value === '2' || obj[0].region_value === '3'){
                         //GOI LENH VAO MAN KET QUA
-                        this.props.selectRegion(value);
+                        this.props.selectRegion(obj[0].region_value);
                         this.props.navigation.replace('ResultLotteryComponent');
                     }
-                }
-            }).catch((error)=>{
-                console.log(error)
-            });
+                }  
+            }
         }).catch((error)=>{
             console.log(error)
         });
@@ -176,8 +215,12 @@ import {
     //LOAD DS GOI DV TU SERVER
     getListProductToServer(){
         apiGetListProducts().then((data)=>{
-            //lay duoc du lieu save cake
-            this.saveListProduct(JSON.stringify(data));
+            //lay duoc du lieu save REALM
+            if(obj.length >0){
+                realm.write(() => {
+                    obj[0].data_products = JSON.stringify(data);
+                  })
+            }
             //goi api lay data lottery
             this.getDataLotteryToServer();
         }).catch((error)=>{

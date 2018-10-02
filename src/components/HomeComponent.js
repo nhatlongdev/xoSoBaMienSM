@@ -12,7 +12,29 @@ import {
 import { connect } from 'react-redux';
 import { selectRegion } from '../redux/actionCreators';
 
+//REALM DATABASE
+const Realm = require('realm');
+let realm;
+var obj;
+
  class HomeComponent extends Component {
+
+    constructor(props){
+        super(props);
+        realm = new Realm({
+            schema: [{
+              name: 'Global_cake',
+              properties:
+              {
+                emp_id: { type: 'int', default: 0 },
+                data_lottery: 'string',
+                region_value: 'string',
+                data_products: 'string',
+              }
+            }]
+          });
+        obj = realm.objects('Global_cake');
+    }
 
      render() {
          return (
@@ -63,18 +85,13 @@ import { selectRegion } from '../redux/actionCreators';
         clickRegion(value_region){
             //Chuyển sang màn xem kết quả
             this.props.selectRegion(value_region);
-            //save async 
-            this.saveRegionSelected(value_region);
-            this.props.navigation.replace('ResultLotteryComponent');
-        }
-
-     //FUNCTION SAVE CAKE REGION SELECTED (AsyncStorage) 
-        async saveRegionSelected(value) {
-            try {
-            await AsyncStorage.setItem('key_region_selected',value);
-            } catch (error) {
-            console.log("Error saving data" + error);
+            //save region to REALM DATABASE
+            if(obj.length>0){
+                realm.write(() => {
+                    obj[0].region_value = value_region;
+                })
             }
+            this.props.navigation.replace('ResultLotteryComponent');
         }
  }
 
