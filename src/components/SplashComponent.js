@@ -4,22 +4,20 @@ import {
     Text,
     StyleSheet,
     NetInfo,
-    AsyncStorage,
     Image
  } from 'react-native';
- import dataInAppPurchase from '../data/ListProductInAppPurchase';
+ //API LAY DATA
  import {getDataLottery, apiGetListProducts} from '../network/Server';
+ //FORMAT DATA LOTTERY
  import {formatDataLotteryToKeyValue} from '../functions/ConvertDataLotteryToKeyValue';
  import {createArrResultDoSo} from '../functions/CreateArrResultDoSo';
-
  //REDUX
  import { connect } from 'react-redux';
  import {addResultLottery, addResultDoSo, selectRegion} from '../redux/actionCreators';
-
  //REALM DATABASE
  const Realm = require('realm');
  let realm;
- var obj;
+ var obj_data_cake;
 
  class SplashComponent extends Component {
 
@@ -37,8 +35,8 @@ import {
               }
             }]
           });
-          obj = realm.objects('Global_cake');
-          if(obj.length === 0){
+          obj_data_cake = realm.objects('Global_cake');
+          if(obj_data_cake.length === 0){
             //khoi tao cake
             realm.write(() => {
                 var ID = realm.objects('Global_cake').length + 1;
@@ -49,7 +47,7 @@ import {
                 data_products: '',
                 });
             }); 
-            obj = realm.objects('Global_cake');  
+            obj_data_cake = realm.objects('Global_cake');  
           }       
     }
 
@@ -190,21 +188,19 @@ import {
             this.props.addResultDoSo(dataDoSo);
             //kiểm tra xem giá trị vùng miền được chọn, nếu giá trị khác null thì app đã từng đăng nhập
              //lay duoc du lieu save REALM
-            if(obj.length >0){
+            if(obj_data_cake.length >0){
                 realm.write(() => {
-                    obj[0].data_lottery = JSON.stringify(data);
-                  })
-                if(obj[0].region_value === ''){
+                    obj_data_cake[0].data_lottery = JSON.stringify(data);
+                })
+                if(obj_data_cake[0].region_value === ''){
                     //lam dau dang nhap
                     //GOI LENH VAO MAN HOME
                     this.props.navigation.replace('HomeComponent');   
                 }else {
                     //Đã từng đăng nhập vào thẳng màn kết quả
-                    if(obj[0].region_value === '1' || obj[0].region_value === '2' || obj[0].region_value === '3'){
-                        //GOI LENH VAO MAN KET QUA
-                        this.props.selectRegion(obj[0].region_value);
-                        this.props.navigation.replace('ResultLotteryComponent');
-                    }
+                    //GOI LENH VAO MAN KET QUA
+                    this.props.selectRegion(obj_data_cake[0].region_value);
+                    this.props.navigation.replace('ResultLotteryComponent');
                 }  
             }
         }).catch((error)=>{
@@ -216,9 +212,9 @@ import {
     getListProductToServer(){
         apiGetListProducts().then((data)=>{
             //lay duoc du lieu save REALM
-            if(obj.length >0){
+            if(obj_data_cake.length >0){
                 realm.write(() => {
-                    obj[0].data_products = JSON.stringify(data);
+                    obj_data_cake[0].data_products = JSON.stringify(data);
                   })
             }
             //goi api lay data lottery
