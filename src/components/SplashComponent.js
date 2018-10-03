@@ -14,6 +14,9 @@ import {
  //REDUX
  import { connect } from 'react-redux';
  import {addResultLottery, addResultDoSo, selectRegion} from '../redux/actionCreators';
+ //import data lott default
+ import data_lottery_default from '../data/data_lottery_default';
+
  //REALM DATABASE
  const Realm = require('realm');
  let realm;
@@ -80,7 +83,36 @@ import {
         }else {
             //TH KO CO MANG kiem tra cake(neu co lay cake ra su dung)
             alert('Để cập nhật kết quả mới nhất, vui lòng kiểm tra kết nối mạng!')
-            this.getListProduct();
+            if(obj_data_cake[0].data_lottery === ''){
+                realm.write(() => {
+                    obj_data_cake[0].data_lottery = JSON.stringify(data_lottery_default.bodyitems);
+                })
+            }
+            
+            //CONVERT DATA TO FORMAT KEY_VALUE
+            var d_ = {};
+            var d = formatDataLotteryToKeyValue(d_, JSON.parse(obj_data_cake[0].data_lottery));  
+            var dataDoSo = createArrResultDoSo(JSON.parse(obj_data_cake[0].data_lottery));
+    
+            //CAP NHAT DU LIEU CHO STORE
+            this.props.addResultLottery(d);
+            this.props.addResultDoSo(dataDoSo);
+
+            //kiểm tra xem giá trị vùng miền được chọn, nếu giá trị khác null thì app đã từng đăng nhập
+             //lay duoc du lieu save REALM
+             if(obj_data_cake.length >0){
+                if(obj_data_cake[0].region_value === ''){
+                    //lam dau dang nhap
+                    //GOI LENH VAO MAN HOME
+                    this.props.navigation.replace('HomeComponent');   
+                }else {
+                    //Đã từng đăng nhập vào thẳng màn kết quả
+                    //GOI LENH VAO MAN KET QUA
+                        this.props.selectRegion(obj_data_cake[0].region_value);
+                        this.props.navigation.replace('ResultLotteryComponent');
+                }  
+            }
+
         }    
      }
 
@@ -199,8 +231,8 @@ import {
                 }else {
                     //Đã từng đăng nhập vào thẳng màn kết quả
                     //GOI LENH VAO MAN KET QUA
-                    this.props.selectRegion(obj_data_cake[0].region_value);
-                    this.props.navigation.replace('ResultLotteryComponent');
+                        this.props.selectRegion(obj_data_cake[0].region_value);
+                        this.props.navigation.replace('ResultLotteryComponent');
                 }  
             }
         }).catch((error)=>{
