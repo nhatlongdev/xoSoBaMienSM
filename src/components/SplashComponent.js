@@ -55,12 +55,12 @@ import {
     }
 
     componentWillMount(){
-        //add event listener status connect net
-        NetInfo.addEventListener('connectionChange', this.handler.bind(this));
+       
     }
 
     componentDidMount(){
-        
+        //add event listener status connect net
+        NetInfo.addEventListener('connectionChange', this.handler.bind(this));
     }
 
      render() {     
