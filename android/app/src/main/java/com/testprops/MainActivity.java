@@ -1,4 +1,4 @@
-package xoso98.com;
+package com.testprops;
 
 import com.facebook.react.ReactActivity;
 
