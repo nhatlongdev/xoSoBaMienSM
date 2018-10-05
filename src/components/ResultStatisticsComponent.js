@@ -6,7 +6,8 @@ import {
     BackHandler,
     TouchableOpacity,
     Image,
-    ScrollView
+    ScrollView,
+    Platform
  } from 'react-native';
  import FlatlistThongKeDauDuoiComponent from './FlatlistThongKeDauDuoiComponent';
  import FlatlistThongKe0099Component from './FlatlistThongKe0099Component';
@@ -38,7 +39,7 @@ class ResultStatisticsComponent extends Component {
      render() {
         const clickButtonStatistics = this.props.clickButtonStatistics;
          return (
-            <View style={styles.container}>
+            <View style={[styles.container,{marginTop:Platform.OS === 'ios'?25:0}]}>
                 <View style = {styles.header_style}>
                     <TouchableOpacity onPress = {()=>
                         this.handleBackButtonClick()

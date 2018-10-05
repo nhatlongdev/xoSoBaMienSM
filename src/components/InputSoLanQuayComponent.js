@@ -19,16 +19,17 @@ import {
 
      render() {
          return (
-             <View >
+             <View style={{height:50, marginBottom:20}}>
                 <Text style={styles.text_title}>Chọn số lần quay:</Text>
                 <TextInput
-                   style={{marginHorizontal:5}}
+                   style={{height:40, borderColor: 'gray', borderWidth: 1, marginHorizontal:5, paddingHorizontal:5}}
                    maxLength = {2}   
                    placeholder={'Số lần quay'}
                    placeholderTextColor = {'grey'}
                    onChangeText = {(text)=>this.updateDataInput(text)}
                    keyboardType='numeric'
-                   value = {this.state.soLanQuay}       
+                   value = {this.state.soLanQuay} 
+                   fontSize={18}      
                 />    
              </View>
          );

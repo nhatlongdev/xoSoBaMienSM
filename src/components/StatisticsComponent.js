@@ -6,7 +6,8 @@ import {
     StyleSheet,
     Image,
     BackHandler,
-    Platform
+    Platform,
+    ScrollView
  } from 'react-native';
  import PickerProvincialComponent from './PickerProvincialComponent';
  import InputSoLanQuayComponent from './InputSoLanQuayComponent';
@@ -56,57 +57,57 @@ class StatisticsComponent extends Component {
                 </View> 
                 <PickerProvincialComponent/>  
                 <InputSoLanQuayComponent/> 
+                <ScrollView>   
+                    <TouchableOpacity style={styles.button_style}
+                        onPress = {()=>this.checkStringInputLegal(GlobalValue.soLanQuay) === 'ok'?this.thongKeDauDuoi():null}
+                    >
+                            <Text style={{flex: 1, textAlign: 'center', color: 'black', fontWeight: 'bold'}}>THỐNG KÊ ĐẦU, ĐUÔI LÔ TÔ</Text>   
+                            <Image
+                                style={{tintColor:'#0000FF'}}
+                                source={require('../images/arrow_next.png')}
+                            />
+                    </TouchableOpacity>
 
-                <TouchableOpacity style={styles.button_style}
-                    onPress = {()=>this.checkStringInputLegal(GlobalValue.soLanQuay) === 'ok'?this.thongKeDauDuoi():null}
-                >
-                        <Text style={{flex: 1, textAlign: 'center', color: 'black', fontWeight: 'bold'}}>THỐNG KÊ ĐẦU, ĐUÔI LÔ TÔ</Text>   
-                        <Image
-                            style={{tintColor:'#0000FF'}}
-                            source={require('../images/arrow_next.png')}
-                        />
-                </TouchableOpacity>
+                    <TouchableOpacity style={styles.button_style}
+                        onPress = {()=>this.checkStringInputLegal(GlobalValue.soLanQuay) === 'ok'?this.thongKeHaiSoCuoi():null}
+                    >
+                            <Text style={{flex: 1, textAlign: 'center', color: 'black', fontWeight: 'bold'}}>THỐNG KÊ TỔNG 2 SỐ CUỐI</Text>   
+                            <Image
+                                style={{tintColor:'#0000FF'}}
+                                source={require('../images/arrow_next.png')}
+                            />
+                    </TouchableOpacity>
 
-                <TouchableOpacity style={styles.button_style}
-                    onPress = {()=>this.checkStringInputLegal(GlobalValue.soLanQuay) === 'ok'?this.thongKeHaiSoCuoi():null}
-                >
-                        <Text style={{flex: 1, textAlign: 'center', color: 'black', fontWeight: 'bold'}}>THỐNG KÊ TỔNG 2 SỐ CUỐI</Text>   
-                        <Image
-                            style={{tintColor:'#0000FF'}}
-                            source={require('../images/arrow_next.png')}
-                        />
-                </TouchableOpacity>
+                    <TouchableOpacity style={styles.button_style}
+                        onPress = {()=>this.checkStringInputLegal(GlobalValue.soLanQuay) === 'ok'?this.thongKe0099():null}             
+                    >
+                            <Text style={{flex: 1, textAlign: 'center', color: 'black', fontWeight: 'bold'}}>THỐNG KÊ 00 - 99</Text>   
+                            <Image
+                                style={{tintColor:'#0000FF'}}
+                                source={require('../images/arrow_next.png')}
+                            />
+                    </TouchableOpacity>
 
-                <TouchableOpacity style={styles.button_style}
-                    onPress = {()=>this.checkStringInputLegal(GlobalValue.soLanQuay) === 'ok'?this.thongKe0099():null}             
-                >
-                        <Text style={{flex: 1, textAlign: 'center', color: 'black', fontWeight: 'bold'}}>THỐNG KÊ 00 - 99</Text>   
-                        <Image
-                            style={{tintColor:'#0000FF'}}
-                            source={require('../images/arrow_next.png')}
-                        />
-                </TouchableOpacity>
+                    <TouchableOpacity style={styles.button_style}
+                        onPress = {()=>this.checkStringInputLegal(GlobalValue.soLanQuay) === 'ok'?this.thongKeCacSoVeNhieu():null}                   
+                    >
+                            <Text style={{flex: 1, textAlign: 'center', color: 'black', fontWeight: 'bold'}}>THỐNG KÊ CÁC SỐ VỀ NHIỀU</Text>   
+                            <Image
+                                style={{tintColor:'#0000FF'}}
+                                source={require('../images/arrow_next.png')}
+                            />
+                    </TouchableOpacity>
 
-                <TouchableOpacity style={styles.button_style}
-                    onPress = {()=>this.checkStringInputLegal(GlobalValue.soLanQuay) === 'ok'?this.thongKeCacSoVeNhieu():null}                   
-                >
-                        <Text style={{flex: 1, textAlign: 'center', color: 'black', fontWeight: 'bold'}}>THỐNG KÊ CÁC SỐ VỀ NHIỀU</Text>   
-                        <Image
-                            style={{tintColor:'#0000FF'}}
-                            source={require('../images/arrow_next.png')}
-                        />
-                </TouchableOpacity>
-
-                <TouchableOpacity style={styles.button_style}
-                    onPress = {()=>this.checkStringInputLegal(GlobalValue.soLanQuay) === 'ok'?this.thongKeCacSoLauRa():null}                   
-                >
-                        <Text style={{flex: 1, textAlign: 'center', color: 'black', fontWeight: 'bold'}}>THỐNG KÊ CÁC SỐ LÂU RA</Text>   
-                        <Image
-                            style={{tintColor:'#0000FF'}}
-                            source={require('../images/arrow_next.png')}
-                        />
-                </TouchableOpacity>
-
+                    <TouchableOpacity style={styles.button_style}
+                        onPress = {()=>this.checkStringInputLegal(GlobalValue.soLanQuay) === 'ok'?this.thongKeCacSoLauRa():null}                   
+                    >
+                            <Text style={{flex: 1, textAlign: 'center', color: 'black', fontWeight: 'bold'}}>THỐNG KÊ CÁC SỐ LÂU RA</Text>   
+                            <Image
+                                style={{tintColor:'#0000FF'}}
+                                source={require('../images/arrow_next.png')}
+                            />
+                    </TouchableOpacity>
+                </ScrollView>      
             </View>
          );
      }
