@@ -458,8 +458,6 @@ import {
         flex:1, 
         textAlign:'center', 
         alignItems: 'center', 
-        borderLeftWidth: 1, 
-        borderLeftColor:'#DDDDDD',
         alignSelf: 'stretch',
         paddingVertical: 5, 
         fontSize:18
