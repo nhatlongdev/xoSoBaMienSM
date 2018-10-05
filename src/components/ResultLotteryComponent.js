@@ -110,10 +110,20 @@ class ResultLotteryComponent extends Component {
                         </TouchableOpacity>*/}
                 </View> 
                 {
-                  this.props.regionSelected === '1'?
-                  <ResultMienBacComponent/>:this.props.regionSelected === '4'?GlobaleValue.codeProvincialSelected === 'MB'?<ResultMienBacComponent/>: <ResultWithDaySelectedComponent/>:
-                  <ResultMienTrungNamComponent/>
+                    Platform.OS === 'ios'?
+                    <ScrollView>
+                    {
+                    this.props.regionSelected === '1'?
+                    <ResultMienBacComponent/>:this.props.regionSelected === '4'?GlobaleValue.codeProvincialSelected === 'MB'?<ResultMienBacComponent/>: <ResultWithDaySelectedComponent/>:
+                    <ResultMienTrungNamComponent/>
+                    }
+                    </ScrollView>:
+                    this.props.regionSelected === '1'?
+                    <ResultMienBacComponent/>:this.props.regionSelected === '4'?GlobaleValue.codeProvincialSelected === 'MB'?<ResultMienBacComponent/>: <ResultWithDaySelectedComponent/>:
+                    <ResultMienTrungNamComponent/>
+                    }
                 }
+                
                         
              </View>
          );
