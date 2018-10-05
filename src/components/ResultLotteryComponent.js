@@ -36,6 +36,11 @@ var dateTimeBatDauQuayMienNam, dateTimeDungQuayMienNam, dateTimeBatDauQuayMienTr
 var SoundPlayer = require('react-native-sound');
 var song;
 
+//REALM DATABASE
+const Realm = require('realm');
+let realm;
+var obj_data_cake;
+
 //BIEN KIEM TRA CO KET QUAR MOI
 var checkResultLotteryNew;
 
@@ -52,6 +57,23 @@ class ResultLotteryComponent extends Component {
         dateTimeDungQuayMienTrung = moment(moment().format('YYYY-MM-DD' + ' 17:40'));
         dateTimeBatDauQuayMienBac = moment(moment().format('YYYY-MM-DD') + ' 18:15'); //.format('YYYY/MM/DD HH:mm:ss')
         dateTimeDungQuayMienBac = moment(moment().format('YYYY-MM-DD' + ' 18:40'));
+
+        //REALM DATABASE
+        realm = new Realm({
+            schema: [{
+              name: 'Global_cake',
+              properties:
+              {
+                emp_id: { type: 'int', default: 0 },
+                data_lottery: 'string',
+                region_value: 'string',
+                data_products: 'string',
+                is_sound:{ type: 'boolean', default: true },
+                is_vibrate:{ type: 'boolean', default: true },
+              }
+            }]
+          });
+          obj_data_cake = realm.objects('Global_cake');
     }
 
     componentWillMount(){
@@ -176,7 +198,7 @@ class ResultLotteryComponent extends Component {
 
     // HAM PLAY MUSIC
     onPlaySound(){
-        if(song != null){
+        if(song != null && obj_data_cake.is_sound === true){
             song.play((success)=>{
                 if(!success) alert('play error');
             })
@@ -185,9 +207,11 @@ class ResultLotteryComponent extends Component {
 
     //HAM VIBRATE
     onPlayVibrate(){
-        const DURATION = 1000
-        const PATTERN = [1000, 2000, 3000]
-        Vibration.vibrate(DURATION);
+        if(obj_data_cake.is_vibrate === true){
+            const DURATION = 1000
+            const PATTERN = [1000, 2000, 3000]
+            Vibration.vibrate(DURATION);
+        }
     }
  }
 

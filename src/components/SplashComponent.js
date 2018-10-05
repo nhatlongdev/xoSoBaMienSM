@@ -17,6 +17,8 @@ import {
  //import data lott default
  import data_lottery_default from '../data/data_lottery_default';
 
+ import GlobalValue from '../data/GlobalValue';
+
  //REALM DATABASE
  const Realm = require('realm');
  let realm;
@@ -35,6 +37,8 @@ import {
                 data_lottery: 'string',
                 region_value: 'string',
                 data_products: 'string',
+                is_sound:{ type: 'boolean', default: true },
+                is_vibrate:{ type: 'boolean', default: true },
               }
             }]
           });
@@ -48,10 +52,15 @@ import {
                 data_lottery: '',
                 region_value: '',
                 data_products: '',
+                is_sound:true,   //0-ko co am thanh, 1- co am thanh
+                is_vibrate:true, //0-ko rung, 1-co rung
                 });
             }); 
             obj_data_cake = realm.objects('Global_cake');  
-          }       
+          }
+          //add vaule sound and vibrate for global
+          GlobalValue.is_sound = obj_data_cake.is_sound;
+          GlobalValue.is_vibrate = obj_data_cake.is_vibrate;
     }
 
     componentWillMount(){
@@ -115,97 +124,6 @@ import {
 
         }    
      }
-
-    //FUNCTION SAVE AND GET CAKE LIST PRODUCT IN APP PURCHARSE (AsyncStorage) 
-    async saveListProduct(value) {
-        try {
-          await AsyncStorage.setItem('key_list_product',value);
-        } catch (error) {
-          console.log("Error saving data" + error);
-        }
-    }
-
-    async getListProduct() {
-        try {
-          const value = await AsyncStorage.getItem('key_list_product');
-            if(value === null){
-                //không có mạng và app cũng chưa đăng nhập lần nào
-                alert('Không tải được dữ liệu, vui lòng kiểm tra kết nối mạng9!')
-            }else{
-                //lấy kết quả xổ số trong cake
-                this.getDataLottery();
-            }
-          return value;
-        } catch (error) {
-          console.log("Error retrieving data" + error);
-        }
-    }
-
-    //FUNCTION SAVE AND GET CAKE DATA LOTTERY (AsyncStorage) 
-    async saveDataLottery(value) {
-        try {
-          await AsyncStorage.setItem('key_data_lottery',value);
-        } catch (error) {
-          console.log("Error saving data" + error);
-        }
-    }
-
-    async getDataLottery() {
-        try {
-          const value = await AsyncStorage.getItem('key_data_lottery');
-          if(value === null){
-              //không có mạng và app cũng chưa đăng nhập lần nào
-              alert('Không tải được dữ liệu, vui lòng kiểm tra kết nối mạng8!')
-          }else {
-             //CONVERT DATA TO FORMAT KEY_VALUE
-                var d_ = {};
-                var d = formatDataLotteryToKeyValue(d_, JSON.parse(value));  
-                var dataDoSo = createArrResultDoSo(JSON.parse(value));  
-            //CAP NHAT DU LIEU CHO STORE
-                this.props.addResultLottery(d);
-                this.props.addResultDoSo(dataDoSo);
-            //kiểm tra xem giá trị vùng miền được chọn, nếu giá trị khác null thì app đã từng đăng nhập
-                this.getRegionSelected().then((value)=>{
-                    if(value === null){ 
-                        //Chưa đăng nhập lần nào
-                        //GOI LENH VAO MAN HOME
-                        this.props.navigation.replace('HomeComponent');
-                    }else {
-                        //Đã từng đăng nhập vào thẳng màn kết quả
-                        if(value === '1' || value === '2' || value === '3'){
-                            //GOI LENH VAO MAN KET QUA
-                            this.props.selectRegion(value);
-                            this.props.navigation.replace('ResultLotteryComponent');
-                        }
-                    }
-                }).catch((error)=>{
-                    console.log(error)
-                });
-          }  
-          return value;
-        } catch (error) {
-          console.log("Error retrieving data" + error);
-        }
-    }
-
-    //FUNCTION SAVE AND GET CAKE REGION SELECTED (AsyncStorage) 
-    async saveRegionSelected(value) {
-        try {
-          await AsyncStorage.setItem('key_region_selected',value);
-        } catch (error) {
-          console.log("Error saving data" + error);
-        }
-    }
-
-    async getRegionSelected() {
-        try {
-          const value = await AsyncStorage.getItem('key_region_selected');
-          return value;
-        } catch (error) {
-          console.log("Error retrieving data" + error);
-        }
-    }
-
 
     //LOAD DATA LOTTERY TO SERVER
     getDataLotteryToServer(){

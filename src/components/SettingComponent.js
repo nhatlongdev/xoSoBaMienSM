@@ -9,20 +9,40 @@ import {
     Switch,
     Platform
  } from 'react-native';
+ import GlobalValue from '../data/GlobalValue';
 
- //REDUX
- import { connect } from 'react-redux';
- //ACTION CREATOR
- import {settingSound, settingVibrate} from '../redux/actionCreators';
+ //REALM DATABASE
+ const Realm = require('realm');
+ let realm;
+ var obj_data_cake;
 
-  class SettingComponent extends Component {
+ export default class SettingComponent extends Component {
 
     constructor(props){
         super(props);
         this.state={
-            toggled_sound: this.props.valueSound,
-            toggled_vibrate: this.props.valueVibrate,
+            toggled_sound: GlobalValue.is_sound,
+            toggled_vibrate: GlobalValue.is_vibrate,
         }
+    
+        //REALM DATABASE
+        realm = new Realm({
+            schema: [{
+              name: 'Global_cake',
+              properties:
+              {
+                emp_id: { type: 'int', default: 0 },
+                data_lottery: 'string',
+                region_value: 'string',
+                data_products: 'string',
+                is_sound:{ type: 'boolean', default: true },
+                is_vibrate:{ type: 'boolean', default: true },
+              }
+            }]
+          });
+        obj_data_cake = realm.objects('Global_cake');
+
+        //Back app
         this.handleBackButtonClick = this.handleBackButtonClick.bind(this);
     }
 
@@ -79,25 +99,23 @@ import {
      //ham xu ly khi co su thay doi setting sound va vibrate
      clickSetting(value, type){
         if(type === 'sound'){
-            this.props.settingSound(value);
+            GlobalValue.is_sound = value;
             this.setState({ toggled_sound: value })
+            //SAVE REALM DATABASE
+            realm.write(() => {
+                obj_data_cake[0].is_sound = GlobalValue.is_sound;
+            })
         }else {
-            this.props.settingVibrate(value);
+            GlobalValue.is_vibrate = value;
             this.setState({ toggled_vibrate: value})
+            //SAVE REALM DATABASE
+            realm.write(() => {
+                obj_data_cake[0].is_vibrate = GlobalValue.is_vibrate;
+            })
         }
         
      }
  }
-
- function mapStateToProps(state){
-     return {
-        valueSound: state.valueSound,
-        valueVibrate: state.valueVibrate,  
-     }
- }
-
- export default connect(mapStateToProps,{settingSound, settingVibrate})(SettingComponent);
-
  const styles = StyleSheet.create({
     container:{
         flex: 1,

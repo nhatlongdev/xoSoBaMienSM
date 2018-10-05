@@ -37,17 +37,3 @@ export function clickButtonStatistics(type){
 export function updateResultLottery(){
     return { type:'UPDATE_LOTTERY' }
 }
-
-//CLICK THAY DOI CAI DAT AM THANH
-export function settingSound(value){
-    return {
-        type: 'SETTING_SOUND', value
-    }
-}
-
-//CLICK THAY DOI CAI DAT RUNG
-export function settingVibrate(value){
-    return{
-        type: 'SETTING_VIBRATE', value
-    }
-}
