@@ -7,7 +7,8 @@ import {
     StyleSheet,
     ScrollView,
     ToastAndroid,
-    Platform
+    Platform,
+    Dimensions
  } from 'react-native';
  import ItemRowDauDuoi from '../components/ItemRowDauDuoi';
  import moment from 'moment';
@@ -23,7 +24,7 @@ import {
 
  //TOAS ANDROID , IOS
  import Toast, {DURATION} from 'react-native-easy-toast'
-
+ var {Windowheight, width} = Dimensions.get('window');
  var date_view;
  var result;
 
@@ -138,16 +139,17 @@ import {
                 onSwipeRight={(state) => this.onSwipeRight(state)}
                 config={config}
                 style={{flex: 1,}}
+                height={Windowheight}
             >
-             <View style={styles.container}>
+                
                 <Text style={[styles.text_title_date,{borderBottomWidth:0}]}>{result.title}</Text>
                 {
                     (result.comment !== null && result.comment !== undefined)? 
                     <Text style={[styles.text_title_date,{padding:0, paddingBottom:2, color:'red', fontWeight:'normal'}]}>{result.comment}</Text>:null
                 }
-                <ScrollView
-                    scrollEnabled={true}
-                >
+                <ScrollView 
+                keyboardDismissMode='interactive'
+                style={{flex:1}}>
                 <View style={styles.row_result}>
                      <Text style={styles.text_db_g1_title}>ĐB</Text>  
                      <View style={[styles.view_text,{flex:6}]}>
@@ -324,48 +326,47 @@ import {
 
                           <ItemRowDauDuoi dau={result.arr_duoi_loto[0]} duoi={'0'} 
                             styleView={styles.row_result} 
-                            styleDau={[styles.dau,{flex:3, fontWeight:'bold', color: 'black' }]} styleDuoi={styles.duoi} flexDuoi={1}/>  
+                            styleDau={[styles.dau,{flex:3, fontWeight:'bold', color: 'black' }]} styleDuoi={[styles.duoi,{color:'grey'}]} flexDuoi={1}/>  
 
                           <ItemRowDauDuoi dau={result.arr_duoi_loto[1]} duoi={'1'} 
                             styleView={[styles.row_result,{backgroundColor:'#EEEEEE'}]} 
-                            styleDau={[styles.dau,{flex:3, fontWeight:'bold', color: 'black' }]} styleDuoi={styles.duoi} flexDuoi={1}/>  
+                            styleDau={[styles.dau,{flex:3, fontWeight:'bold', color: 'black' }]} styleDuoi={[styles.duoi,{color:'grey'}]} flexDuoi={1}/>  
 
                           <ItemRowDauDuoi dau={result.arr_duoi_loto[2]} duoi={'2'} 
                             styleView={styles.row_result} 
-                            styleDau={[styles.dau,{flex:3, fontWeight:'bold', color: 'black' }]} styleDuoi={styles.duoi} flexDuoi={1}/>  
+                            styleDau={[styles.dau,{flex:3, fontWeight:'bold', color: 'black' }]} styleDuoi={[styles.duoi,{color:'grey'}]} flexDuoi={1}/>  
 
                           <ItemRowDauDuoi dau={result.arr_duoi_loto[3]} duoi={'3'} 
                             styleView={[styles.row_result,{backgroundColor:'#EEEEEE'}]} 
-                            styleDau={[styles.dau,{flex:3, fontWeight:'bold', color: 'black' }]} styleDuoi={styles.duoi} flexDuoi={1}/>  
+                            styleDau={[styles.dau,{flex:3, fontWeight:'bold', color: 'black' }]} styleDuoi={[styles.duoi,{color:'grey'}]} flexDuoi={1}/>  
 
                           <ItemRowDauDuoi dau={result.arr_duoi_loto[4]} duoi={'4'} 
                             styleView={styles.row_result} 
-                            styleDau={[styles.dau,{flex:3, fontWeight:'bold', color: 'black' }]} styleDuoi={styles.duoi} flexDuoi={1}/>  
+                            styleDau={[styles.dau,{flex:3, fontWeight:'bold', color: 'black' }]} styleDuoi={[styles.duoi,{color:'grey'}]} flexDuoi={1}/>  
 
                          <ItemRowDauDuoi dau={result.arr_duoi_loto[5]} duoi={'5'} 
                             styleView={[styles.row_result,{backgroundColor:'#EEEEEE'}]} 
-                            styleDau={[styles.dau,{flex:3, fontWeight:'bold', color: 'black' }]} styleDuoi={styles.duoi} flexDuoi={1}/>  
+                            styleDau={[styles.dau,{flex:3, fontWeight:'bold', color: 'black' }]} styleDuoi={[styles.duoi,{color:'grey'}]} flexDuoi={1}/>  
 
                          <ItemRowDauDuoi dau={result.arr_duoi_loto[6]} duoi={'6'} 
                             styleView={styles.row_result} 
-                            styleDau={[styles.dau,{flex:3, fontWeight:'bold', color: 'black' }]} styleDuoi={styles.duoi} flexDuoi={1}/>  
+                            styleDau={[styles.dau,{flex:3, fontWeight:'bold', color: 'black' }]} styleDuoi={[styles.duoi,{color:'grey'}]} flexDuoi={1}/>  
 
                          <ItemRowDauDuoi dau={result.arr_duoi_loto[7]} duoi={'7'} 
                             styleView={[styles.row_result,{backgroundColor:'#EEEEEE'}]} 
-                            styleDau={[styles.dau,{flex:3, fontWeight:'bold', color: 'black' }]} styleDuoi={styles.duoi} flexDuoi={1}/>  
+                            styleDau={[styles.dau,{flex:3, fontWeight:'bold', color: 'black' }]} styleDuoi={[styles.duoi,{color:'grey'}]} flexDuoi={1}/>  
 
                          <ItemRowDauDuoi dau={result.arr_duoi_loto[8]} duoi={'8'} 
                             styleView={styles.row_result} 
-                            styleDau={[styles.dau,{flex:3, fontWeight:'bold', color: 'black' }]} styleDuoi={styles.duoi} flexDuoi={1}/>  
+                            styleDau={[styles.dau,{flex:3, fontWeight:'bold', color: 'black' }]} styleDuoi={[styles.duoi,{color:'grey'}]} flexDuoi={1}/>  
 
                          <ItemRowDauDuoi dau={result.arr_duoi_loto[9]} duoi={'9'} 
                             styleView={[styles.row_result,{backgroundColor:'#EEEEEE'}]} 
-                            styleDau={[styles.dau,{flex:3, fontWeight:'bold', color: 'black' }]} styleDuoi={styles.duoi} flexDuoi={1}/>        
+                            styleDau={[styles.dau,{flex:3, fontWeight:'bold', color: 'black' }]} styleDuoi={[styles.duoi,{color:'grey'}]} flexDuoi={1}/>        
                       </View>  
                 </View>
                 </ScrollView>
-                <Toast ref="toast"/>
-             </View>
+                <Toast ref="toast"/>  
              </GestureRecognizer>
          );
      }
@@ -481,8 +482,6 @@ import {
     duoi:{
         flex:1, 
         textAlign:'center', 
-        borderLeftWidth:1, 
-        borderLeftColor:'#DDDDDD',
         alignSelf: 'stretch',
         paddingVertical: 5, 
         fontSize:16
