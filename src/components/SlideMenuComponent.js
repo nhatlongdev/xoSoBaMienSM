@@ -287,6 +287,7 @@ import {
          textAlign:'center',
          color:'black',
          marginTop: 2,
+         paddingHorizontal: 5,
      },
      touch_style:{
         flex:1, 

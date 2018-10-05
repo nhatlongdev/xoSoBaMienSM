@@ -1,6 +1,7 @@
 import React, { Component } from 'react';
 import { 
-    Dimensions
+    Dimensions,
+    Platform
  } from 'react-native';
   import {
     StackNavigator,

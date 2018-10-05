@@ -62,7 +62,7 @@ import {
 
     componentDidMount(){
         //msg goi y cho nguoi dung
-        this.refs.toast.show('Vuốt màn hình để xem kết quả ngày khác',3000);
+        this.refs.toast.show('Vuốt màn hình để xem kết quả ngày khác',GlobalValue.duration_toast);
     }
 
     //Vuốt màn hình sang trái
@@ -385,7 +385,7 @@ import {
             result = resultTam;
         }else {
             // if ngày vuốt tới mà ko có kết quả thì thông báo và cập nhật date về ngày trước khi vuốt
-            this.refs.toast.show('Chưa có kết quả xổ số cho ngày ' + moment(date_view).format('DD-MM-YYYY'), 3000);
+            this.refs.toast.show('Chưa có kết quả xổ số cho ngày ' + moment(date_view).format('DD-MM-YYYY'), GlobalValue.duration_toast);
             if(action_type === 1){
                 date_view.setDate(date_view.getDate()-1);
             }else {

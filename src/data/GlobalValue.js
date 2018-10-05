@@ -18,6 +18,7 @@ var GlobalValue = {
     objResultDoSo: {},
     dragLottery:'0', //0--click vao moi hoac vao lai, 1 keo phai, -1 keo trai,  2 khong lam gi, -2: khi mới vào màn lần đầu
     listProduct:[],
+    duration_toast:2000,
 }
 
 export default GlobalValue;
