@@ -29,7 +29,8 @@ import {
                    onChangeText = {(text)=>this.updateDataInput(text)}
                    keyboardType='numeric'
                    value = {this.state.soLanQuay} 
-                   fontSize={18}      
+                   fontSize={18}  
+                   underlineColorAndroid='rgba(0,0,0,0)'    
                 />    
              </View>
          );
