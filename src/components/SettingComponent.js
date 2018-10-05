@@ -15,9 +15,6 @@ import {
  //ACTION CREATOR
  import {settingSound, settingVibrate} from '../redux/actionCreators';
 
-//  var Realm = require('realm');
-//  let realm ;
-
   class SettingComponent extends Component {
 
     constructor(props){
@@ -27,16 +24,6 @@ import {
             toggled_vibrate: this.props.valueVibrate,
         }
         this.handleBackButtonClick = this.handleBackButtonClick.bind(this);
-
-        // realm = new Realm({
-        //     schema: [{name: 'User_Demo', 
-        //     properties: 
-        //     {
-        //      id: {type: 'int',   default: 0},
-        //      first_name: 'string', 
-        //      last_name: 'string' 
-        //     }}]
-        //   });
     }
 
     componentWillMount() {
@@ -53,17 +40,6 @@ import {
     }
 
      render() {
-
-        // realm.write(() => {
- 
-        //     var ID = realm.objects('User_Demo').length + 1;
-      
-        //     realm.create('User_Demo', {id: ID, first_name: 'Pooja', last_name: 'Sharma'});
-             
-        //    });
-      
-        //    var A = realm.objects('User_Demo');
-        //    alert(A)
          return (
             <View style={[styles.container,{marginTop:Platform.OS === 'ios'?25:0}]}>
                 <View style = {styles.header_style}>
@@ -81,7 +57,7 @@ import {
                 <View style={{flexDirection:'row', width:'100%', padding:10}}>
                     <Text style={{fontSize:18}}>Âm thanh khi có giải mới</Text>
                     <Switch 
-                        style={{flex:1}}
+                        style={{flex:1, marginLeft:20}}
                         onValueChange={ (value) => this.clickSetting(value, 'sound')} 
                         value={ this.state.toggled_sound }
                     />
@@ -90,7 +66,7 @@ import {
                 <View style={{flexDirection:'row', width:'100%', padding:10}}>
                     <Text style={{fontSize:18}}>Rung khi có giải mới</Text>
                     <Switch 
-                        style={{flex:1}}
+                        style={{flex:1, marginLeft:20}}
                         onValueChange={ (value) => this.clickSetting(value, 'vibrate')} 
                         value={ this.state.toggled_vibrate }
                     />

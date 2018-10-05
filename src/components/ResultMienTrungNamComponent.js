@@ -904,6 +904,7 @@ import {
     row_text_title:{
         flex:0.6, 
         fontWeight:'bold', 
+        color:'grey',
         fontSize:16, 
         textAlign:'center', 
         alignItems:'center',

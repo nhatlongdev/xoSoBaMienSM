@@ -13,8 +13,8 @@ import {
  export default class FlatlistCacSoLauRaComponent extends Component {
      render() {
          return (
-            <SafeAreaView style = {{flex: 1, marginHorizontal: 2, marginTop:Platform.OS === 'ios'?30:0, marginBottom:5}}>
-                <Text style = {{fontSize: 14, fontWeight: 'bold', textAlign: 'center', color: 'black'}}>
+            <SafeAreaView style = {{flex: 1, marginHorizontal: 2,marginBottom:5}}>
+                <Text style = {{fontSize: 14, fontWeight: 'bold', textAlign: 'center', color: 'black', margin:5}}>
                     Thống kê các số lâu ra trong {GlobalValue.soLanQuay} lần quay xổ số {GlobalValue.nameProvincialSelected}
                 </Text>
                 <View style={{flexDirection: 'row', backgroundColor: 'red', borderBottomColor: 'grey', borderBottomWidth: 1, paddingVertical: 2}}>

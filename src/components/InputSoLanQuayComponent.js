@@ -3,7 +3,8 @@ import {
     View,
     Text,
     StyleSheet,
-    TextInput
+    TextInput,
+    Platform
  } from 'react-native';
  import GlobalValue from '../data/GlobalValue';
 
@@ -27,10 +28,11 @@ import {
                    placeholder={'Số lần quay'}
                    placeholderTextColor = {'grey'}
                    onChangeText = {(text)=>this.updateDataInput(text)}
-                   keyboardType='numeric'
+                   keyboardType={Platform.OS === 'ios'?'numbers-and-punctuation':'numeric'}
                    value = {this.state.soLanQuay} 
                    fontSize={18}  
-                   underlineColorAndroid='rgba(0,0,0,0)'    
+                   underlineColorAndroid='rgba(0,0,0,0)' 
+                      
                 />    
              </View>
          );

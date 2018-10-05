@@ -73,11 +73,14 @@ import {
                 <View style = {{padding: 10, marginBottom: 5}}>
                     <Text style={{fontSize: 15, fontWeight: 'bold', color: 'black'}}>Nhập gợi ý tìm kiếm:</Text>
                     <TextInput
+                        style={{height:40, borderColor: 'gray', borderWidth: 1, marginBottom:10, paddingHorizontal:5}}
                         maxLength = {50}   
                         placeholder={'Ví dụ: Rắn hai đầu'}
                         placeholderTextColor = {'grey'}
                         onChangeText = {(text)=>this.setState({content_search: text})}
-                        value={this.state.content_search}    
+                        value={this.state.content_search} 
+                        fontSize={18}  
+                        underlineColorAndroid='rgba(0,0,0,0)'   
                     />
                     <TouchableOpacity style={{flexDirection: 'row', alignItems: 'center',borderRadius: 2, backgroundColor: '#CCCCCC', height: 50,padding: 5}}
                                 onPress = {()=>this.state.content_search.length !== 0? 
@@ -86,7 +89,8 @@ import {
                     >
                          <Text style={{flex: 1, textAlign: 'center', color: 'black', fontWeight: 'bold'}}>TÌM KIẾM</Text>   
                         <Image
-                        source = {require('../images/right_arrow31.png')}
+                        style={{tintColor:'#0000FF'}}
+                        source = {require('../images/arrow_next.png')}
                         />
                     </TouchableOpacity>
                 </View>  
