@@ -89,7 +89,8 @@ import {
                     >
                          <Text style={{flex: 1, textAlign: 'center', color: 'black', fontWeight: 'bold'}}>TÌM KIẾM</Text>   
                         <Image
-                        source = {require('../images/right_arrow31.png')}
+                        style={{tintColor:'#0000FF'}}
+                        source = {require('../images/arrow_next.png')}
                         />
                     </TouchableOpacity>
                 </View>  
