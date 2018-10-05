@@ -322,47 +322,47 @@ import {
                       <View style={{flex:1, marginRight:5}}>
                           <ItemRowDauDuoi dau={'Đầu'} duoi={'Đuôi'} 
                             styleView={[styles.row_result,{borderTopWidth:1, borderTopColor:'#DDDDDD', backgroundColor:'#EEEEEE'}]} 
-                            styleDau={[styles.dau,{flex:3, fontWeight:'bold', color: 'black'}]} styleDuoi={[styles.duoi,{fontWeight:'bold'}]} flexDuoi={1}/>  
+                            styleDau={[styles.dau,{flex:3, fontWeight:'bold', color: 'grey'}]} styleDuoi={[styles.duoi,{fontWeight:'bold'}]} flexDuoi={1}/>  
 
                           <ItemRowDauDuoi dau={result.arr_duoi_loto[0]} duoi={'0'} 
                             styleView={styles.row_result} 
-                            styleDau={[styles.dau,{flex:3, fontWeight:'bold', color: 'black' }]} styleDuoi={[styles.duoi,{color:'grey'}]} flexDuoi={1}/>  
+                            styleDau={[styles.dau,{flex:3, fontWeight:'bold', color: 'grey' }]} styleDuoi={[styles.duoi,{color:'grey'}]} flexDuoi={1}/>  
 
                           <ItemRowDauDuoi dau={result.arr_duoi_loto[1]} duoi={'1'} 
                             styleView={[styles.row_result,{backgroundColor:'#EEEEEE'}]} 
-                            styleDau={[styles.dau,{flex:3, fontWeight:'bold', color: 'black' }]} styleDuoi={[styles.duoi,{color:'grey'}]} flexDuoi={1}/>  
+                            styleDau={[styles.dau,{flex:3, fontWeight:'bold', color: 'grey' }]} styleDuoi={[styles.duoi,{color:'grey'}]} flexDuoi={1}/>  
 
                           <ItemRowDauDuoi dau={result.arr_duoi_loto[2]} duoi={'2'} 
                             styleView={styles.row_result} 
-                            styleDau={[styles.dau,{flex:3, fontWeight:'bold', color: 'black' }]} styleDuoi={[styles.duoi,{color:'grey'}]} flexDuoi={1}/>  
+                            styleDau={[styles.dau,{flex:3, fontWeight:'bold', color: 'grey' }]} styleDuoi={[styles.duoi,{color:'grey'}]} flexDuoi={1}/>  
 
                           <ItemRowDauDuoi dau={result.arr_duoi_loto[3]} duoi={'3'} 
                             styleView={[styles.row_result,{backgroundColor:'#EEEEEE'}]} 
-                            styleDau={[styles.dau,{flex:3, fontWeight:'bold', color: 'black' }]} styleDuoi={[styles.duoi,{color:'grey'}]} flexDuoi={1}/>  
+                            styleDau={[styles.dau,{flex:3, fontWeight:'bold', color: 'grey' }]} styleDuoi={[styles.duoi,{color:'grey'}]} flexDuoi={1}/>  
 
                           <ItemRowDauDuoi dau={result.arr_duoi_loto[4]} duoi={'4'} 
                             styleView={styles.row_result} 
-                            styleDau={[styles.dau,{flex:3, fontWeight:'bold', color: 'black' }]} styleDuoi={[styles.duoi,{color:'grey'}]} flexDuoi={1}/>  
+                            styleDau={[styles.dau,{flex:3, fontWeight:'bold', color: 'grey' }]} styleDuoi={[styles.duoi,{color:'grey'}]} flexDuoi={1}/>  
 
                          <ItemRowDauDuoi dau={result.arr_duoi_loto[5]} duoi={'5'} 
                             styleView={[styles.row_result,{backgroundColor:'#EEEEEE'}]} 
-                            styleDau={[styles.dau,{flex:3, fontWeight:'bold', color: 'black' }]} styleDuoi={[styles.duoi,{color:'grey'}]} flexDuoi={1}/>  
+                            styleDau={[styles.dau,{flex:3, fontWeight:'bold', color: 'grey' }]} styleDuoi={[styles.duoi,{color:'grey'}]} flexDuoi={1}/>  
 
                          <ItemRowDauDuoi dau={result.arr_duoi_loto[6]} duoi={'6'} 
                             styleView={styles.row_result} 
-                            styleDau={[styles.dau,{flex:3, fontWeight:'bold', color: 'black' }]} styleDuoi={[styles.duoi,{color:'grey'}]} flexDuoi={1}/>  
+                            styleDau={[styles.dau,{flex:3, fontWeight:'bold', color: 'grey' }]} styleDuoi={[styles.duoi,{color:'grey'}]} flexDuoi={1}/>  
 
                          <ItemRowDauDuoi dau={result.arr_duoi_loto[7]} duoi={'7'} 
                             styleView={[styles.row_result,{backgroundColor:'#EEEEEE'}]} 
-                            styleDau={[styles.dau,{flex:3, fontWeight:'bold', color: 'black' }]} styleDuoi={[styles.duoi,{color:'grey'}]} flexDuoi={1}/>  
+                            styleDau={[styles.dau,{flex:3, fontWeight:'bold', color: 'grey' }]} styleDuoi={[styles.duoi,{color:'grey'}]} flexDuoi={1}/>  
 
                          <ItemRowDauDuoi dau={result.arr_duoi_loto[8]} duoi={'8'} 
                             styleView={styles.row_result} 
-                            styleDau={[styles.dau,{flex:3, fontWeight:'bold', color: 'black' }]} styleDuoi={[styles.duoi,{color:'grey'}]} flexDuoi={1}/>  
+                            styleDau={[styles.dau,{flex:3, fontWeight:'bold', color: 'grey' }]} styleDuoi={[styles.duoi,{color:'grey'}]} flexDuoi={1}/>  
 
                          <ItemRowDauDuoi dau={result.arr_duoi_loto[9]} duoi={'9'} 
                             styleView={[styles.row_result,{backgroundColor:'#EEEEEE'}]} 
-                            styleDau={[styles.dau,{flex:3, fontWeight:'bold', color: 'black' }]} styleDuoi={[styles.duoi,{color:'grey'}]} flexDuoi={1}/>        
+                            styleDau={[styles.dau,{flex:3, fontWeight:'bold', color: 'grey' }]} styleDuoi={[styles.duoi,{color:'grey'}]} flexDuoi={1}/>        
                       </View>  
                 </View>
                 </ScrollView>

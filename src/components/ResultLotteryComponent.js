@@ -109,24 +109,29 @@ class ResultLotteryComponent extends Component {
                             />
                         </TouchableOpacity>*/}
                 </View> 
-                {
-                    Platform.OS === 'ios'?
-                    <ScrollView>
+                {this.setView()}
+             </View>
+         );
+     }
+
+     //HAM SET VIEW
+     setView(){
+         if(Platform.OS === 'ios'){
+            return (
+                <ScrollView>
                     {
                     this.props.regionSelected === '1'?
                     <ResultMienBacComponent/>:this.props.regionSelected === '4'?GlobaleValue.codeProvincialSelected === 'MB'?<ResultMienBacComponent/>: <ResultWithDaySelectedComponent/>:
                     <ResultMienTrungNamComponent/>
                     }
-                    </ScrollView>:
-                    this.props.regionSelected === '1'?
-                    <ResultMienBacComponent/>:this.props.regionSelected === '4'?GlobaleValue.codeProvincialSelected === 'MB'?<ResultMienBacComponent/>: <ResultWithDaySelectedComponent/>:
-                    <ResultMienTrungNamComponent/>
-                    }
-                }
-                
-                        
-             </View>
-         );
+                </ScrollView>
+            )
+         }else {
+             if(this.props.regionSelected === '1') return (<ResultMienBacComponent/>);
+             if(this.props.regionSelected === '4' && GlobaleValue.codeProvincialSelected === 'MB') return (<ResultMienBacComponent/>); 
+             if(this.props.regionSelected === '4' && GlobaleValue.codeProvincialSelected !== 'MB') return (<ResultWithDaySelectedComponent/>); 
+             return (<ResultMienTrungNamComponent/>);
+         }
      }
 
      //SET TITLE WITH DOMAIN SELECTED
