@@ -6,7 +6,8 @@ import {
     TouchableOpacity,
     Image,
     BackHandler,
-    ScrollView
+    ScrollView,
+    Platform
  } from 'react-native';
  import PickerProvincialComponent from './PickerProvincialComponent';
  import InputSoLanQuayComponent from './InputSoLanQuayComponent';
@@ -52,7 +53,7 @@ import {
 
      render() {
          return (
-            <View style={styles.container}>
+            <View style={[styles.container,{marginTop:Platform.OS === 'ios'?25:0}]}>
                 <View style = {styles.header_style}>
                     <TouchableOpacity onPress = {()=>
                         this.handleBackButtonClick()

@@ -8,7 +8,8 @@ import {
     BackHandler,
     TextInput,
     FlatList,
-    ActivityIndicator
+    ActivityIndicator,
+    Platform
  } from 'react-native';
  import somo from '../data/somo';
  import ItemSoMo from './ItemSoMo';
@@ -56,7 +57,7 @@ import {
 
      render() {
          return (
-             <View style={styles.container}>
+             <View style={[styles.container,{marginTop:Platform.OS === 'ios'?25:0}]}>
                 <View style = {styles.header_style}>
                     <TouchableOpacity onPress = {()=>
                         this.handleBackButtonClick()

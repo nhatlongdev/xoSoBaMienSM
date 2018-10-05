@@ -3,11 +3,11 @@ import {
     View,
     Text,
     StyleSheet,
-    Platform,
     BackHandler,
     TouchableOpacity,
     Image,
-    Switch
+    Switch,
+    Platform
  } from 'react-native';
 
  //REDUX
@@ -65,7 +65,7 @@ import {
         //    var A = realm.objects('User_Demo');
         //    alert(A)
          return (
-            <View style={styles.container}>
+            <View style={[styles.container,{marginTop:Platform.OS === 'ios'?25:0}]}>
                 <View style = {styles.header_style}>
                     <TouchableOpacity onPress = {()=>
                         this.handleBackButtonClick()

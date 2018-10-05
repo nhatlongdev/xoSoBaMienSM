@@ -6,6 +6,7 @@ import {
     TouchableOpacity,
     Image,
     BackHandler,
+    Platform
  } from 'react-native';
 import PickerProvincialComponent from './PickerProvincialComponent';
 import GlobalValue from '../data/GlobalValue';
@@ -48,7 +49,7 @@ class ResultWithDayComponent extends Component {
      render() {
          const {dataLottery} = this.props;
          return (
-             <View style={styles.container}>
+            <View style={[styles.container,{marginTop:Platform.OS === 'ios'?25:0}]}>
                 <View style = {styles.header_style}>
                     <TouchableOpacity onPress = {()=>
                         this.handleBackButtonClick()

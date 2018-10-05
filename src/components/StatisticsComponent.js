@@ -6,6 +6,7 @@ import {
     StyleSheet,
     Image,
     BackHandler,
+    Platform
  } from 'react-native';
  import PickerProvincialComponent from './PickerProvincialComponent';
  import InputSoLanQuayComponent from './InputSoLanQuayComponent';
@@ -41,7 +42,7 @@ class StatisticsComponent extends Component {
 
      render() {
          return (
-            <View style={styles.container}>
+            <View style={[styles.container,{marginTop:Platform.OS === 'ios'?25:0}]}>
                 <View style = {styles.header_style}>
                     <TouchableOpacity onPress = {()=>
                         this.handleBackButtonClick()
