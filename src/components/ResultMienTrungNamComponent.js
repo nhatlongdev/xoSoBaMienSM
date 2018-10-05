@@ -4,7 +4,6 @@ import {
     Text,
     StyleSheet,
     ScrollView,
-    ToastAndroid
  } from 'react-native';
  //Lấy ds kết quả các tỉnh quay của miền trung hoặc nam
  import {getListItemWithDate} from '../functions/GetItemWithDate';
@@ -16,6 +15,9 @@ import {
 
  //LIBRARY VUỐT MÀN HÌNH TRÁI PHẢI
  import GestureRecognizer, {swipeDirections} from 'react-native-swipe-gestures';
+
+ //TOAS ANDROID , IOS
+ import Toast, {DURATION} from 'react-native-easy-toast'
 
  var date_view;
  var arr_result_lottery;
@@ -40,13 +42,15 @@ import {
         if(arr_result_lottery.length === 0){
             console.log('chay toi day roi 1')
             arr_result_lottery = getListItemWithDate(date_view, regionSelected, dataLottery, -1);
-        }
-        ToastAndroid.show('Vuốt màn hình để xem kết quả ngày khác', ToastAndroid.SHORT);
-        
+        }       
     }
 
     componentWillMount(){
         
+    }
+
+    componentDidMount(){
+        this.refs.toast.show('Vuốt màn hình để xem kết quả ngày khác',3000);
     }
 
     shouldComponentUpdate(){
@@ -791,9 +795,9 @@ import {
                 </View>
 
 
-                </ScrollView>
-
+                </ScrollView>         
              </View>
+             <Toast ref="toast"/> 
              </GestureRecognizer>
          );
      }
@@ -832,7 +836,8 @@ import {
            console.log('Data ResultL: ' + arr_result_lottery.length);
         }else {
             // if ngày vuốt tới mà ko có kết quả thì thông báo và cập nhật date về ngày trước khi vuốt
-            ToastAndroid.show('Chưa có kết quả xổ số cho ngày ' + moment(date_view).format('DD-MM-YYYY'), ToastAndroid.SHORT);
+            this.refs.toast.show('Chưa có kết quả xổ số cho ngày ' + moment(date_view).format('DD-MM-YYYY'), 3000);
+            
             if(action_type === 1){
                 date_view.setDate(date_view.getDate()-1);
             }else {

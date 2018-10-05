@@ -6,7 +6,6 @@ import {
     TouchableOpacity,
     StyleSheet,
     ScrollView,
-    ToastAndroid,
     Platform,
     Dimensions
  } from 'react-native';
@@ -17,6 +16,7 @@ import {
  //REDUX
  import { connect } from 'react-redux';
  
+ //FUNCTION GET ITEM LOTTERY WITH DAY
  import { getItemWithDate } from '../functions/GetItemWithDate';
  import { getKeyItemOneProvincial } from '../functions/GetKeyItemProvincial';
  //LIBRARY VUỐT MÀN HÌNH TRÁI PHẢI
@@ -24,7 +24,7 @@ import {
 
  //TOAS ANDROID , IOS
  import Toast, {DURATION} from 'react-native-easy-toast'
- var {Windowheight, width} = Dimensions.get('window');
+ 
  var date_view;
  var result;
 
@@ -46,10 +46,6 @@ import {
         }
         //set gia tri dragLottery de khi chay vao render ko xu ly du lieu nua
         GlobalValue.dragLottery = '-2';
-        {
-            Platform.OS === 'android'?ToastAndroid.show('Vuốt màn hình để xem kết quả ngày khác', ToastAndroid.SHORT):
-            null
-        }
     }
 
     componentWillMount(){
@@ -62,6 +58,11 @@ import {
 
     componentWillUpdate(){
         
+    }
+
+    componentDidMount(){
+        //msg goi y cho nguoi dung
+        this.refs.toast.show('Vuốt màn hình để xem kết quả ngày khác',3000);
     }
 
     //Vuốt màn hình sang trái
@@ -139,7 +140,6 @@ import {
                 onSwipeRight={(state) => this.onSwipeRight(state)}
                 config={config}
                 style={{flex: 1,}}
-                height={Windowheight}
             >
                 
                 <Text style={[styles.text_title_date,{borderBottomWidth:0}]}>{result.title}</Text>
@@ -386,7 +386,6 @@ import {
             result = resultTam;
         }else {
             // if ngày vuốt tới mà ko có kết quả thì thông báo và cập nhật date về ngày trước khi vuốt
-            // ToastAndroid.show('Chưa có kết quả xổ số cho ngày ' + moment(date_view).format('DD-MM-YYYY'), ToastAndroid.SHORT);
             this.refs.toast.show('Chưa có kết quả xổ số cho ngày ' + moment(date_view).format('DD-MM-YYYY'), 3000);
             if(action_type === 1){
                 date_view.setDate(date_view.getDate()-1);
