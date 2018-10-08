@@ -198,6 +198,7 @@ class ResultLotteryComponent extends Component {
         var paramsDateCurrent = moment(dateCurrent).format('YYYY-MM-DD');
         getDataFromServerTrucTiep(paramsDateCurrent).then((data_)=>{
             var dataLotteProvinces_ = data_;
+            alert('DATA LOAD: ' + JSON.stringify(data_))
             console.log("API TRA VE KET QUA TU REQUEST SERVER 10s: " + JSON.stringify(dataLotteProvinces_));
             if(dataLotteProvinces_.length > 0){ //Đã có kết quả quay trực tiếp
                 if(checkResultLotteryNew !== JSON.stringify(data_)){
@@ -210,6 +211,7 @@ class ResultLotteryComponent extends Component {
                 //CAP NHAT DU LIEU CHO STORE
                 this.props.addResultLottery(d);
                 this.props.updateResultLottery();
+
             }
         }).catch((error) =>{
 

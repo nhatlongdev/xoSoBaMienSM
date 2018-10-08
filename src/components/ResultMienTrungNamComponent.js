@@ -58,7 +58,6 @@ import {
     }
 
     componentWillUpdate(){
-        console.log('RENDER LAI MAN KET QUA')
         checkWillUpdate = true;
     }
 
