@@ -59,8 +59,8 @@ import {
             obj_data_cake = realm.objects('Global_cake');  
           }
           //add vaule sound and vibrate for global
-          GlobalValue.is_sound = obj_data_cake.is_sound;
-          GlobalValue.is_vibrate = obj_data_cake.is_vibrate;
+          GlobalValue.is_sound = obj_data_cake[0].is_sound;
+          GlobalValue.is_vibrate = obj_data_cake[0].is_vibrate;
     }
 
     componentWillMount(){

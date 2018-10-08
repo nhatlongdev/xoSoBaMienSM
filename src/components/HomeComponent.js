@@ -21,6 +21,7 @@ var obj;
 
     constructor(props){
         super(props);
+        //REALM DATABASE
         realm = new Realm({
             schema: [{
               name: 'Global_cake',

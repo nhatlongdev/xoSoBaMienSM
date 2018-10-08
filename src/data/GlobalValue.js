@@ -19,8 +19,8 @@ var GlobalValue = {
     dragLottery:'0', //0--click vao moi hoac vao lai, 1 keo phai, -1 keo trai,  2 khong lam gi, -2: khi mới vào màn lần đầu
     listProduct:[],
     duration_toast:2000,
-    is_sound:'1', //0-ko am thanh, 1-co am thanh
-    is_vibrate:'1', //0-ko rung, 1-co rung
+    is_sound:true, //0-ko am thanh, 1-co am thanh
+    is_vibrate:true, //0-ko rung, 1-co rung
 }
 
 export default GlobalValue;

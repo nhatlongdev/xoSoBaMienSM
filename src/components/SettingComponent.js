@@ -41,6 +41,7 @@ import {
             }]
           });
         obj_data_cake = realm.objects('Global_cake');
+        alert(GlobalValue.is_sound)
 
         //Back app
         this.handleBackButtonClick = this.handleBackButtonClick.bind(this);

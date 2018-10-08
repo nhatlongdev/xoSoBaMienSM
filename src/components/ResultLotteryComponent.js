@@ -77,9 +77,25 @@ class ResultLotteryComponent extends Component {
     }
 
     componentWillMount(){
+        
+    }
+
+    shouldComponentUpdate(){
+        return true;
+    }
+
+    componentWillUpdate(){
+        console.log('WIllUPDATE: ' + this.props.regionSelected)
+    }
+
+    componentDidMount(){
+        //CLICK PHONE BACK
+        handleAndroidBackButton(exitAlert);
+
         //Nếu trong khung giờ quay trực tiếp thì 10s request lấy dữ liệu một lần
         var interval = setInterval(()=>{
             console.log("INTERVAL CHAY .....");
+            alert('intevar chay')
             var timeCurrent = moment();
             if((timeCurrent>= dateTimeBatDauQuayMienNam && timeCurrent< dateTimeDungQuayMienNam) || (timeCurrent>= dateTimeBatDauQuayMienTrung && timeCurrent< dateTimeDungQuayMienTrung) 
                 || (timeCurrent>= dateTimeBatDauQuayMienBac && timeCurrent< dateTimeDungQuayMienBac)){
@@ -97,18 +113,6 @@ class ResultLotteryComponent extends Component {
             // loaded successfully
             // console.log('duration in seconds: ' + whoosh.getDuration() + 'number of channels: ' + whoosh.getNumberOfChannels());
         });
-    }
-
-    shouldComponentUpdate(){
-        return true;
-    }
-
-    componentWillUpdate(){
-        console.log('WIllUPDATE: ' + this.props.regionSelected)
-    }
-
-    componentDidMount(){
-        handleAndroidBackButton(exitAlert);
     }
 
      render() {
