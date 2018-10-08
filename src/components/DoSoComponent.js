@@ -28,6 +28,7 @@ import {
     constructor(props){
         super(props);
         arrSoDo = [];
+        //gan du lieu cho Global
         GlobalValue.codeProvincialSelected = ListProvincial[0].codeProvincialSelected;
         GlobalValue.nameProvincialSelected = ListProvincial[0].nameProvincialSelected;
         this.handleBackButtonClick = this.handleBackButtonClick.bind(this);
