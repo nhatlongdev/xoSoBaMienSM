@@ -94,7 +94,7 @@ import {
         }else if(GlobalValue.chuoiSoDo.length === 0){
             str = 'Bạn chưa nhập số cần dò';
         }else{
-            var pattern_1 = /^[0-9]{2}$/;
+            var pattern_1 = /^[0-9]{1,2}$/;
             var pattern_2 = /^[0-9]{2},[0-9]{2}$/;
             if(pattern_1.test(GlobalValue.soLanQuay) === false){
                 str = 'Số lần quay không đúng định dạng, vui lòng nhập lại';
