@@ -1,0 +1,42 @@
+{
+  "project_info": {
+    "project_number": "560042440014",
+    "firebase_url": "https://xoso98-8ad2f.firebaseio.com",
+    "project_id": "xoso98-8ad2f",
+    "storage_bucket": "xoso98-8ad2f.appspot.com"
+  },
+  "client": [
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:560042440014:android:65f99855c9f26790",
+        "android_client_info": {
+          "package_name": "xoso98.com"
+        }
+      },
+      "oauth_client": [
+        {
+          "client_id": "560042440014-slvd7a3ltrsjsafqoi5594mvgkntf3q0.apps.googleusercontent.com",
+          "client_type": 3
+        }
+      ],
+      "api_key": [
+        {
+          "current_key": "AIzaSyBnfwTNw0tYlFmLQAhVpo6A8xMimD5Fr9Q"
+        }
+      ],
+      "services": {
+        "analytics_service": {
+          "status": 1
+        },
+        "appinvite_service": {
+          "status": 1,
+          "other_platform_oauth_client": []
+        },
+        "ads_service": {
+          "status": 2
+        }
+      }
+    }
+  ],
+  "configuration_version": "1"
+}

@@ -20,7 +20,6 @@ import {
  //REDUX
  import { connect } from 'react-redux';
  import { clickButtonDoSo } from '../redux/actionCreators';
- var item_provincial;
  var objResultDoSo = {};
  var arrSoDo;
 
@@ -29,7 +28,8 @@ import {
     constructor(props){
         super(props);
         arrSoDo = [];
-        item_provincial = ListProvincial[0];
+        GlobalValue.codeProvincialSelected = ListProvincial[0].codeProvincialSelected;
+        GlobalValue.nameProvincialSelected = ListProvincial[0].nameProvincialSelected;
         this.handleBackButtonClick = this.handleBackButtonClick.bind(this);
         GlobalValue.arrSoDo = [];
         GlobalValue.objResultDoSo = {};
@@ -71,7 +71,7 @@ import {
                     <InputChuoiSoDoComponent/>
                     <TouchableOpacity style={styles.button_style}
                                         onPress = {()=>this.checkStringInputLegal() === 'ok'? 
-                                        this.numberDetector(item_provincial, GlobalValue.chuoiSoDo, GlobalValue.soLanQuay):alert(this.checkStringInputLegal())}
+                                        this.numberDetector(GlobalValue.codeProvincialSelected, GlobalValue.chuoiSoDo, GlobalValue.soLanQuay):alert(this.checkStringInputLegal())}
                     >
                             <Text style={{flex: 1, textAlign: 'center', color: 'black', fontWeight: 'bold'}}>TRA CỨU LÔ TÔ, DÒ SỐ</Text>   
                             <Image
@@ -105,7 +105,7 @@ import {
     }
 
     //TIM MANG KET QUA TU CHUOI SO NGUOI DUNG NHAP VAO
-    numberDetector(item_provincial, chuoiSoDo, soLanQuay){
+    numberDetector(code_provincial, chuoiSoDo, soLanQuay){
         this.setState({
             pro:true,
         })
@@ -134,7 +134,7 @@ import {
         //Lấy mảng kết quả của tỉnh được chọn
         var arrLotteryOfProvinces = {};
         const {dataDoSo} = this.props;
-        arrLotteryOfProvinces = dataDoSo[item_provincial.code];
+        arrLotteryOfProvinces = dataDoSo[code_provincial];
         console.log('Data dua vao: ' + JSON.stringify(arrLotteryOfProvinces) + " -----" + arrLotteryOfProvinces.length)
 
 

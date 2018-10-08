@@ -132,10 +132,10 @@ import {
             var d_ = {};
             var d = formatDataLotteryToKeyValue(d_, data);  
             var dataDoSo = createArrResultDoSo(data);
-    
             //CAP NHAT DU LIEU CHO STORE
             this.props.addResultLottery(d);
             this.props.addResultDoSo(dataDoSo);
+            // this.props.updateResultLottery();
             //kiểm tra xem giá trị vùng miền được chọn, nếu giá trị khác null thì app đã từng đăng nhập
              //lay duoc du lieu save REALM
             if(obj_data_cake.length >0){
