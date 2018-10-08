@@ -37,8 +37,8 @@ import {
                 data_lottery: 'string',
                 region_value: 'string',
                 data_products: 'string',
-                is_sound:{ type: 'boolean', default: true },
-                is_vibrate:{ type: 'boolean', default: true },
+                is_sound:{ type: 'bool', default: true },
+                is_vibrate:{ type: 'bool', default: true },
               }
             }]
           });
