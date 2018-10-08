@@ -86,7 +86,7 @@ var obj;
 
      //HÀM XỬ LÝ SỰ KIỆN CLICK VÀO VÙNG MIỀN
         clickRegion(value_region){
-            //Chuyển sang màn xem kết quả
+            //Chuyển sang màn xem kết quả --- ACTION CREATORS
             this.props.selectRegion(value_region);
             //save region to REALM DATABASE
             if(obj.length>0){

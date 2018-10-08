@@ -43,10 +43,10 @@
 		412D97B9445D4C079813012C /* MaterialIcons.ttf in Resources */ = {isa = PBXBuildFile; fileRef = 4A9F6A054C954687BE84594E /* MaterialIcons.ttf */; };
 		4891DBDC5BF54075B7109A31 /* Entypo.ttf in Resources */ = {isa = PBXBuildFile; fileRef = 6868360C0E374EA2B1B05568 /* Entypo.ttf */; };
 		5D74A53C53634410890D2906 /* libz.tbd in Frameworks */ = {isa = PBXBuildFile; fileRef = 08F62FD3E68A4028956CA715 /* libz.tbd */; };
-		5E9157361DD0AC6A00FF2AA8 /* libRCTAnimation.a in Frameworks */ = {isa = PBXBuildFile; fileRef = 5E9157331DD0AC6500FF2AA8 /* libRCTAnimation.a */; };
 		696630A961084DA5B5EE28C5 /* FontAwesome.ttf in Resources */ = {isa = PBXBuildFile; fileRef = 22024F02D47541AFBE939F7C /* FontAwesome.ttf */; };
 		7C45AA45256D48498CAEDF20 /* EvilIcons.ttf in Resources */ = {isa = PBXBuildFile; fileRef = E09B36877AA941C3A03FDAB4 /* EvilIcons.ttf */; };
 		832341BD1AAA6AB300B99B32 /* libRCTText.a in Frameworks */ = {isa = PBXBuildFile; fileRef = 832341B51AAA6A8300B99B32 /* libRCTText.a */; };
+		84149108216B073A00397463 /* libRCTAnimation.a in Frameworks */ = {isa = PBXBuildFile; fileRef = 5E9157331DD0AC6500FF2AA8 /* libRCTAnimation.a */; };
 		84DF2B09216758A0007EA4A0 /* tin_nhan_moi.mp3 in Resources */ = {isa = PBXBuildFile; fileRef = 84DF2AE02167589F007EA4A0 /* tin_nhan_moi.mp3 */; };
 		951C9B0C37954D95AC579A11 /* libc++.tbd in Frameworks */ = {isa = PBXBuildFile; fileRef = 1A790640ED6D48D39123033B /* libc++.tbd */; };
 		9B2884FED8274F1583E77C7E /* libRNExitApp.a in Frameworks */ = {isa = PBXBuildFile; fileRef = 3BF7A2D8144540BEB9F457C7 /* libRNExitApp.a */; };
@@ -56,6 +56,7 @@
 		BA63F28C65CC41D89CC17804 /* libRNSound.a in Frameworks */ = {isa = PBXBuildFile; fileRef = 00ED3D349079405B923D639A /* libRNSound.a */; };
 		C6A2C8482CB14BC7BCC93005 /* Octicons.ttf in Resources */ = {isa = PBXBuildFile; fileRef = CF78A5D14E77431D8A179BA5 /* Octicons.ttf */; };
 		C79839451F034B49923DE950 /* rubicon-icon-font.ttf in Resources */ = {isa = PBXBuildFile; fileRef = C5EF83C5E6434D609D38AE53 /* rubicon-icon-font.ttf */; };
+		C9C6C1A8D27245D2A60BC369 /* libRNBackgroundJob.a in Frameworks */ = {isa = PBXBuildFile; fileRef = D084E978B05A42799841342F /* libRNBackgroundJob.a */; };
 		DA67BA72479C403EBB3BEC7C /* MaterialCommunityIcons.ttf in Resources */ = {isa = PBXBuildFile; fileRef = 751EB20DC0A5409A9F25B88D /* MaterialCommunityIcons.ttf */; };
 		DF21E85909CD4CCA86A85FCA /* SimpleLineIcons.ttf in Resources */ = {isa = PBXBuildFile; fileRef = 16A94B3751024FD6984E681B /* SimpleLineIcons.ttf */; };
 		FF72797332F643A89D4B782C /* Roboto_medium.ttf in Resources */ = {isa = PBXBuildFile; fileRef = 3143C3A3E5E940D0B97D50F3 /* Roboto_medium.ttf */; };
@@ -328,6 +329,13 @@
 			remoteGlobalIDString = 58B5119B1A9E6C1200147676;
 			remoteInfo = RCTText;
 		};
+		841490E4216AFCC800397463 /* PBXContainerItemProxy */ = {
+			isa = PBXContainerItemProxy;
+			containerPortal = D098797ED58441EE84DCD616 /* RNBackgroundJob.xcodeproj */;
+			proxyType = 2;
+			remoteGlobalIDString = 134814201AA4EA6300B7C361;
+			remoteInfo = RNBackgroundJob;
+		};
 		8499C15D21658E1F008BEDD8 /* PBXContainerItemProxy */ = {
 			isa = PBXContainerItemProxy;
 			containerPortal = D5CF58BB68EB47CD86A6EA78 /* RealmReact.xcodeproj */;
@@ -405,6 +413,8 @@
 		B31555C1183A4F29B5F4D176 /* Foundation.ttf */ = {isa = PBXFileReference; explicitFileType = undefined; fileEncoding = 9; includeInIndex = 0; lastKnownFileType = unknown; name = Foundation.ttf; path = ../assets/fonts/Foundation.ttf; sourceTree = "<group>"; };
 		C5EF83C5E6434D609D38AE53 /* rubicon-icon-font.ttf */ = {isa = PBXFileReference; explicitFileType = undefined; fileEncoding = 9; includeInIndex = 0; lastKnownFileType = unknown; name = "rubicon-icon-font.ttf"; path = "../assets/fonts/rubicon-icon-font.ttf"; sourceTree = "<group>"; };
 		CF78A5D14E77431D8A179BA5 /* Octicons.ttf */ = {isa = PBXFileReference; explicitFileType = undefined; fileEncoding = 9; includeInIndex = 0; lastKnownFileType = unknown; name = Octicons.ttf; path = ../assets/fonts/Octicons.ttf; sourceTree = "<group>"; };
+		D084E978B05A42799841342F /* libRNBackgroundJob.a */ = {isa = PBXFileReference; explicitFileType = undefined; fileEncoding = 9; includeInIndex = 0; lastKnownFileType = archive.ar; path = libRNBackgroundJob.a; sourceTree = "<group>"; };
+		D098797ED58441EE84DCD616 /* RNBackgroundJob.xcodeproj */ = {isa = PBXFileReference; explicitFileType = undefined; fileEncoding = 9; includeInIndex = 0; lastKnownFileType = "wrapper.pb-project"; name = RNBackgroundJob.xcodeproj; path = "../node_modules/react-native-background-job/ios/RNBackgroundJob.xcodeproj"; sourceTree = "<group>"; };
 		D5CF58BB68EB47CD86A6EA78 /* RealmReact.xcodeproj */ = {isa = PBXFileReference; explicitFileType = undefined; fileEncoding = 9; includeInIndex = 0; lastKnownFileType = "wrapper.pb-project"; name = RealmReact.xcodeproj; path = "../node_modules/realm/react-native/ios/RealmReact.xcodeproj"; sourceTree = "<group>"; };
 		E09B36877AA941C3A03FDAB4 /* EvilIcons.ttf */ = {isa = PBXFileReference; explicitFileType = undefined; fileEncoding = 9; includeInIndex = 0; lastKnownFileType = unknown; name = EvilIcons.ttf; path = ../assets/fonts/EvilIcons.ttf; sourceTree = "<group>"; };
 		E7FB88BA0D8A435B8AAAE294 /* libRealmReact.a */ = {isa = PBXFileReference; explicitFileType = undefined; fileEncoding = 9; includeInIndex = 0; lastKnownFileType = archive.ar; path = libRealmReact.a; sourceTree = "<group>"; };
@@ -425,9 +435,8 @@
 			buildActionMask = 2147483647;
 			files = (
 				ADBDB9381DFEBF1600ED6528 /* libRCTBlob.a in Frameworks */,
-				5E9157361DD0AC6A00FF2AA8 /* libRCTAnimation.a in Frameworks */,
+				84149108216B073A00397463 /* libRCTAnimation.a in Frameworks */,
 				146834051AC3E58100842450 /* libReact.a in Frameworks */,
-				5E9157361DD0AC6A00FF2AA8 /* libRCTAnimation.a in Frameworks */,
 				00C302E51ABCBA2D00DB3ED1 /* libRCTActionSheet.a in Frameworks */,
 				00C302E71ABCBA2D00DB3ED1 /* libRCTGeolocation.a in Frameworks */,
 				00C302E81ABCBA2D00DB3ED1 /* libRCTImage.a in Frameworks */,
@@ -442,6 +451,7 @@
 				5D74A53C53634410890D2906 /* libz.tbd in Frameworks */,
 				BA63F28C65CC41D89CC17804 /* libRNSound.a in Frameworks */,
 				9B2884FED8274F1583E77C7E /* libRNExitApp.a in Frameworks */,
+				C9C6C1A8D27245D2A60BC369 /* libRNBackgroundJob.a in Frameworks */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -633,6 +643,7 @@
 				D5CF58BB68EB47CD86A6EA78 /* RealmReact.xcodeproj */,
 				42B6052723A84B919CBE91BD /* RNSound.xcodeproj */,
 				652185BAB3D94D34900A2209 /* RNExitApp.xcodeproj */,
+				D098797ED58441EE84DCD616 /* RNBackgroundJob.xcodeproj */,
 			);
 			name = Libraries;
 			sourceTree = "<group>";
@@ -674,12 +685,21 @@
 			name = Products;
 			sourceTree = "<group>";
 		};
+		841490E1216AFCC800397463 /* Products */ = {
+			isa = PBXGroup;
+			children = (
+				841490E5216AFCC800397463 /* libRNBackgroundJob.a */,
+			);
+			name = Products;
+			sourceTree = "<group>";
+		};
 		8499C13321658E1D008BEDD8 /* Recovered References */ = {
 			isa = PBXGroup;
 			children = (
 				E7FB88BA0D8A435B8AAAE294 /* libRealmReact.a */,
 				00ED3D349079405B923D639A /* libRNSound.a */,
 				3BF7A2D8144540BEB9F457C7 /* libRNExitApp.a */,
+				D084E978B05A42799841342F /* libRNBackgroundJob.a */,
 			);
 			name = "Recovered References";
 			sourceTree = "<group>";
@@ -820,7 +840,7 @@
 		83CBB9F71A601CBA00E9B192 /* Project object */ = {
 			isa = PBXProject;
 			attributes = {
-				LastUpgradeCheck = 610;
+				LastUpgradeCheck = 1000;
 				ORGANIZATIONNAME = Facebook;
 				TargetAttributes = {
 					00E356ED1AD99517003FC87E = {
@@ -905,6 +925,10 @@
 				{
 					ProductGroup = 8499C15A21658E1F008BEDD8 /* Products */;
 					ProjectRef = D5CF58BB68EB47CD86A6EA78 /* RealmReact.xcodeproj */;
+				},
+				{
+					ProductGroup = 841490E1216AFCC800397463 /* Products */;
+					ProjectRef = D098797ED58441EE84DCD616 /* RNBackgroundJob.xcodeproj */;
 				},
 				{
 					ProductGroup = 84DF2AAB21671DF0007EA4A0 /* Products */;
@@ -1178,6 +1202,13 @@
 			remoteRef = 832341B41AAA6A8300B99B32 /* PBXContainerItemProxy */;
 			sourceTree = BUILT_PRODUCTS_DIR;
 		};
+		841490E5216AFCC800397463 /* libRNBackgroundJob.a */ = {
+			isa = PBXReferenceProxy;
+			fileType = archive.ar;
+			path = libRNBackgroundJob.a;
+			remoteRef = 841490E4216AFCC800397463 /* PBXContainerItemProxy */;
+			sourceTree = BUILT_PRODUCTS_DIR;
+		};
 		8499C15E21658E1F008BEDD8 /* libRealmReact.a */ = {
 			isa = PBXReferenceProxy;
 			fileType = archive.ar;
@@ -1364,6 +1395,7 @@
 					"$(inherited)",
 					"$(SRCROOT)/../node_modules/realm/src/**",
 					"$(SRCROOT)/../node_modules/react-native-sound/RNSound",
+					"$(SRCROOT)/../node_modules/react-native-background-job/ios",
 				);
 				INFOPLIST_FILE = TestPropsTests/Info.plist;
 				IPHONEOS_DEPLOYMENT_TARGET = 8.0;
@@ -1373,11 +1405,13 @@
 					"\"$(SRCROOT)/$(TARGET_NAME)\"",
 					"\"$(SRCROOT)/$(TARGET_NAME)\"",
 					"\"$(SRCROOT)/$(TARGET_NAME)\"",
+					"\"$(SRCROOT)/$(TARGET_NAME)\"",
 				);
 				OTHER_LDFLAGS = (
 					"-ObjC",
 					"-lc++",
 				);
+				PRODUCT_BUNDLE_IDENTIFIER = "org.reactjs.native.example.$(PRODUCT_NAME:rfc1034identifier)";
 				PRODUCT_NAME = "$(TARGET_NAME)";
 				TEST_HOST = "$(BUILT_PRODUCTS_DIR)/TestProps.app/TestProps";
 			};
@@ -1392,6 +1426,7 @@
 					"$(inherited)",
 					"$(SRCROOT)/../node_modules/realm/src/**",
 					"$(SRCROOT)/../node_modules/react-native-sound/RNSound",
+					"$(SRCROOT)/../node_modules/react-native-background-job/ios",
 				);
 				INFOPLIST_FILE = TestPropsTests/Info.plist;
 				IPHONEOS_DEPLOYMENT_TARGET = 8.0;
@@ -1401,11 +1436,13 @@
 					"\"$(SRCROOT)/$(TARGET_NAME)\"",
 					"\"$(SRCROOT)/$(TARGET_NAME)\"",
 					"\"$(SRCROOT)/$(TARGET_NAME)\"",
+					"\"$(SRCROOT)/$(TARGET_NAME)\"",
 				);
 				OTHER_LDFLAGS = (
 					"-ObjC",
 					"-lc++",
 				);
+				PRODUCT_BUNDLE_IDENTIFIER = "org.reactjs.native.example.$(PRODUCT_NAME:rfc1034identifier)";
 				PRODUCT_NAME = "$(TARGET_NAME)";
 				TEST_HOST = "$(BUILT_PRODUCTS_DIR)/TestProps.app/TestProps";
 			};
@@ -1424,6 +1461,7 @@
 					"$(inherited)",
 					"$(SRCROOT)/../node_modules/realm/src/**",
 					"$(SRCROOT)/../node_modules/react-native-sound/RNSound",
+					"$(SRCROOT)/../node_modules/react-native-background-job/ios",
 				);
 				INFOPLIST_FILE = TestProps/Info.plist;
 				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks";
@@ -1432,6 +1470,7 @@
 					"-ObjC",
 					"-lc++",
 				);
+				PRODUCT_BUNDLE_IDENTIFIER = "org.reactjs.native.example.$(PRODUCT_NAME:rfc1034identifier)";
 				PRODUCT_NAME = TestProps;
 				PROVISIONING_PROFILE_SPECIFIER = "";
 				VERSIONING_SYSTEM = "apple-generic";
@@ -1450,6 +1489,7 @@
 					"$(inherited)",
 					"$(SRCROOT)/../node_modules/realm/src/**",
 					"$(SRCROOT)/../node_modules/react-native-sound/RNSound",
+					"$(SRCROOT)/../node_modules/react-native-background-job/ios",
 				);
 				INFOPLIST_FILE = TestProps/Info.plist;
 				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks";
@@ -1458,6 +1498,7 @@
 					"-ObjC",
 					"-lc++",
 				);
+				PRODUCT_BUNDLE_IDENTIFIER = "org.reactjs.native.example.$(PRODUCT_NAME:rfc1034identifier)";
 				PRODUCT_NAME = TestProps;
 				PROVISIONING_PROFILE_SPECIFIER = "";
 				VERSIONING_SYSTEM = "apple-generic";
@@ -1480,11 +1521,13 @@
 					"$(inherited)",
 					"$(SRCROOT)/../node_modules/realm/src/**",
 					"$(SRCROOT)/../node_modules/react-native-sound/RNSound",
+					"$(SRCROOT)/../node_modules/react-native-background-job/ios",
 				);
 				INFOPLIST_FILE = "TestProps-tvOS/Info.plist";
 				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks";
 				LIBRARY_SEARCH_PATHS = (
 					"$(inherited)",
+					"\"$(SRCROOT)/$(TARGET_NAME)\"",
 					"\"$(SRCROOT)/$(TARGET_NAME)\"",
 					"\"$(SRCROOT)/$(TARGET_NAME)\"",
 					"\"$(SRCROOT)/$(TARGET_NAME)\"",
@@ -1517,11 +1560,13 @@
 					"$(inherited)",
 					"$(SRCROOT)/../node_modules/realm/src/**",
 					"$(SRCROOT)/../node_modules/react-native-sound/RNSound",
+					"$(SRCROOT)/../node_modules/react-native-background-job/ios",
 				);
 				INFOPLIST_FILE = "TestProps-tvOS/Info.plist";
 				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks";
 				LIBRARY_SEARCH_PATHS = (
 					"$(inherited)",
+					"\"$(SRCROOT)/$(TARGET_NAME)\"",
 					"\"$(SRCROOT)/$(TARGET_NAME)\"",
 					"\"$(SRCROOT)/$(TARGET_NAME)\"",
 					"\"$(SRCROOT)/$(TARGET_NAME)\"",
@@ -1553,11 +1598,13 @@
 					"$(inherited)",
 					"$(SRCROOT)/../node_modules/realm/src/**",
 					"$(SRCROOT)/../node_modules/react-native-sound/RNSound",
+					"$(SRCROOT)/../node_modules/react-native-background-job/ios",
 				);
 				INFOPLIST_FILE = "TestProps-tvOSTests/Info.plist";
 				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks @loader_path/Frameworks";
 				LIBRARY_SEARCH_PATHS = (
 					"$(inherited)",
+					"\"$(SRCROOT)/$(TARGET_NAME)\"",
 					"\"$(SRCROOT)/$(TARGET_NAME)\"",
 					"\"$(SRCROOT)/$(TARGET_NAME)\"",
 					"\"$(SRCROOT)/$(TARGET_NAME)\"",
@@ -1589,11 +1636,13 @@
 					"$(inherited)",
 					"$(SRCROOT)/../node_modules/realm/src/**",
 					"$(SRCROOT)/../node_modules/react-native-sound/RNSound",
+					"$(SRCROOT)/../node_modules/react-native-background-job/ios",
 				);
 				INFOPLIST_FILE = "TestProps-tvOSTests/Info.plist";
 				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks @loader_path/Frameworks";
 				LIBRARY_SEARCH_PATHS = (
 					"$(inherited)",
+					"\"$(SRCROOT)/$(TARGET_NAME)\"",
 					"\"$(SRCROOT)/$(TARGET_NAME)\"",
 					"\"$(SRCROOT)/$(TARGET_NAME)\"",
 					"\"$(SRCROOT)/$(TARGET_NAME)\"",
@@ -1618,20 +1667,32 @@
 				CLANG_CXX_LIBRARY = "libc++";
 				CLANG_ENABLE_MODULES = YES;
 				CLANG_ENABLE_OBJC_ARC = YES;
+				CLANG_WARN_BLOCK_CAPTURE_AUTORELEASING = YES;
 				CLANG_WARN_BOOL_CONVERSION = YES;
+				CLANG_WARN_COMMA = YES;
 				CLANG_WARN_CONSTANT_CONVERSION = YES;
+				CLANG_WARN_DEPRECATED_OBJC_IMPLEMENTATIONS = YES;
 				CLANG_WARN_DIRECT_OBJC_ISA_USAGE = YES_ERROR;
 				CLANG_WARN_EMPTY_BODY = YES;
 				CLANG_WARN_ENUM_CONVERSION = YES;
+				CLANG_WARN_INFINITE_RECURSION = YES;
 				CLANG_WARN_INT_CONVERSION = YES;
+				CLANG_WARN_NON_LITERAL_NULL_CONVERSION = YES;
+				CLANG_WARN_OBJC_IMPLICIT_RETAIN_SELF = YES;
+				CLANG_WARN_OBJC_LITERAL_CONVERSION = YES;
 				CLANG_WARN_OBJC_ROOT_CLASS = YES_ERROR;
+				CLANG_WARN_RANGE_LOOP_ANALYSIS = YES;
+				CLANG_WARN_STRICT_PROTOTYPES = YES;
+				CLANG_WARN_SUSPICIOUS_MOVE = YES;
 				CLANG_WARN_UNREACHABLE_CODE = YES;
 				CLANG_WARN__DUPLICATE_METHOD_MATCH = YES;
 				"CODE_SIGN_IDENTITY[sdk=iphoneos*]" = "iPhone Developer";
 				COPY_PHASE_STRIP = NO;
 				ENABLE_STRICT_OBJC_MSGSEND = YES;
+				ENABLE_TESTABILITY = YES;
 				GCC_C_LANGUAGE_STANDARD = gnu99;
 				GCC_DYNAMIC_NO_PIC = NO;
+				GCC_NO_COMMON_BLOCKS = YES;
 				GCC_OPTIMIZATION_LEVEL = 0;
 				GCC_PREPROCESSOR_DEFINITIONS = (
 					"DEBUG=1",
@@ -1659,13 +1720,23 @@
 				CLANG_CXX_LIBRARY = "libc++";
 				CLANG_ENABLE_MODULES = YES;
 				CLANG_ENABLE_OBJC_ARC = YES;
+				CLANG_WARN_BLOCK_CAPTURE_AUTORELEASING = YES;
 				CLANG_WARN_BOOL_CONVERSION = YES;
+				CLANG_WARN_COMMA = YES;
 				CLANG_WARN_CONSTANT_CONVERSION = YES;
+				CLANG_WARN_DEPRECATED_OBJC_IMPLEMENTATIONS = YES;
 				CLANG_WARN_DIRECT_OBJC_ISA_USAGE = YES_ERROR;
 				CLANG_WARN_EMPTY_BODY = YES;
 				CLANG_WARN_ENUM_CONVERSION = YES;
+				CLANG_WARN_INFINITE_RECURSION = YES;
 				CLANG_WARN_INT_CONVERSION = YES;
+				CLANG_WARN_NON_LITERAL_NULL_CONVERSION = YES;
+				CLANG_WARN_OBJC_IMPLICIT_RETAIN_SELF = YES;
+				CLANG_WARN_OBJC_LITERAL_CONVERSION = YES;
 				CLANG_WARN_OBJC_ROOT_CLASS = YES_ERROR;
+				CLANG_WARN_RANGE_LOOP_ANALYSIS = YES;
+				CLANG_WARN_STRICT_PROTOTYPES = YES;
+				CLANG_WARN_SUSPICIOUS_MOVE = YES;
 				CLANG_WARN_UNREACHABLE_CODE = YES;
 				CLANG_WARN__DUPLICATE_METHOD_MATCH = YES;
 				"CODE_SIGN_IDENTITY[sdk=iphoneos*]" = "iPhone Developer";
@@ -1673,6 +1744,7 @@
 				ENABLE_NS_ASSERTIONS = NO;
 				ENABLE_STRICT_OBJC_MSGSEND = YES;
 				GCC_C_LANGUAGE_STANDARD = gnu99;
+				GCC_NO_COMMON_BLOCKS = YES;
 				GCC_WARN_64_TO_32_BIT_CONVERSION = YES;
 				GCC_WARN_ABOUT_RETURN_TYPE = YES_ERROR;
 				GCC_WARN_UNDECLARED_SELECTOR = YES;

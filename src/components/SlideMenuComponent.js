@@ -18,11 +18,33 @@ import {
  var heightScreen = Dimensions.get('window').height;
  var linkDB = 'https://dacbiet.vn';
 
+ //REALM DATABASE
+ const Realm = require('realm');
+ let realm;
+ var obj;
+
   class SlideMenuComponent extends Component {
 
      constructor(props){
          super(props);
-         this.getListProduct(); 
+         this.getListProduct();
+
+        //REALM DATABASE
+        realm = new Realm({
+            schema: [{
+              name: 'Global_cake',
+              properties:
+              {
+                emp_id: { type: 'int', default: 0 },
+                data_lottery: 'string',
+                region_value: 'string',
+                data_products: 'string',
+                is_sound:{ type: 'bool', default: true },
+                is_vibrate:{ type: 'bool', default: true },
+              }
+            }]
+          });
+        obj = realm.objects('Global_cake');
      }
 
      render() {
@@ -182,7 +204,15 @@ import {
                     //Chuyển sang màn xem kết quả miền bắc
                     GlobalValue.dragLottery = '0';
                     //Action creator
+                    //Chuyển sang màn xem kết quả --- ACTION CREATORS
                     this.props.selectRegion(value_click);
+                    //save region to REALM DATABASE
+                    if(obj.length>0){
+                        realm.write(() => {
+                            obj[0].region_value = value_click;
+                        })
+                    }
+                    //Action creator
                     this.props.updateResultLottery();
 
                     this.props.navigation.closeDrawer();
@@ -194,7 +224,15 @@ import {
                     GlobalValue.dragLottery = '0';
 
                     //Action creator
+                    //Chuyển sang màn xem kết quả --- ACTION CREATORS
                     this.props.selectRegion(value_click);
+                    //save region to REALM DATABASE
+                    if(obj.length>0){
+                        realm.write(() => {
+                            obj[0].region_value = value_click;
+                        })
+                    }
+                    //Action creator
                     this.props.updateResultLottery();
 
                     this.props.navigation.closeDrawer();
@@ -206,7 +244,15 @@ import {
                     GlobalValue.dragLottery = '0';
 
                     //Action creator
+                    //Chuyển sang màn xem kết quả --- ACTION CREATORS
                     this.props.selectRegion(value_click);
+                    //save region to REALM DATABASE
+                    if(obj.length>0){
+                        realm.write(() => {
+                            obj[0].region_value = value_click;
+                        })
+                    }
+                    //Action creator
                     this.props.updateResultLottery();
                     
                     this.props.navigation.closeDrawer();

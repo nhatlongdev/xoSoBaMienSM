@@ -7,7 +7,8 @@ import {
     StyleSheet,
     ScrollView, 
     Platform,
-    Vibration
+    Vibration,
+    AppState,
  } from 'react-native';
  import moment from 'moment';
  import ResultMienBacComponent from './ResultMienBacComponent';
@@ -74,6 +75,11 @@ class ResultLotteryComponent extends Component {
             }]
           });
           obj_data_cake = realm.objects('Global_cake');
+
+          //STATE COMPONENT
+          this.state = {
+            appState: AppState.currentState,
+        };
     }
 
     componentWillMount(){
@@ -95,7 +101,6 @@ class ResultLotteryComponent extends Component {
         //Nếu trong khung giờ quay trực tiếp thì 10s request lấy dữ liệu một lần
         var interval = setInterval(()=>{
             console.log("INTERVAL CHAY .....");
-            alert('intevar chay')
             var timeCurrent = moment();
             if((timeCurrent>= dateTimeBatDauQuayMienNam && timeCurrent< dateTimeDungQuayMienNam) || (timeCurrent>= dateTimeBatDauQuayMienTrung && timeCurrent< dateTimeDungQuayMienTrung) 
                 || (timeCurrent>= dateTimeBatDauQuayMienBac && timeCurrent< dateTimeDungQuayMienBac)){
@@ -113,6 +118,9 @@ class ResultLotteryComponent extends Component {
             // loaded successfully
             // console.log('duration in seconds: ' + whoosh.getDuration() + 'number of channels: ' + whoosh.getNumberOfChannels());
         });
+
+        //DK LANG NGHE SU KIEN APP THAY DOI TRANG THAI
+        AppState.addEventListener('change', this._handleAppStateChange);
     }
 
      render() {
@@ -139,6 +147,15 @@ class ResultLotteryComponent extends Component {
              </View>
          );
      }
+
+     //HAM XU LY KHI APP THAY DOI TRANG THAI FORE GROUND->BACKGROUND VA NGUOC LAI
+     _handleAppStateChange = (nextAppState) => {
+        if (this.state.appState.match(/inactive|background/) && nextAppState === 'active') {
+          //APP O TRANG THAI ACTIVE 
+            this.refreshFromServer10s();
+        }
+        this.setState({appState: nextAppState});
+    }
 
      //HAM SET VIEW
      setView(){
@@ -189,8 +206,7 @@ class ResultLotteryComponent extends Component {
                     this.onPlayVibrate();   
                 }
                 
-                var d = formatDataLotteryToKeyValue(this.props.dataLottery, dataLotteProvinces_);  
-                // var dataDoSo = createArrResultDoSo(data);     
+                var d = formatDataLotteryToKeyValue(this.props.dataLottery, dataLotteProvinces_);    
                 //CAP NHAT DU LIEU CHO STORE
                 this.props.addResultLottery(d);
                 this.props.updateResultLottery();

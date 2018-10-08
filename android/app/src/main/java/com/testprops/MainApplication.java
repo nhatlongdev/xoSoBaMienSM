@@ -10,6 +10,7 @@ import com.facebook.soloader.SoLoader;
 import com.github.wumke.RNExitApp.RNExitAppPackage;
 import com.zmxv.RNSound.RNSoundPackage;
 import io.realm.react.RealmReactPackage; // add this import
+import com.pilloxa.backgroundjob.BackgroundJobPackage;
 
 import java.util.Arrays;
 import java.util.List;
@@ -28,7 +29,8 @@ public class MainApplication extends Application implements ReactApplication {
           new MainReactPackage(),
           new RNExitAppPackage(),
           new RNSoundPackage(),
-          new RealmReactPackage() // add this line
+          new RealmReactPackage(), // add this line
+          new BackgroundJobPackage()
       );
     }
 
