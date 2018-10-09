@@ -45,6 +45,9 @@ var obj_data_cake;
 //BIEN KIEM TRA CO KET QUAR MOI
 var checkResultLotteryNew;
 
+//FIREBASE ANALTYTICS
+import Analytics from 'react-native-firebase-analytics';
+
 class ResultLotteryComponent extends Component {
 
     constructor(props){
@@ -83,7 +86,13 @@ class ResultLotteryComponent extends Component {
     }
 
     componentWillMount(){
+        Analytics.setUserId('11111');
+          Analytics.setUserProperty('propertyName', 'propertyValue');
         
+          Analytics.logEvent('view_item', {
+            'item_id': 'login'
+          });
+          Analytics.setScreenName('RESULT LOTTERY SCREEN');
     }
 
     shouldComponentUpdate(){
@@ -196,7 +205,6 @@ class ResultLotteryComponent extends Component {
     refreshFromServer10s = ()=>{
         var dateCurrent = new Date();
         var paramsDateCurrent = moment(dateCurrent).format('YYYY-MM-DD');
-        alert('DATA LOAD777: ' + paramsDateCurrent)
         getDataFromServerTrucTiep(paramsDateCurrent).then((data_)=>{
             
             var dataLotteProvinces_ = data_;
