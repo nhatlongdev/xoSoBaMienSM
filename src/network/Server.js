@@ -13,10 +13,11 @@ async function getDataLottery() {
 
 //LẤY DS KẾT QUẢ QUAY TRỰC TIẾP
 async function getDataFromServerTrucTiep(ngay) {
-    var apiGetDataFromServerTrucTiep = 'http://api.xoso98.com/logicandroid.php?id=lotteryresultlist&from_date=' + ngay + '%2000:00:00';
+    var apiGetDataFromServerTrucTiep = 'http://api.xoso98.com/logicandroid.php?id=lotteryresultlist&from_date=' + ngay + '%2000:00:00' + '&t='+ (new Date().getTime());
     try {
         let response = await fetch(apiGetDataFromServerTrucTiep);
         let responseJson = await response.json();
+        console.log('GIA TRI API TRA VE: ' + JSON.stringify(responseJson));
         return responseJson.bodyitems;
     } catch (error) {
         console.log(error);

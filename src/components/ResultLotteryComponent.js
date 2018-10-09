@@ -196,11 +196,10 @@ class ResultLotteryComponent extends Component {
     refreshFromServer10s = ()=>{
         var dateCurrent = new Date();
         var paramsDateCurrent = moment(dateCurrent).format('YYYY-MM-DD');
-        alert('DATA LOAD777: ' + paramsDateCurrent)
+        
         getDataFromServerTrucTiep(paramsDateCurrent).then((data_)=>{
-            
             var dataLotteProvinces_ = data_;
-            console.log("API TRA VE KET QUA TU REQUEST SERVER 10s: " + JSON.stringify(dataLotteProvinces_));
+            console.log("API TRA VE KET QUA TU REQUEST SERVER 10s: " + JSON.stringify(data_));
             if(dataLotteProvinces_.length > 0){ //Đã có kết quả quay trực tiếp
                 if(checkResultLotteryNew !== JSON.stringify(data_)){
                     checkResultLotteryNew = JSON.stringify(data_);
