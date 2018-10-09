@@ -205,10 +205,6 @@ class ResultLotteryComponent extends Component {
     refreshFromServer10s = ()=>{
         var dateCurrent = new Date();
         var paramsDateCurrent = moment(dateCurrent).format('YYYY-MM-DD');
-<<<<<<< HEAD
-        
-=======
->>>>>>> b6a2ccc801ea2d1a3e9fb9502b6cc125f26fbf5a
         getDataFromServerTrucTiep(paramsDateCurrent).then((data_)=>{
             var dataLotteProvinces_ = data_;
             console.log("API TRA VE KET QUA TU REQUEST SERVER 10s: " + JSON.stringify(data_));

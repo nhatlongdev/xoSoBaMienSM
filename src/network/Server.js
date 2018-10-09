@@ -17,11 +17,6 @@ async function getDataFromServerTrucTiep(ngay) {
     try {
         let response = await fetch(apiGetDataFromServerTrucTiep);
         let responseJson = await response.json();
-<<<<<<< HEAD
-        console.log('GIA TRI API TRA VE: ' + JSON.stringify(responseJson));
-=======
-        GlobalValue.server_time =  responseJson.serverTime;
->>>>>>> b6a2ccc801ea2d1a3e9fb9502b6cc125f26fbf5a
         return responseJson.bodyitems;
     } catch (error) {
         console.log(error);
