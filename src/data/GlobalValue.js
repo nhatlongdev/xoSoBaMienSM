@@ -21,6 +21,7 @@ var GlobalValue = {
     duration_toast:2000,
     is_sound:true, //0-ko am thanh, 1-co am thanh
     is_vibrate:true, //0-ko rung, 1-co rung
+    server_time:''
 }
 
 export default GlobalValue;

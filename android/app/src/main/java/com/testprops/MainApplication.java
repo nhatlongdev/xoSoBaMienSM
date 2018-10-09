@@ -11,6 +11,7 @@ import com.github.wumke.RNExitApp.RNExitAppPackage;
 import com.zmxv.RNSound.RNSoundPackage;
 import io.realm.react.RealmReactPackage; // add this import
 import com.pilloxa.backgroundjob.BackgroundJobPackage;
+import com.evollu.react.fa.FIRAnalyticsPackage;
 
 import java.util.Arrays;
 import java.util.List;
@@ -30,7 +31,8 @@ public class MainApplication extends Application implements ReactApplication {
           new RNExitAppPackage(),
           new RNSoundPackage(),
           new RealmReactPackage(), // add this line
-          new BackgroundJobPackage()
+          new BackgroundJobPackage(),
+          new FIRAnalyticsPackage()
       );
     }
 

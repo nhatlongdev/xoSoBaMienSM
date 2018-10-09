@@ -1,5 +1,5 @@
 const apiGetDataFromServer = 'http://api.xoso98.com/logicandroid.php?id=lotteryresultlist&from_date=2018-01-01%2000:00:00';
-
+import GlobalValue from '../data/GlobalValue';
 //LẤY DS KẾT QUẢ XỔ SỐ
 async function getDataLottery() {
     try {
@@ -17,7 +17,11 @@ async function getDataFromServerTrucTiep(ngay) {
     try {
         let response = await fetch(apiGetDataFromServerTrucTiep);
         let responseJson = await response.json();
+<<<<<<< HEAD
         console.log('GIA TRI API TRA VE: ' + JSON.stringify(responseJson));
+=======
+        GlobalValue.server_time =  responseJson.serverTime;
+>>>>>>> b6a2ccc801ea2d1a3e9fb9502b6cc125f26fbf5a
         return responseJson.bodyitems;
     } catch (error) {
         console.log(error);
