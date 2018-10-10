@@ -6,9 +6,9 @@ import {
     TouchableOpacity,
     StyleSheet,
     ScrollView, 
-    Platform,
     Vibration,
     AppState,
+    Platform
  } from 'react-native';
  import moment from 'moment';
  import ResultMienBacComponent from './ResultMienBacComponent';
@@ -86,13 +86,15 @@ class ResultLotteryComponent extends Component {
     }
 
     componentWillMount(){
-        Analytics.setUserId('11111');
-          Analytics.setUserProperty('propertyName', 'propertyValue');
-        
-          Analytics.logEvent('view_item', {
-            'item_id': 'login'
-          });
-          Analytics.setScreenName('RESULT LOTTERY SCREEN');
+        if(Platform.OS !== 'ios'){
+            Analytics.setUserId('11111');
+            Analytics.setUserProperty('propertyName', 'propertyValue');
+          
+            Analytics.logEvent('view_item', {
+              'item_id': 'login'
+            });
+            Analytics.setScreenName('RESULT LOTTERY SCREEN');
+        }
     }
 
     shouldComponentUpdate(){
