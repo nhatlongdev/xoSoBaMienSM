@@ -86,14 +86,16 @@ class ResultLotteryComponent extends Component {
     }
 
     componentWillMount(){
-            // Analytics.setEnabled(false);
-            // Analytics.setUserId('11111');
-            // Analytics.setUserProperty('propertyName', 'propertyValue');
+        if(Platform.OS !== 'ios'){
+            Analytics.setEnabled(false);
+            Analytics.setUserId('11111');
+            Analytics.setUserProperty('propertyName', 'propertyValue');
           
-            // Analytics.logEvent('view_item', {
-            //   'item_id': 'login'
-            // });
+            Analytics.logEvent('view_item', {
+              'item_id': 'login'
+            });
             Analytics.setScreenName('RESULT_LOTTERY_SCREEN');
+        }
     }
 
     shouldComponentUpdate(){

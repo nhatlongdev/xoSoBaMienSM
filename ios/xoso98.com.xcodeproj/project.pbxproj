@@ -59,6 +59,7 @@
 		B0431273FB6942A2B7F66D07 /* Foundation.ttf in Resources */ = {isa = PBXBuildFile; fileRef = B31555C1183A4F29B5F4D176 /* Foundation.ttf */; };
 		B1393D8DD5D9431FAE33C645 /* Ionicons.ttf in Resources */ = {isa = PBXBuildFile; fileRef = 44B629F28F484BA4AC85F6A5 /* Ionicons.ttf */; };
 		BA63F28C65CC41D89CC17804 /* libRNSound.a in Frameworks */ = {isa = PBXBuildFile; fileRef = 00ED3D349079405B923D639A /* libRNSound.a */; };
+		BB563EBC1EA546AE91B79B7E /* libRNFirebase.a in Frameworks */ = {isa = PBXBuildFile; fileRef = FFA25A016C8841C7A03EB2B0 /* libRNFirebase.a */; };
 		C6A2C8482CB14BC7BCC93005 /* Octicons.ttf in Resources */ = {isa = PBXBuildFile; fileRef = CF78A5D14E77431D8A179BA5 /* Octicons.ttf */; };
 		C79839451F034B49923DE950 /* rubicon-icon-font.ttf in Resources */ = {isa = PBXBuildFile; fileRef = C5EF83C5E6434D609D38AE53 /* rubicon-icon-font.ttf */; };
 		C9C6C1A8D27245D2A60BC369 /* libRNBackgroundJob.a in Frameworks */ = {isa = PBXBuildFile; fileRef = D084E978B05A42799841342F /* libRNBackgroundJob.a */; };
@@ -355,6 +356,13 @@
 			remoteGlobalIDString = 19825A1E1BD4A89800EE0337;
 			remoteInfo = RNSound;
 		};
+		84CB11D7216DBAFD00EAEA6C /* PBXContainerItemProxy */ = {
+			isa = PBXContainerItemProxy;
+			containerPortal = DFB07EE4ADE043F78DEF1E7D /* RNFirebase.xcodeproj */;
+			proxyType = 2;
+			remoteGlobalIDString = 134814201AA4EA6300B7C361;
+			remoteInfo = RNFirebase;
+		};
 		84DF2AAE21671DF0007EA4A0 /* PBXContainerItemProxy */ = {
 			isa = PBXContainerItemProxy;
 			containerPortal = 652185BAB3D94D34900A2209 /* RNExitApp.xcodeproj */;
@@ -432,11 +440,13 @@
 		D5CF58BB68EB47CD86A6EA78 /* RealmReact.xcodeproj */ = {isa = PBXFileReference; explicitFileType = undefined; fileEncoding = 9; includeInIndex = 0; lastKnownFileType = "wrapper.pb-project"; name = RealmReact.xcodeproj; path = "../node_modules/realm/react-native/ios/RealmReact.xcodeproj"; sourceTree = "<group>"; };
 		DE1B661477AF7C82553B3100 /* libPods-xoso98.comTests.a */ = {isa = PBXFileReference; explicitFileType = archive.ar; includeInIndex = 0; path = "libPods-xoso98.comTests.a"; sourceTree = BUILT_PRODUCTS_DIR; };
 		DFA506B9115FE3F5219BA3BA /* Pods-xoso98.com-tvOSTests.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-xoso98.com-tvOSTests.debug.xcconfig"; path = "Pods/Target Support Files/Pods-xoso98.com-tvOSTests/Pods-xoso98.com-tvOSTests.debug.xcconfig"; sourceTree = "<group>"; };
+		DFB07EE4ADE043F78DEF1E7D /* RNFirebase.xcodeproj */ = {isa = PBXFileReference; explicitFileType = undefined; fileEncoding = 9; includeInIndex = 0; lastKnownFileType = "wrapper.pb-project"; name = RNFirebase.xcodeproj; path = "../node_modules/react-native-firebase/ios/RNFirebase.xcodeproj"; sourceTree = "<group>"; };
 		E09B36877AA941C3A03FDAB4 /* EvilIcons.ttf */ = {isa = PBXFileReference; explicitFileType = undefined; fileEncoding = 9; includeInIndex = 0; lastKnownFileType = unknown; name = EvilIcons.ttf; path = ../assets/fonts/EvilIcons.ttf; sourceTree = "<group>"; };
 		E7FB88BA0D8A435B8AAAE294 /* libRealmReact.a */ = {isa = PBXFileReference; explicitFileType = undefined; fileEncoding = 9; includeInIndex = 0; lastKnownFileType = archive.ar; path = libRealmReact.a; sourceTree = "<group>"; };
 		EF107218E10F4273A58D7144 /* Anonymous.ttf */ = {isa = PBXFileReference; explicitFileType = undefined; fileEncoding = 9; includeInIndex = 0; lastKnownFileType = unknown; name = Anonymous.ttf; path = ../assets/fonts/Anonymous.ttf; sourceTree = "<group>"; };
 		FC036AE03312EB686EFA78B6 /* Pods-xoso98.com-tvOSTests.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-xoso98.com-tvOSTests.release.xcconfig"; path = "Pods/Target Support Files/Pods-xoso98.com-tvOSTests/Pods-xoso98.com-tvOSTests.release.xcconfig"; sourceTree = "<group>"; };
 		FE7291D40F3D3646697C71A4 /* libPods-xoso98.com.a */ = {isa = PBXFileReference; explicitFileType = archive.ar; includeInIndex = 0; path = "libPods-xoso98.com.a"; sourceTree = BUILT_PRODUCTS_DIR; };
+		FFA25A016C8841C7A03EB2B0 /* libRNFirebase.a */ = {isa = PBXFileReference; explicitFileType = undefined; fileEncoding = 9; includeInIndex = 0; lastKnownFileType = archive.ar; path = libRNFirebase.a; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -472,6 +482,7 @@
 				9B2884FED8274F1583E77C7E /* libRNExitApp.a in Frameworks */,
 				C9C6C1A8D27245D2A60BC369 /* libRNBackgroundJob.a in Frameworks */,
 				39C73EC411EC3705DD52CC1B /* libPods-xoso98.com.a in Frameworks */,
+				BB563EBC1EA546AE91B79B7E /* libRNFirebase.a in Frameworks */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -671,6 +682,7 @@
 				42B6052723A84B919CBE91BD /* RNSound.xcodeproj */,
 				652185BAB3D94D34900A2209 /* RNExitApp.xcodeproj */,
 				D098797ED58441EE84DCD616 /* RNBackgroundJob.xcodeproj */,
+				DFB07EE4ADE043F78DEF1E7D /* RNFirebase.xcodeproj */,
 			);
 			name = Libraries;
 			sourceTree = "<group>";
@@ -728,6 +740,7 @@
 				00ED3D349079405B923D639A /* libRNSound.a */,
 				3BF7A2D8144540BEB9F457C7 /* libRNExitApp.a */,
 				D084E978B05A42799841342F /* libRNBackgroundJob.a */,
+				FFA25A016C8841C7A03EB2B0 /* libRNFirebase.a */,
 			);
 			name = "Recovered References";
 			sourceTree = "<group>";
@@ -744,6 +757,14 @@
 			isa = PBXGroup;
 			children = (
 				8499C1A521659264008BEDD8 /* libRNSound.a */,
+			);
+			name = Products;
+			sourceTree = "<group>";
+		};
+		84CB11D4216DBAFD00EAEA6C /* Products */ = {
+			isa = PBXGroup;
+			children = (
+				84CB11D8216DBAFD00EAEA6C /* libRNFirebase.a */,
 			);
 			name = Products;
 			sourceTree = "<group>";
@@ -980,6 +1001,10 @@
 				{
 					ProductGroup = 84DF2AAB21671DF0007EA4A0 /* Products */;
 					ProjectRef = 652185BAB3D94D34900A2209 /* RNExitApp.xcodeproj */;
+				},
+				{
+					ProductGroup = 84CB11D4216DBAFD00EAEA6C /* Products */;
+					ProjectRef = DFB07EE4ADE043F78DEF1E7D /* RNFirebase.xcodeproj */;
 				},
 				{
 					ProductGroup = 8499C1A121659264008BEDD8 /* Products */;
@@ -1270,6 +1295,13 @@
 			remoteRef = 8499C1A421659264008BEDD8 /* PBXContainerItemProxy */;
 			sourceTree = BUILT_PRODUCTS_DIR;
 		};
+		84CB11D8216DBAFD00EAEA6C /* libRNFirebase.a */ = {
+			isa = PBXReferenceProxy;
+			fileType = archive.ar;
+			path = libRNFirebase.a;
+			remoteRef = 84CB11D7216DBAFD00EAEA6C /* PBXContainerItemProxy */;
+			sourceTree = BUILT_PRODUCTS_DIR;
+		};
 		84DF2AAF21671DF0007EA4A0 /* libRNExitApp.a */ = {
 			isa = PBXReferenceProxy;
 			fileType = archive.ar;
@@ -1516,12 +1548,14 @@
 					"$(SRCROOT)/../node_modules/realm/src/**",
 					"$(SRCROOT)/../node_modules/react-native-sound/RNSound",
 					"$(SRCROOT)/../node_modules/react-native-background-job/ios",
+					"$(SRCROOT)/../node_modules/react-native-firebase/ios/RNFirebase/**",
 				);
 				INFOPLIST_FILE = xoso98.comTests/Info.plist;
 				IPHONEOS_DEPLOYMENT_TARGET = 8.0;
 				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks @loader_path/Frameworks";
 				LIBRARY_SEARCH_PATHS = (
 					"$(inherited)",
+					"\"$(SRCROOT)/$(TARGET_NAME)\"",
 					"\"$(SRCROOT)/$(TARGET_NAME)\"",
 					"\"$(SRCROOT)/$(TARGET_NAME)\"",
 					"\"$(SRCROOT)/$(TARGET_NAME)\"",
@@ -1548,12 +1582,14 @@
 					"$(SRCROOT)/../node_modules/realm/src/**",
 					"$(SRCROOT)/../node_modules/react-native-sound/RNSound",
 					"$(SRCROOT)/../node_modules/react-native-background-job/ios",
+					"$(SRCROOT)/../node_modules/react-native-firebase/ios/RNFirebase/**",
 				);
 				INFOPLIST_FILE = xoso98.comTests/Info.plist;
 				IPHONEOS_DEPLOYMENT_TARGET = 8.0;
 				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks @loader_path/Frameworks";
 				LIBRARY_SEARCH_PATHS = (
 					"$(inherited)",
+					"\"$(SRCROOT)/$(TARGET_NAME)\"",
 					"\"$(SRCROOT)/$(TARGET_NAME)\"",
 					"\"$(SRCROOT)/$(TARGET_NAME)\"",
 					"\"$(SRCROOT)/$(TARGET_NAME)\"",
@@ -1584,6 +1620,7 @@
 					"$(SRCROOT)/../node_modules/realm/src/**",
 					"$(SRCROOT)/../node_modules/react-native-sound/RNSound",
 					"$(SRCROOT)/../node_modules/react-native-background-job/ios",
+					"$(SRCROOT)/../node_modules/react-native-firebase/ios/RNFirebase/**",
 				);
 				INFOPLIST_FILE = xoso98.com/Info.plist;
 				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks";
@@ -1613,6 +1650,7 @@
 					"$(SRCROOT)/../node_modules/realm/src/**",
 					"$(SRCROOT)/../node_modules/react-native-sound/RNSound",
 					"$(SRCROOT)/../node_modules/react-native-background-job/ios",
+					"$(SRCROOT)/../node_modules/react-native-firebase/ios/RNFirebase/**",
 				);
 				INFOPLIST_FILE = xoso98.com/Info.plist;
 				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks";
@@ -1646,11 +1684,13 @@
 					"$(SRCROOT)/../node_modules/realm/src/**",
 					"$(SRCROOT)/../node_modules/react-native-sound/RNSound",
 					"$(SRCROOT)/../node_modules/react-native-background-job/ios",
+					"$(SRCROOT)/../node_modules/react-native-firebase/ios/RNFirebase/**",
 				);
 				INFOPLIST_FILE = "xoso98.com-tvOS/Info.plist";
 				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks";
 				LIBRARY_SEARCH_PATHS = (
 					"$(inherited)",
+					"\"$(SRCROOT)/$(TARGET_NAME)\"",
 					"\"$(SRCROOT)/$(TARGET_NAME)\"",
 					"\"$(SRCROOT)/$(TARGET_NAME)\"",
 					"\"$(SRCROOT)/$(TARGET_NAME)\"",
@@ -1686,11 +1726,13 @@
 					"$(SRCROOT)/../node_modules/realm/src/**",
 					"$(SRCROOT)/../node_modules/react-native-sound/RNSound",
 					"$(SRCROOT)/../node_modules/react-native-background-job/ios",
+					"$(SRCROOT)/../node_modules/react-native-firebase/ios/RNFirebase/**",
 				);
 				INFOPLIST_FILE = "xoso98.com-tvOS/Info.plist";
 				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks";
 				LIBRARY_SEARCH_PATHS = (
 					"$(inherited)",
+					"\"$(SRCROOT)/$(TARGET_NAME)\"",
 					"\"$(SRCROOT)/$(TARGET_NAME)\"",
 					"\"$(SRCROOT)/$(TARGET_NAME)\"",
 					"\"$(SRCROOT)/$(TARGET_NAME)\"",
@@ -1725,11 +1767,13 @@
 					"$(SRCROOT)/../node_modules/realm/src/**",
 					"$(SRCROOT)/../node_modules/react-native-sound/RNSound",
 					"$(SRCROOT)/../node_modules/react-native-background-job/ios",
+					"$(SRCROOT)/../node_modules/react-native-firebase/ios/RNFirebase/**",
 				);
 				INFOPLIST_FILE = "xoso98.com-tvOSTests/Info.plist";
 				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks @loader_path/Frameworks";
 				LIBRARY_SEARCH_PATHS = (
 					"$(inherited)",
+					"\"$(SRCROOT)/$(TARGET_NAME)\"",
 					"\"$(SRCROOT)/$(TARGET_NAME)\"",
 					"\"$(SRCROOT)/$(TARGET_NAME)\"",
 					"\"$(SRCROOT)/$(TARGET_NAME)\"",
@@ -1764,11 +1808,13 @@
 					"$(SRCROOT)/../node_modules/realm/src/**",
 					"$(SRCROOT)/../node_modules/react-native-sound/RNSound",
 					"$(SRCROOT)/../node_modules/react-native-background-job/ios",
+					"$(SRCROOT)/../node_modules/react-native-firebase/ios/RNFirebase/**",
 				);
 				INFOPLIST_FILE = "xoso98.com-tvOSTests/Info.plist";
 				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks @loader_path/Frameworks";
 				LIBRARY_SEARCH_PATHS = (
 					"$(inherited)",
+					"\"$(SRCROOT)/$(TARGET_NAME)\"",
 					"\"$(SRCROOT)/$(TARGET_NAME)\"",
 					"\"$(SRCROOT)/$(TARGET_NAME)\"",
 					"\"$(SRCROOT)/$(TARGET_NAME)\"",
