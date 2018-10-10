@@ -52,7 +52,7 @@ class ResultLotteryComponent extends Component {
 
     constructor(props){
         super(props);
-        checkResultLotteryNew
+        checkResultLotteryNew = '';
         song = null;
         //set thời điểm bắt đầu và kết thúc quay xổ số ba miền
         dateTimeBatDauQuayMienNam = moment(moment().format('YYYY-MM-DD') + ' 16:15'); //.format('YYYY/MM/DD HH:mm:ss')
@@ -231,7 +231,7 @@ class ResultLotteryComponent extends Component {
 
     // HAM PLAY MUSIC
     onPlaySound(){
-        if(song != null && obj_data_cake.is_sound === true){
+        if(song != null && obj_data_cake[0].is_sound === true){
             song.play((success)=>{
                 if(!success) alert('play error');
             })
@@ -240,7 +240,7 @@ class ResultLotteryComponent extends Component {
 
     //HAM VIBRATE
     onPlayVibrate(){
-        if(obj_data_cake.is_vibrate === true){
+        if(obj_data_cake[0].is_vibrate === true){
             const DURATION = 1000
             const PATTERN = [1000, 2000, 3000]
             Vibration.vibrate(DURATION);

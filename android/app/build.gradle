@@ -1,5 +1,4 @@
 apply plugin: "com.android.application"
-apply plugin: 'com.google.gms.google-services' // <- Add this line
 
 import com.android.build.OutputFile
 
@@ -138,7 +137,6 @@ android {
 }
 
 dependencies {
-    compile project(':react-native-firebase')
     compile project(':react-native-background-job')
     compile project(':react-native-billing')
     compile fileTree(dir: "libs", include: ["*.jar"])
@@ -158,3 +156,5 @@ task copyDownloadableDepsToLibs(type: Copy) {
     from configurations.compile
     into 'libs'
 }
+
+apply plugin: 'com.google.gms.google-services' // <- Add this line
