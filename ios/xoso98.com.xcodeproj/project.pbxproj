@@ -51,8 +51,8 @@
 		7C45AA45256D48498CAEDF20 /* EvilIcons.ttf in Resources */ = {isa = PBXBuildFile; fileRef = E09B36877AA941C3A03FDAB4 /* EvilIcons.ttf */; };
 		832341BD1AAA6AB300B99B32 /* libRCTText.a in Frameworks */ = {isa = PBXBuildFile; fileRef = 832341B51AAA6A8300B99B32 /* libRCTText.a */; };
 		84149108216B073A00397463 /* libRCTAnimation.a in Frameworks */ = {isa = PBXBuildFile; fileRef = 5E9157331DD0AC6500FF2AA8 /* libRCTAnimation.a */; };
+		84AFEAE2216EFDF300DD323E /* GoogleService-Info.plist in Resources */ = {isa = PBXBuildFile; fileRef = 84AFEAE1216EFDF300DD323E /* GoogleService-Info.plist */; };
 		84DF2B09216758A0007EA4A0 /* tin_nhan_moi.mp3 in Resources */ = {isa = PBXBuildFile; fileRef = 84DF2AE02167589F007EA4A0 /* tin_nhan_moi.mp3 */; };
-		84FA61E7216DA221009AEAC2 /* GoogleService-Info.plist in Resources */ = {isa = PBXBuildFile; fileRef = 84FA61BD216DA221009AEAC2 /* GoogleService-Info.plist */; };
 		951C9B0C37954D95AC579A11 /* libc++.tbd in Frameworks */ = {isa = PBXBuildFile; fileRef = 1A790640ED6D48D39123033B /* libc++.tbd */; };
 		9B2884FED8274F1583E77C7E /* libRNExitApp.a in Frameworks */ = {isa = PBXBuildFile; fileRef = 3BF7A2D8144540BEB9F457C7 /* libRNExitApp.a */; };
 		ADBDB9381DFEBF1600ED6528 /* libRCTBlob.a in Frameworks */ = {isa = PBXBuildFile; fileRef = ADBDB9271DFEBF0700ED6528 /* libRCTBlob.a */; };
@@ -426,8 +426,8 @@
 		7A94B49360B999CF842CACEB /* libPods-xoso98.com-tvOS.a */ = {isa = PBXFileReference; explicitFileType = archive.ar; includeInIndex = 0; path = "libPods-xoso98.com-tvOS.a"; sourceTree = BUILT_PRODUCTS_DIR; };
 		832341B01AAA6A8300B99B32 /* RCTText.xcodeproj */ = {isa = PBXFileReference; lastKnownFileType = "wrapper.pb-project"; name = RCTText.xcodeproj; path = "../node_modules/react-native/Libraries/Text/RCTText.xcodeproj"; sourceTree = "<group>"; };
 		835BD8AE12578E983635C911 /* Pods-xoso98.com-tvOS.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-xoso98.com-tvOS.release.xcconfig"; path = "Pods/Target Support Files/Pods-xoso98.com-tvOS/Pods-xoso98.com-tvOS.release.xcconfig"; sourceTree = "<group>"; };
+		84AFEAE1216EFDF300DD323E /* GoogleService-Info.plist */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.plist.xml; name = "GoogleService-Info.plist"; path = "../../GoogleService-Info.plist"; sourceTree = "<group>"; };
 		84DF2AE02167589F007EA4A0 /* tin_nhan_moi.mp3 */ = {isa = PBXFileReference; lastKnownFileType = audio.mp3; path = tin_nhan_moi.mp3; sourceTree = "<group>"; };
-		84FA61BD216DA221009AEAC2 /* GoogleService-Info.plist */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.plist.xml; name = "GoogleService-Info.plist"; path = "../../../../GoogleService-Info.plist"; sourceTree = "<group>"; };
 		ABC2CB9E3ABD490EB683960B /* Feather.ttf */ = {isa = PBXFileReference; explicitFileType = undefined; fileEncoding = 9; includeInIndex = 0; lastKnownFileType = unknown; name = Feather.ttf; path = ../assets/fonts/Feather.ttf; sourceTree = "<group>"; };
 		AC817A4246C8679A5B0D4260 /* Pods-xoso98.comTests.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-xoso98.comTests.release.xcconfig"; path = "Pods/Target Support Files/Pods-xoso98.comTests/Pods-xoso98.comTests.release.xcconfig"; sourceTree = "<group>"; };
 		ADBDB91F1DFEBF0600ED6528 /* RCTBlob.xcodeproj */ = {isa = PBXFileReference; lastKnownFileType = "wrapper.pb-project"; name = RCTBlob.xcodeproj; path = "../node_modules/react-native/Libraries/Blob/RCTBlob.xcodeproj"; sourceTree = "<group>"; };
@@ -596,7 +596,6 @@
 		13B07FAE1A68108700A75B9A /* xoso98.com */ = {
 			isa = PBXGroup;
 			children = (
-				84FA61BD216DA221009AEAC2 /* GoogleService-Info.plist */,
 				008F07F21AC5B25A0029DE68 /* main.jsbundle */,
 				13B07FAF1A68108700A75B9A /* AppDelegate.h */,
 				13B07FB01A68108700A75B9A /* AppDelegate.m */,
@@ -699,6 +698,7 @@
 		83CBB9F61A601CBA00E9B192 = {
 			isa = PBXGroup;
 			children = (
+				84AFEAE1216EFDF300DD323E /* GoogleService-Info.plist */,
 				2D16E6871FA4F8E400B85C8A /* Frameworks */,
 				832341AE1AAA6A7D00B99B32 /* Libraries */,
 				83CBBA001A601CBA00E9B192 /* Products */,
@@ -1341,7 +1341,7 @@
 				B1393D8DD5D9431FAE33C645 /* Ionicons.ttf in Resources */,
 				DA67BA72479C403EBB3BEC7C /* MaterialCommunityIcons.ttf in Resources */,
 				412D97B9445D4C079813012C /* MaterialIcons.ttf in Resources */,
-				84FA61E7216DA221009AEAC2 /* GoogleService-Info.plist in Resources */,
+				84AFEAE2216EFDF300DD323E /* GoogleService-Info.plist in Resources */,
 				C6A2C8482CB14BC7BCC93005 /* Octicons.ttf in Resources */,
 				FF72797332F643A89D4B782C /* Roboto_medium.ttf in Resources */,
 				2A3CF459670040C495416D89 /* Roboto.ttf in Resources */,
@@ -1615,6 +1615,7 @@
 				CURRENT_PROJECT_VERSION = 1;
 				DEAD_CODE_STRIPPING = NO;
 				DEVELOPMENT_TEAM = DRJSGHVW72;
+				ENABLE_BITCODE = YES;
 				HEADER_SEARCH_PATHS = (
 					"$(inherited)",
 					"$(SRCROOT)/../node_modules/realm/src/**",
@@ -1645,6 +1646,7 @@
 				CODE_SIGN_STYLE = Automatic;
 				CURRENT_PROJECT_VERSION = 1;
 				DEVELOPMENT_TEAM = DRJSGHVW72;
+				ENABLE_BITCODE = YES;
 				HEADER_SEARCH_PATHS = (
 					"$(inherited)",
 					"$(SRCROOT)/../node_modules/realm/src/**",
