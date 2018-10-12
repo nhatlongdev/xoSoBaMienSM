@@ -44,6 +44,8 @@ var obj_data_cake;
 
 //BIEN KIEM TRA CO KET QUAR MOI
 var checkResultLotteryNew;
+//PUSH NOTFICATION
+import PushNotification from 'react-native-push-notification';
 
 class ResultLotteryComponent extends Component {
 
@@ -83,17 +85,10 @@ class ResultLotteryComponent extends Component {
     }
 
     componentWillMount(){
-        // if(Platform.OS !== 'ios'){
-        //     Analytics.setEnabled(false);
-        //     Analytics.setUserId('11111');
-        //     Analytics.setUserProperty('propertyName', 'propertyValue');
-          
-        //     Analytics.logEvent('view_item', {
-        //       'item_id': 'login'
-        //     });
-        //     Analytics.setScreenName('RESULT_LOTTERY_SCREEN');
-        // }
+        
     }
+
+
 
     shouldComponentUpdate(){
         return true;
@@ -130,6 +125,31 @@ class ResultLotteryComponent extends Component {
 
         //DK LANG NGHE SU KIEN APP THAY DOI TRANG THAI
         AppState.addEventListener('change', this._handleAppStateChange);
+
+        //PUSH NOTIFICATION
+        PushNotification.configure({
+            
+            // (optional) Called when Token is generated (iOS and Android)
+            onRegister: function(token) {
+                console.log( 'TOKEN:', token );
+                alert('token' + token)
+            },
+        
+            // (required) Called when a remote or local notification is opened or received
+            onNotification: function(notification) {
+                console.log( 'NOTIFICATION:', notification );
+                alert('co push')
+                // process the notification
+        
+                // required on iOS only (see fetchCompletionHandler docs: https://facebook.github.io/react-native/docs/pushnotificationios.html)
+                // notification.finish(PushNotificationIOS.FetchResult.NoData);
+            },
+        
+            // ANDROID ONLY: GCM or FCM Sender ID (product_number) (optional - not required for local notifications, but is need to receive remote push notifications)
+            senderID: "560042440014",
+        
+           
+        });
     }
 
      render() {

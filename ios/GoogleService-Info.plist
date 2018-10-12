@@ -1,0 +1,40 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE plist PUBLIC "-//Apple//DTD PLIST 1.0//EN" "http://www.apple.com/DTDs/PropertyList-1.0.dtd">
+<plist version="1.0">
+<dict>
+	<key>AD_UNIT_ID_FOR_BANNER_TEST</key>
+	<string>ca-app-pub-3940256099942544/2934735716</string>
+	<key>AD_UNIT_ID_FOR_INTERSTITIAL_TEST</key>
+	<string>ca-app-pub-3940256099942544/4411468910</string>
+	<key>CLIENT_ID</key>
+	<string>560042440014-8k9k5s85uq8673a3vabn5cj5g3u7tiis.apps.googleusercontent.com</string>
+	<key>REVERSED_CLIENT_ID</key>
+	<string>com.googleusercontent.apps.560042440014-8k9k5s85uq8673a3vabn5cj5g3u7tiis</string>
+	<key>API_KEY</key>
+	<string>AIzaSyBiqwpMeek0bDuTnOfHVQMQ9QTvFnwPUMM</string>
+	<key>GCM_SENDER_ID</key>
+	<string>560042440014</string>
+	<key>PLIST_VERSION</key>
+	<string>1</string>
+	<key>BUNDLE_ID</key>
+	<string>xoso98.com</string>
+	<key>PROJECT_ID</key>
+	<string>xoso98-8ad2f</string>
+	<key>STORAGE_BUCKET</key>
+	<string>xoso98-8ad2f.appspot.com</string>
+	<key>IS_ADS_ENABLED</key>
+	<true></true>
+	<key>IS_ANALYTICS_ENABLED</key>
+	<false></false>
+	<key>IS_APPINVITE_ENABLED</key>
+	<false></false>
+	<key>IS_GCM_ENABLED</key>
+	<true></true>
+	<key>IS_SIGNIN_ENABLED</key>
+	<true></true>
+	<key>GOOGLE_APP_ID</key>
+	<string>1:560042440014:ios:65f99855c9f26790</string>
+	<key>DATABASE_URL</key>
+	<string>https://xoso98-8ad2f.firebaseio.com</string>
+</dict>
+</plist>
