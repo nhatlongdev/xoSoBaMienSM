@@ -45,9 +45,6 @@ var obj_data_cake;
 //BIEN KIEM TRA CO KET QUAR MOI
 var checkResultLotteryNew;
 
-//FIREBASE ANALTYTICS
-import Analytics from 'react-native-firebase-analytics';
-
 class ResultLotteryComponent extends Component {
 
     constructor(props){
@@ -86,16 +83,16 @@ class ResultLotteryComponent extends Component {
     }
 
     componentWillMount(){
-        if(Platform.OS !== 'ios'){
-            Analytics.setEnabled(false);
-            Analytics.setUserId('11111');
-            Analytics.setUserProperty('propertyName', 'propertyValue');
+        // if(Platform.OS !== 'ios'){
+        //     Analytics.setEnabled(false);
+        //     Analytics.setUserId('11111');
+        //     Analytics.setUserProperty('propertyName', 'propertyValue');
           
-            Analytics.logEvent('view_item', {
-              'item_id': 'login'
-            });
-            Analytics.setScreenName('RESULT_LOTTERY_SCREEN');
-        }
+        //     Analytics.logEvent('view_item', {
+        //       'item_id': 'login'
+        //     });
+        //     Analytics.setScreenName('RESULT_LOTTERY_SCREEN');
+        // }
     }
 
     shouldComponentUpdate(){
