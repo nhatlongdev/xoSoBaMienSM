@@ -17,7 +17,7 @@ import {
  //FUNCTION FORMAT DATA
  import {formatDataLotteryToKeyValue} from '../functions/ConvertDataLotteryToKeyValue';
  import {createArrResultDoSo} from '../functions/CreateArrResultDoSo';
- import {getDataFromServerTrucTiep} from '../network/Server';
+ import {getDataFromServerTrucTiep, pushTokenToServer} from '../network/Server';
 
  //REDUX
  import { connect } from 'react-redux';
@@ -45,7 +45,15 @@ var obj_data_cake;
 //BIEN KIEM TRA CO KET QUAR MOI
 var checkResultLotteryNew;
 //PUSH NOTFICATION
-import PushNotification from 'react-native-push-notification';
+import FCM, { NotificationActionType } from "react-native-fcm";
+import { registerKilledListener, registerAppListener } from "./Listeners";
+var params ={
+    method:'REGISTER',
+    area:0,
+    device_type:Platform.OS === 'ios'?2:1,
+}; 
+//FIREBASE ANALYTICS
+var Analytics = require('react-native-firebase-analytics');
 
 class ResultLotteryComponent extends Component {
 
@@ -77,36 +85,12 @@ class ResultLotteryComponent extends Component {
             }]
           });
           obj_data_cake = realm.objects('Global_cake');
+          params.area = parseInt(obj_data_cake[0].region_value);
 
           //STATE COMPONENT
           this.state = {
             appState: AppState.currentState,
         };
-
-        //PUSH NOTIFICATION
-        PushNotification.configure({
-            
-            // (optional) Called when Token is generated (iOS and Android)
-            onRegister: function(token) {
-                console.log( 'TOKEN:', token );
-                alert('token' + JSON.stringify(token))
-            },
-        
-            // (required) Called when a remote or local notification is opened or received
-            onNotification: function(notification) {
-                console.log( 'NOTIFICATION:', notification );
-                alert('co push')
-                // process the notification
-        
-                // required on iOS only (see fetchCompletionHandler docs: https://facebook.github.io/react-native/docs/pushnotificationios.html)
-                // notification.finish(PushNotificationIOS.FetchResult.NoData);
-            },
-        
-            // ANDROID ONLY: GCM or FCM Sender ID (product_number) (optional - not required for local notifications, but is need to receive remote push notifications)
-            senderID: "560042440014",
-        
-           
-        });
     }
 
     componentWillMount(){
@@ -123,7 +107,63 @@ class ResultLotteryComponent extends Component {
         console.log('WIllUPDATE: ' + this.props.regionSelected)
     }
 
-    componentDidMount(){
+   async componentDidMount(){
+
+        //PUSH NOTIFICATION
+          FCM.createNotificationChannel({
+            id: 'default',
+            name: 'Default',
+            description: 'used for example',
+            priority: 'high'
+          })
+          registerAppListener(this.props.navigation);
+
+          FCM.getInitialNotification().then(notif => {
+            //   alert('co chay vao day' + JSON.stringify(notif));
+              console.log('INITIALNOTIFI', notif)
+            this.setState({
+              initNotif: notif
+            });
+            if (notif && notif.targetScreen === "detail") {
+              setTimeout(() => {
+                this.props.navigation.navigate("Detail");
+              }, 500);
+            }
+          });
+
+          try {
+            let result = await FCM.requestPermissions({
+              badge: false,
+              sound: true,
+              alert: true
+            });
+          } catch (e) {
+            console.error(e);
+          }
+          // Đăng ký token với fcm
+          FCM.getFCMToken().then(token => {
+            console.log("TOKEN (getFCMToken)", token);
+            this.setState({ token: token || "" });
+            params.token = token;
+            this.registryTokenToServer();
+          });
+      
+          if (Platform.OS === "ios") {
+            FCM.getAPNSToken().then(token => {
+              console.log("APNS TOKEN (getFCMToken)", token);
+            });
+          }
+
+        //FIREBASE ANALYTICS
+        Analytics.setUserId('11111');
+        Analytics.setUserProperty('propertyName', 'propertyValue');
+
+        Analytics.logEvent('view_item', {
+            'item_id': 'login'
+        });
+        Analytics.setScreenName('RESULT_LOTTEY');
+
+
         //CLICK PHONE BACK
         handleAndroidBackButton(exitAlert);
 
@@ -150,7 +190,7 @@ class ResultLotteryComponent extends Component {
 
         //DK LANG NGHE SU KIEN APP THAY DOI TRANG THAI
         AppState.addEventListener('change', this._handleAppStateChange);
-
+     
     }
 
      render() {
@@ -185,6 +225,15 @@ class ResultLotteryComponent extends Component {
             this.refreshFromServer10s();
         }
         this.setState({appState: nextAppState});
+    }
+
+    //DANG KY TOKEN VOI SERVER
+    registryTokenToServer(){
+        pushTokenToServer(params).then((data_)=>{
+            // alert("KET QUA PUSH TOKEN" + JSON.stringify(data_));
+          }).catch((error) =>{
+              console.log("ERROR KET QUA PUSH TOKEN" + JSON.stringify(error));
+          });
     }
 
      //HAM SET VIEW

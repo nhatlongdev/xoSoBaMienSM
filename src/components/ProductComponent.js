@@ -11,12 +11,35 @@ import {
  } from 'react-native';
  import ItemProduct from './ItemProduct';
  import GlobalValue from '../data/GlobalValue';
+  //REALM DATABASE
+  const Realm = require('realm');
+  let realm;
+  var obj_data_cake;  
+  var arr_products = [];
  
  export default class ProductComponent extends Component {
 
     constructor(props){
         super(props);
         this.handleBackButtonClick = this.handleBackButtonClick.bind(this);
+
+        //REALM DATABASE
+        realm = new Realm({
+            schema: [{
+              name: 'Global_cake',
+              properties:
+              {
+                emp_id: { type: 'int', default: 0 },
+                data_lottery: 'string',
+                region_value: 'string',
+                data_products: 'string',
+                is_sound:{ type: 'bool', default: true },
+                is_vibrate:{ type: 'bool', default: true },
+              }
+            }]
+          });
+        obj_data_cake = realm.objects('Global_cake');
+        arr_products = JSON.parse(obj_data_cake[0].data_products);
     }
 
     componentWillMount() {
@@ -48,7 +71,7 @@ import {
                     <Text style = {styles.text_title}>DANH SÁCH GÓI DỊCH VỤ</Text>
                 </View>
                 <FlatList
-                    data={GlobalValue.listProduct}
+                    data={arr_products}
                     renderItem={({item, index})=>{
                         return(
                             <ItemProduct item={item}
