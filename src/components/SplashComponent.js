@@ -39,6 +39,7 @@ import {
                 data_products: 'string',
                 is_sound:{ type: 'bool', default: true },
                 is_vibrate:{ type: 'bool', default: true },
+                token:'string',
               }
             }]
           });
@@ -54,6 +55,7 @@ import {
                 data_products: '',
                 is_sound:true,   //0-ko co am thanh, 1- co am thanh
                 is_vibrate:true, //0-ko rung, 1-co rung
+                token:'',
                 });
             }); 
             obj_data_cake = realm.objects('Global_cake');  

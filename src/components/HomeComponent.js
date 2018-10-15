@@ -33,6 +33,7 @@ var obj;
                 data_products: 'string',
                 is_sound:{ type: 'bool', default: true },
                 is_vibrate:{ type: 'bool', default: true },
+                token:'string',
               }
             }]
           });

@@ -1,6 +1,7 @@
 const apiGetDataFromServer = 'http://api.xoso98.com/logicandroid.php?id=lotteryresultlist&from_date=2018-01-01%2000:00:00';
 import GlobalValue from '../data/GlobalValue';
 const apiPushTokenToServer = 'https://dacbiet.vn/firebase/api.php';
+import DeviceInfo from 'react-native-device-info';
 //LẤY DS KẾT QUẢ XỔ SỐ
 async function getDataLottery() {
     try {
@@ -39,7 +40,7 @@ async function apiGetListProducts() {
 //SAU KHI MUA MỘT GÓI SP GỬI API CHO SERVER
 async function updatePurcharse(package_id) {
     var _body = 'method='+ 'PURCHASE' + '&device_id=' + DeviceInfo.getDeviceId() + '&package_id=' + package_id;
-    console.log('CO gia tri: ' + _body)
+    // alert('CO gia tri: ' + _body)
     try {
         let response = await fetch(apiPushTokenToServer, {
             method:'POST',
@@ -49,7 +50,7 @@ async function updatePurcharse(package_id) {
             body: _body // <-- Post parameters
         });
         let responseJson = await response.json();
-        console.log('GIA TRI : ' + JSON.stringify(responseJson));
+        // alert('GIA TRI : ' + JSON.stringify(responseJson));
         return responseJson;
     } catch (error) {
         console.log(error);

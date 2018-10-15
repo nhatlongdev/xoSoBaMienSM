@@ -7,7 +7,7 @@ import {
     TouchableOpacity,
     Image,
     Switch,
-    Platform
+    Platform,
  } from 'react-native';
  import GlobalValue from '../data/GlobalValue';
 
@@ -37,6 +37,7 @@ import {
                 data_products: 'string',
                 is_sound:{ type: 'bool', default: true },
                 is_vibrate:{ type: 'bool', default: true },
+                token:'string',
               }
             }]
           });

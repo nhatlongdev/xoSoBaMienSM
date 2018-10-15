@@ -40,6 +40,7 @@ import {
                 data_products: 'string',
                 is_sound:{ type: 'bool', default: true },
                 is_vibrate:{ type: 'bool', default: true },
+                token:'string',
               }
             }]
           });
@@ -93,7 +94,7 @@ import {
           await InAppBilling.open();
           const details = await InAppBilling.purchase(this.state.productId);
           await InAppBilling.close();
-          console.log('DU LIEU TRA VE KHI PURCHASE: ' + JSON.stringify(details));
+          // alert('DU LIEU TRA VE KHI PURCHASE: ' + JSON.stringify(details));
           this.setState({ transactionDetails: JSON.stringify(details) });
           if(details !== null && details.purchaseState === 'PurchasedSuccessfully'){
             console.log('DU LIEU TRA VE KHI PURCHASE TMDK GOI CONSUME');
@@ -114,7 +115,7 @@ import {
           await InAppBilling.open();
           const details = await InAppBilling.consumePurchase(this.state.productId);
           await InAppBilling.close();
-          console.log('DU LIEU TRA VE KHI CONSUME: ' + JSON.stringify(details));
+          // alert('DU LIEU TRA VE KHI CONSUME: ' + JSON.stringify(details));
           if(details === true){
             this.forArrrSearchItemToAddProperty(1);
           }
@@ -129,41 +130,37 @@ import {
       };
 
      //Hàm truyền id product to in app purscharge
-     pushIdProductToInAppPursCharge(item){
-         
+     pushIdProductToInAppPursCharge(item){ 
         this.setState({
             productId: item.id,
         });
-        this.purchaseProduct();
         //KIEM TRA XEM SAN PHAM NAY DA MUA CHUA NEU DA MUA THI DA CONSUME CHUA
-        // for(let e of arr_products){
-        //     if(e.id === this.state.productId){
-        //         alert('click89' + JSON.stringify(item))
-        //         if(e.isConsume === undefined || e.isConsume === null || e.isConsume === true){
-        //             //cho phep mua item
-        //             this.purchaseProduct();
-        //         }else{
-        //             alert('click88' + JSON.stringify(item))
-        //             //consume roi moi cho phep mua
-        //             this.consumePurchase();
-        //         }
-        //         break;
-        //     }
-        // }
+        for(let i=0; i<arr_products.length; i++){
+          if(arr_products[i].id === this.state.productId){
+              if(arr_products[i].isConsume === undefined || arr_products[i].isConsume === null || arr_products[i].isConsume === true){
+                //cho phep mua item
+                this.purchaseProduct();
+              }else{
+                  //consume roi moi cho phep mua
+                  this.consumePurchase();
+              }
+              break;
+          }
+        }
      }
 
      //HAM FOR TIM KIEM ITEM PHU HOP TO ADD PROPERTY
      forArrrSearchItemToAddProperty(type){ //0 - mua xong sp chua consume, 1-consume sp xong
          //KIEM TRA XEM SAN PHAM NAY DA MUA CHUA NEU DA MUA THI DA CONSUME CHUA
-        for(let e of arr_products){
-            if(e.id === this.state.productId){
+        for(let i=0; i<arr_products.length; i++){
+          if(arr_products[i].id === this.state.productId){
                 if(type === 0){
-                    e.isConsume = false;
+                  arr_products[i].isConsume = false;
                 }else {
-                    e.isConsume = true;
+                  arr_products[i].isConsume = true;
                 }
-                break;
-            }
+                break
+          }
         }
         //luu lai REALm DATABASE
         realm.write(() => {
@@ -173,9 +170,9 @@ import {
 
      //ham cap nhat toi server khi mua thanh cong sp
      updatePurcharse(package_id){
-      console.log('CHAY HAM UPDATE: ')
+      // alert('CHAY HAM UPDATE: ' + package_id)
       updatePurcharse(package_id).then((data_)=>{
-        console.log('UPDATE THAH CONG: ' + JSON.stringify(data_))
+        // alert('UPDATE THAH CONG: ' + JSON.stringify(data_))
           //thuc hien consume
           this.consumePurchase();
       }).catch((error) =>{

@@ -14,6 +14,7 @@ import {
  import ResultMienBacComponent from './ResultMienBacComponent';
  import ResultMienTrungNamComponent from './ResultMienTrungNamComponent';
  import ResultWithDaySelectedComponent from './ResultWithDaySelectedComponent';
+ import {AlertXoSo} from '../functions/AlertXoSo';
  //FUNCTION FORMAT DATA
  import {formatDataLotteryToKeyValue} from '../functions/ConvertDataLotteryToKeyValue';
  import {createArrResultDoSo} from '../functions/CreateArrResultDoSo';
@@ -81,6 +82,7 @@ class ResultLotteryComponent extends Component {
                 data_products: 'string',
                 is_sound:{ type: 'bool', default: true },
                 is_vibrate:{ type: 'bool', default: true },
+                token:'string',
               }
             }]
           });
@@ -104,7 +106,7 @@ class ResultLotteryComponent extends Component {
     }
 
     componentWillUpdate(){
-        console.log('WIllUPDATE: ' + this.props.regionSelected)
+        console.log('WIllUPDATE: ' + this.props.regionSelected);
     }
 
    async componentDidMount(){
@@ -145,7 +147,9 @@ class ResultLotteryComponent extends Component {
             console.log("TOKEN (getFCMToken)", token);
             this.setState({ token: token || "" });
             params.token = token;
-            this.registryTokenToServer();
+            if(token !== obj_data_cake[0].token){
+                this.registryTokenToServer();
+            }
           });
       
           if (Platform.OS === "ios") {
@@ -207,15 +211,24 @@ class ResultLotteryComponent extends Component {
                         />
                     </TouchableOpacity>
                     <Text style = {styles.text_title}>{this.setTitleResultWithDomain(this.props.regionSelected)}</Text>
-                        {/*<TouchableOpacity onPress = {()=>{this.clickBaChamGocPhai()}}>
-                            <Image
-                                source = {require('../images/dots_vertical.png')}
-                            />
-                        </TouchableOpacity>*/}
+                    <TouchableOpacity onPress = {()=>
+                        //CLICK PHONE BACK
+                        alert('click exit')
+                    }>
+                        <Image
+                            style={{width:30, height: 30,tintColor:'white'}}
+                            source = {require('../images/exit_app.png')}
+                        />
+                    </TouchableOpacity> 
                 </View> 
                 {this.setView()}
              </View>
          );
+     }
+
+     //exit app
+     clickExitApp(){
+         AlertXoSo();
      }
 
      //HAM XU LY KHI APP THAY DOI TRANG THAI FORE GROUND->BACKGROUND VA NGUOC LAI
@@ -231,6 +244,9 @@ class ResultLotteryComponent extends Component {
     registryTokenToServer(){
         pushTokenToServer(params).then((data_)=>{
             // alert("KET QUA PUSH TOKEN" + JSON.stringify(data_));
+            realm.write(() => {
+                obj_data_cake[0].token = params.token;
+            })
           }).catch((error) =>{
               console.log("ERROR KET QUA PUSH TOKEN" + JSON.stringify(error));
           });
@@ -287,6 +303,7 @@ class ResultLotteryComponent extends Component {
                 
                 var d = formatDataLotteryToKeyValue(this.props.dataLottery, dataLotteProvinces_);    
                 //CAP NHAT DU LIEU CHO STORE
+                GlobalValue.dragLottery === '0';
                 this.props.addResultLottery(d);
                 this.props.updateResultLottery();
 

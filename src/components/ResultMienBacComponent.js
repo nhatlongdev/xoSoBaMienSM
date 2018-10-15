@@ -12,6 +12,7 @@ import {
  import ItemRowDauDuoi from '../components/ItemRowDauDuoi';
  import moment from 'moment';
  import GlobalValue from '../data/GlobalValue';
+ import { setTitleResultLottery } from '../functions/SetTitleResultLottery';
 
  //REDUX
  import { connect } from 'react-redux';
@@ -43,6 +44,9 @@ import {
         if(result === undefined || result === null){ //TH dữ liệu ngày date_view chưa có kết quả
             key_item = getKeyItemOneProvincial(date_view,'MB', -1);
             result = getItemWithDate(this.props.regionSelected, date_view, key_item, dataLottery);
+            if(result === undefined || result === null){
+                result = this.createObjLotteryNull(date_view);
+            }
         }
         //set gia tri dragLottery de khi chay vao render ko xu ly du lieu nua
         GlobalValue.dragLottery = '-2';
@@ -118,6 +122,9 @@ import {
                 if(result === undefined || result === null){ //TH dữ liệu ngày date_view chưa có kết quả
                     key_item = getKeyItemOneProvincial(date_view,'MB', -1);
                     result = getItemWithDate(this.props.regionSelected, date_view, key_item, dataLottery);
+                    if(result === undefined || result === null){
+                        result = this.createObjLotteryNull(date_view);
+                    }
                 }
             }else if(GlobalValue.dragLottery === '2'){
                 //Cập nhật lại kết quả của chính hôm đó(trương hợp vuốt màn hình lên và trường hợp đang quay trực tiếp)
@@ -152,24 +159,36 @@ import {
                 <View style={styles.row_result}>
                      <Text style={styles.text_db_g1_title}>ĐB</Text>  
                      <View style={[styles.view_text,{flex:6}]}>
-                        <Text style={[styles.text_db_g1_result,{color:'red', fontWeight:'bold'}]}>{this.setItemResult(26)}</Text> 
+                        <Text style={[styles.text_db_g1_result,{color:'red'}]}>
+                            {this.setItemResult(26)}
+                            <Text style={styles.bold_loto}>
+                            {this.setItemResult_1(26)}
+                            </Text>
+                        </Text> 
                      </View>
                 </View>
 
                 <View style={[styles.row_result,{backgroundColor:'#EEEEEE'}]}>
                      <Text style={styles.text_db_g1_title}>G.1</Text>
                      <View style={[styles.view_text,{flex:6}]}>
-                        <Text style={styles.text_db_g1_result}>{this.setItemResult(0)}</Text>
+                        <Text style={styles.text_db_g1_result}>
+                            {this.setItemResult(0)}
+                            <Text style={styles.bold_loto}>{this.setItemResult_1(0)}</Text>
+                        </Text>
                      </View>   
                 </View>
 
                 <View style={styles.row_result}>
                     <Text style={styles.text_db_g1_title}>G.2</Text>
                     <View style={[styles.view_text,{flex:2.99}]}>
-                        <Text style={styles.text_db_g1_result}>{this.setItemResult(1)}</Text> 
+                        <Text style={styles.text_db_g1_result}>{this.setItemResult(1)}
+                        <Text style={styles.bold_loto}>{this.setItemResult_1(1)}</Text>
+                        </Text> 
                      </View>
                      <View style={[styles.view_text,{flex:2.99}]}>
-                        <Text style={styles.text_db_g1_result}>{this.setItemResult(2)}</Text>
+                        <Text style={styles.text_db_g1_result}>{this.setItemResult(2)}
+                        <Text style={styles.bold_loto}>{this.setItemResult_1(2)}</Text>
+                        </Text>
                      </View>     
                 </View>
 
@@ -177,21 +196,33 @@ import {
                     <Text style={styles.text_db_g1_title}>G.3</Text>  
                     <View style={{flex:6, borderLeftWidth:1, borderLeftColor:'#DDDDDD',}}>
                         <View style={{flexDirection:'row', borderBottomWidth:1, borderBottomColor:'#DDDDDD'}}>
-                            <Text style={styles.text_db_g1_result}>{this.setItemResult(3)}</Text>
+                            <Text style={styles.text_db_g1_result}>{this.setItemResult(3)}
+                            <Text style={styles.bold_loto}>{this.setItemResult_1(3)}</Text>
+                            </Text>
                             <View style={styles.view_text}>
-                                <Text style={styles.text_db_g1_result}>{this.setItemResult(4)}</Text>   
+                                <Text style={styles.text_db_g1_result}>{this.setItemResult(4)}
+                                <Text style={styles.bold_loto}>{this.setItemResult_1(4)}</Text>
+                                </Text>   
                             </View>
                             <View style={styles.view_text}>
-                                <Text style={styles.text_db_g1_result}>{this.setItemResult(5)}</Text>   
+                                <Text style={styles.text_db_g1_result}>{this.setItemResult(5)}
+                                <Text style={styles.bold_loto}>{this.setItemResult_1(5)}</Text>
+                                </Text>   
                             </View>     
                         </View>
                         <View style={{flexDirection:'row'}}>
-                            <Text style={styles.text_db_g1_result}>{this.setItemResult(6)}</Text>
+                            <Text style={styles.text_db_g1_result}>{this.setItemResult(6)}
+                            <Text style={styles.bold_loto}>{this.setItemResult_1(6)}</Text>
+                            </Text>
                             <View style={styles.view_text}>
-                                <Text style={styles.text_db_g1_result}>{this.setItemResult(7)}</Text>   
+                                <Text style={styles.text_db_g1_result}>{this.setItemResult(7)}
+                                <Text style={styles.bold_loto}>{this.setItemResult_1(7)}</Text>
+                                </Text>   
                             </View>
                             <View style={styles.view_text}>
-                                <Text style={styles.text_db_g1_result}>{this.setItemResult(8)}</Text>   
+                                <Text style={styles.text_db_g1_result}>{this.setItemResult(8)}
+                                <Text style={styles.bold_loto}>{this.setItemResult_1(8)}</Text>
+                                </Text>   
                             </View>   
                         </View>
                     </View>    
@@ -200,16 +231,24 @@ import {
                 <View style={styles.row_result}>
                     <Text style={styles.text_db_g1_title}>G.4</Text>
                     <View style={[styles.view_text,{flex:1.485}]}>
-                        <Text style={styles.text_db_g1_result}>{this.setItemResult(9)}</Text>
+                        <Text style={styles.text_db_g1_result}>{this.setItemResult(9)}
+                        <Text style={styles.bold_loto}>{this.setItemResult_1(9)}</Text>
+                        </Text>
                     </View>  
                     <View style={[styles.view_text,{flex:1.485}]}>
-                        <Text style={styles.text_db_g1_result}>{this.setItemResult(10)}</Text>
+                        <Text style={styles.text_db_g1_result}>{this.setItemResult(10)}
+                        <Text style={styles.bold_loto}>{this.setItemResult_1(10)}</Text>
+                        </Text>
                     </View> 
                     <View style={[styles.view_text,{flex:1.485}]}>
-                        <Text style={styles.text_db_g1_result}>{this.setItemResult(11)}</Text>
+                        <Text style={styles.text_db_g1_result}>{this.setItemResult(11)}
+                        <Text style={styles.bold_loto}>{this.setItemResult_1(11)}</Text>
+                        </Text>
                     </View> 
                     <View style={[styles.view_text,{flex:1.485}]}>
-                        <Text style={styles.text_db_g1_result}>{this.setItemResult(12)}</Text>
+                        <Text style={styles.text_db_g1_result}>{this.setItemResult(12)}
+                        <Text style={styles.bold_loto}>{this.setItemResult_1(12)}</Text>
+                        </Text>
                     </View>  
                 </View>
 
@@ -218,24 +257,36 @@ import {
                     <View style={{flex:6, borderLeftWidth:1, borderLeftColor:'#DDDDDD',}}>
                         <View style={{flexDirection:'row', borderBottomWidth:1, borderBottomColor:'#DDDDDD'}}>
                             <View style={[styles.view_text,{borderLeftWidth:0}]}>
-                                <Text style={styles.text_db_g1_result}>{this.setItemResult(13)}</Text>
+                                <Text style={styles.text_db_g1_result}>{this.setItemResult(13)}
+                                <Text style={styles.bold_loto}>{this.setItemResult_1(13)}</Text>
+                                </Text>
                             </View>  
                             <View style={styles.view_text}>
-                                <Text style={styles.text_db_g1_result}>{this.setItemResult(14)}</Text>
+                                <Text style={styles.text_db_g1_result}>{this.setItemResult(14)}
+                                <Text style={styles.bold_loto}>{this.setItemResult_1(14)}</Text>
+                                </Text>
                             </View>
                             <View style={styles.view_text}>
-                                <Text style={styles.text_db_g1_result}>{this.setItemResult(15)}</Text>
+                                <Text style={styles.text_db_g1_result}>{this.setItemResult(15)}
+                                <Text style={styles.bold_loto}>{this.setItemResult_1(15)}</Text>
+                                </Text>
                             </View>
                         </View>
                         <View style={{flexDirection:'row'}}>
                             <View style={[styles.view_text,{borderLeftWidth:0}]}>
-                                <Text style={styles.text_db_g1_result}>{this.setItemResult(16)}</Text>
+                                <Text style={styles.text_db_g1_result}>{this.setItemResult(16)}
+                                <Text style={styles.bold_loto}>{this.setItemResult_1(16)}</Text>
+                                </Text>
                             </View>  
                             <View style={styles.view_text}>
-                                <Text style={styles.text_db_g1_result}>{this.setItemResult(17)}</Text>
+                                <Text style={styles.text_db_g1_result}>{this.setItemResult(17)}
+                                <Text style={styles.bold_loto}>{this.setItemResult_1(17)}</Text>
+                                </Text>
                             </View>
                             <View style={styles.view_text}>
-                                <Text style={styles.text_db_g1_result}>{this.setItemResult(18)}</Text>
+                                <Text style={styles.text_db_g1_result}>{this.setItemResult(18)}
+                                <Text style={styles.bold_loto}>{this.setItemResult_1(18)}</Text>
+                                </Text>
                             </View>  
                         </View>
                     </View>    
@@ -244,29 +295,43 @@ import {
                 <View style={styles.row_result}>
                     <Text style={styles.text_db_g1_title}>G.6</Text>
                     <View style={[styles.view_text,{flex:1.99}]}>
-                        <Text style={styles.text_db_g1_result}>{this.setItemResult(19)}</Text>
+                        <Text style={styles.text_db_g1_result}>{this.setItemResult(19)}
+                        <Text style={styles.bold_loto}>{this.setItemResult_1(19)}</Text>
+                        </Text>
                     </View>
                     <View style={[styles.view_text,{flex:1.99}]}>
-                        <Text style={styles.text_db_g1_result}>{this.setItemResult(20)}</Text>
+                        <Text style={styles.text_db_g1_result}>{this.setItemResult(20)}
+                        <Text style={styles.bold_loto}>{this.setItemResult_1(20)}</Text>
+                        </Text>
                     </View>
                     <View style={[styles.view_text,{flex:1.99}]}>
-                        <Text style={styles.text_db_g1_result}>{this.setItemResult(21)}</Text>
+                        <Text style={styles.text_db_g1_result}>{this.setItemResult(21)}
+                        <Text style={styles.bold_loto}>{this.setItemResult_1(21)}</Text>
+                        </Text>
                     </View>  
                 </View>
 
                 <View style={[styles.row_result,{backgroundColor:'#EEEEEE'}]}>
                     <Text style={styles.text_db_g1_title}>G.7</Text> 
                     <View style={[styles.view_text,{flex:1.485}]}>
-                        <Text style={styles.text_db_g1_result}>{this.setItemResult(22)}</Text>
+                        <Text style={styles.text_db_g1_result}>{this.setItemResult(22)}
+                        <Text style={styles.bold_loto}>{this.setItemResult_1(22)}</Text>
+                        </Text>
                     </View>
                     <View style={[styles.view_text,{flex:1.485}]}>
-                        <Text style={styles.text_db_g1_result}>{this.setItemResult(23)}</Text>
+                        <Text style={styles.text_db_g1_result}>{this.setItemResult(23)}
+                        <Text style={styles.bold_loto}>{this.setItemResult_1(23)}</Text>
+                        </Text>
                     </View> 
                     <View style={[styles.view_text,{flex:1.485}]}>
-                        <Text style={styles.text_db_g1_result}>{this.setItemResult(24)}</Text>
+                        <Text style={styles.text_db_g1_result}>{this.setItemResult(24)}
+                        <Text style={styles.bold_loto}>{this.setItemResult_1(24)}</Text>
+                        </Text>
                     </View> 
                     <View style={[styles.view_text,{flex:1.485}]}>
-                        <Text style={styles.text_db_g1_result}>{this.setItemResult(25)}</Text>
+                        <Text style={styles.text_db_g1_result}>{this.setItemResult(25)}
+                        <Text style={styles.bold_loto}>{this.setItemResult_1(25)}</Text>
+                        </Text>
                     </View>  
                 </View>
 
@@ -377,9 +442,18 @@ import {
         if(action_type === -1){
             var key_item = getKeyItemOneProvincial(date_view,'MB', -1);
             resultTam = getItemWithDate(this.props.regionSelected, date_view, key_item, dataLottery);
+            if(resultTam === undefined || resultTam === null){
+                resultTam = this.createObjLotteryNull(date_view);
+            }
         }else{
             var key_item = getKeyItemOneProvincial(date_view,'MB', 1);
             resultTam = getItemWithDate(this.props.regionSelected, date_view, key_item, dataLottery);
+            let dateCompare = new Date();
+            let t2 = moment(moment(dateCompare).format('YYYY-MM-DD') + ' 00:00');
+            let t1 = moment(moment(date_view).format('YYYY-MM-DD') + ' 00:00');
+            if((resultTam === undefined || resultTam === null) && t1 < t2){
+                resultTam = this.createObjLotteryNull(date_view);
+            }
         }
         if(resultTam !== null && resultTam !== undefined){
             result = resultTam;
@@ -396,8 +470,50 @@ import {
 
      //HAM SET GIAO DIEN KET QUA
      setItemResult(index){
-        return result.arr_kq!==undefined?(result.arr_kq[index]!==null && result.arr_kq[index]!==undefined && result.arr_kq[index]!=='')?result.arr_kq[index]:' ':' ';
+        var str = '';
+        var s = '';
+        if(result.arr_kq!==undefined && result.arr_kq[index]!==null && result.arr_kq[index]!==undefined && result.arr_kq[index]!==''){
+            str = result.arr_kq[index];
+        }
+        if(str !== '' && str.length>2){
+            s = str.substr(0, str.length -2);
+            return s;
+        }else if(str !== '' && str.length === 2){
+            return '';
+        }else {
+            return ' ';
+        }
+        // return result.arr_kq!==undefined?(result.arr_kq[index]!==null && result.arr_kq[index]!==undefined && result.arr_kq[index]!=='')?result.arr_kq[index]:' ':' ';
      }
+
+     setItemResult_1(index){
+        var str = '';
+        var s = '';
+        if(result.arr_kq!==undefined && result.arr_kq[index]!==null && result.arr_kq[index]!==undefined && result.arr_kq[index]!==''){
+            str = result.arr_kq[index];
+        }
+        if(str !== '' && str.length>2){
+            s = str.substr(str.length -2,2);
+            return s;
+        }else if(str !== '' && str.length === 2){
+            return str;
+        }else {
+            return ' ';
+        }
+        // return result.arr_kq!==undefined?(result.arr_kq[index]!==null && result.arr_kq[index]!==undefined && result.arr_kq[index]!=='')?result.arr_kq[index]:' ':' ';
+     }
+
+     //HÀM tạo obj kết quả rỗng khi ngày đó đã có kết quả nhưng data ko có dữ liệu do ko có mạng
+    createObjLotteryNull(date_view){
+        //Tao mo obj mau
+        var obj = {};
+        //set title cho item
+        obj.title = setTitleResultLottery(moment(date_view).format('YYYY-MM-DD'));
+        obj.arr_dau_loto = ["","","","","","","","","",""];
+        obj.arr_duoi_loto = ["","","","","","","","","",""];
+        obj.comment = 'Vui lòng kết nối mạng để xem kết quả ngày ' + moment(date_view).format('DD/MM/YYYY');
+        return obj;
+    }
  }
 
  //function map state to props
@@ -484,4 +600,7 @@ import {
         paddingVertical: 5, 
         fontSize:16
     },
+    bold_loto:{
+        fontWeight:'bold',
+    }
  })
