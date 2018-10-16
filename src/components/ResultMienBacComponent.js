@@ -128,6 +128,7 @@ import {
                     }
                 }
             }else if(GlobalValue.dragLottery === '3'){ //xu ly du lieu truong hop quay truc tiep
+               
                 GlobalValue.dragLottery = '2';
                 //Cập nhật lại kết quả của chính hôm đó(trương hợp vuốt màn hình lên và trường hợp đang quay trực tiếp)
                 var key_item = getKeyItemOneProvincial(date_view,'MB', 0);
