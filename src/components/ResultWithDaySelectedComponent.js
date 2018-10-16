@@ -39,12 +39,22 @@ import {
     }
 
      render() {
+        if(GlobalValue.dragLottery === '3'){//dang quay truc tiep
+            GlobalValue.dragLottery = '2';
+            //Lay ds ket qua cac tinh quay hom do
+            const {dataLottery} = this.props;
+            var key_item = getKeyItemOneProvincial(date_view,GlobalValue.codeProvincialSelected, 0);
+            result = getItemWithDate(this.props.regionSelected, date_view, key_item, dataLottery);
+            if(result.s === '1'){
+                result.moment = 'Đang quay ...';
+            }
+        }
          return (
             <View style={styles.container}>
-                <Text style={[styles.text_title_date,{borderBottomWidth:(result.comment !== null && result.comment !== undefined)?0:1}]}>{result.title}</Text>
+                <Text style={[styles.text_title_date,{borderBottomWidth:(result.comment !== null && result.comment !== undefined)?0:1}]}>{this.setTitle()}</Text>
                 {
                     (result.comment !== null && result.comment !== undefined)? 
-                    <Text style={[styles.text_title_date,{padding:0, paddingBottom:2, color:'red', fontWeight:'normal'}]}>{result.comment}</Text>:null
+                    <Text style={[styles.text_title_date,{padding:0, paddingBottom:2, color:'red', fontWeight:'normal'}]}>{this.setComment()}</Text>:null
                 }
                 <ScrollView>
                 <View style={styles.row_result}>
@@ -286,44 +296,62 @@ import {
         }
      }
 
-     //HAM SET GIAO DIEN KET QUA
-     setItemResult(index){
-        return result.arr_kq!==undefined?(result.arr_kq[index]!==null && result.arr_kq[index]!==undefined && result.arr_kq[index]!=='')?result.arr_kq[index]:' ':' ';
+
+     //SET TITLE THEO NGAY
+     setTitle(){
+        if(result !== undefined && result !== null && result.title !== undefined && result.title !== null){
+            return result.title;
+        }else {
+            return ' ';
+        }
+     }
+     setComment(){ // set comment
+        if(result !== undefined && result !== null && result.comment !== undefined && result.comment !== null){
+            return result.comment;
+        }else {
+            return ' ';
+        }
      }
 
       //HAM SET GIAO DIEN KET QUA
       setItemResult(index){
-        var str = '';
-        var s = '';
-        if(result.arr_kq!==undefined && result.arr_kq[index]!==null && result.arr_kq[index]!==undefined && result.arr_kq[index]!==''){
-            str = result.arr_kq[index];
-        }
-        if(str !== '' && str.length>2){
-            s = str.substr(0, str.length -2);
-            return s;
-        }else if(str !== '' && str.length === 2){
-            return '';
+        if(result !== undefined && result !== null){
+            var str = '';
+            var s = '';
+            if(result.arr_kq!==undefined && result.arr_kq[index]!==null && result.arr_kq[index]!==undefined && result.arr_kq[index]!==''){
+                str = result.arr_kq[index];
+            }
+            if(str !== '' && str.length>2){
+                s = str.substr(0, str.length -2);
+                return s;
+            }else if(str !== '' && str.length === 2){
+                return '';
+            }else {
+                return ' ';
+            }
         }else {
             return ' ';
         }
-        // return result.arr_kq!==undefined?(result.arr_kq[index]!==null && result.arr_kq[index]!==undefined && result.arr_kq[index]!=='')?result.arr_kq[index]:' ':' ';
      }
 
      setItemResult_1(index){
-        var str = '';
-        var s = '';
-        if(result.arr_kq!==undefined && result.arr_kq[index]!==null && result.arr_kq[index]!==undefined && result.arr_kq[index]!==''){
-            str = result.arr_kq[index];
-        }
-        if(str !== '' && str.length>2){
-            s = str.substr(str.length -2,2);
-            return s;
-        }else if(str !== '' && str.length === 2){
-            return str;
+        if(result !== undefined && result !== null){
+            var str = '';
+            var s = '';
+            if(result.arr_kq!==undefined && result.arr_kq[index]!==null && result.arr_kq[index]!==undefined && result.arr_kq[index]!==''){
+                str = result.arr_kq[index];
+            }
+            if(str !== '' && str.length>2){
+                s = str.substr(str.length -2,2);
+                return s;
+            }else if(str !== '' && str.length === 2){
+                return str;
+            }else {
+                return ' ';
+            }
         }else {
             return ' ';
-        }
-        // return result.arr_kq!==undefined?(result.arr_kq[index]!==null && result.arr_kq[index]!==undefined && result.arr_kq[index]!=='')?result.arr_kq[index]:' ':' ';
+        } 
      }
 
  }
