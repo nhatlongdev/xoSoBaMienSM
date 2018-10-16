@@ -45,7 +45,9 @@ import {
             if(arr_result_lottery.length === 0){
                 arr_result_lottery = this.createListResultNull(regionSelected);
             } 
-        }       
+        }  
+        //set gia tri global.drag = -2 de trong ham render ko xu ly nua khi khoi tao
+        GlobalValue.dragLottery = -2;     
     }
 
     componentWillMount(){
@@ -65,13 +67,13 @@ import {
 
     //Vuốt màn hình sang trái
     onSwipeLeft(gestureState) {
-        GlobalValue.dragLottery = '1';
+        // GlobalValue.dragLottery = '1';
         type_swipe = 1;
       }
     
       // on sự kiện vuốt màn hình sang phải
       onSwipeRight(gestureState) {
-        GlobalValue.dragLottery = '-1';  
+        // GlobalValue.dragLottery = '-1';  
         type_swipe = -1;
       }
     
@@ -114,6 +116,15 @@ import {
                     arr_result_lottery = this.createListResultNull(regionSelected);
                 } 
             }
+        }else if(GlobalValue.dragLottery === '3'){//dang quay truc tiep
+            GlobalValue.dragLottery = '2';
+            //Lay ds ket qua cac tinh quay hom do
+            arr_result_lottery = getListItemWithDate(date_view, regionSelected, dataLottery, 0);
+            if(arr_result_lottery.length === 0){
+                arr_result_lottery = this.createListResultNull(regionSelected);
+            } 
+        }else if(GlobalValue.dragLottery === '-2'){ //gan = -2 de lan dau vao man ko xu ly o render
+            GlobalValue.dragLottery = '2';
         }
 
         //Cau hinh thu vien GestureRecognizer

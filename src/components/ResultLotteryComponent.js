@@ -14,7 +14,6 @@ import {
  import ResultMienBacComponent from './ResultMienBacComponent';
  import ResultMienTrungNamComponent from './ResultMienTrungNamComponent';
  import ResultWithDaySelectedComponent from './ResultWithDaySelectedComponent';
- import {AlertXoSo} from '../functions/AlertXoSo';
  //FUNCTION FORMAT DATA
  import {formatDataLotteryToKeyValue} from '../functions/ConvertDataLotteryToKeyValue';
  import {createArrResultDoSo} from '../functions/CreateArrResultDoSo';
@@ -212,8 +211,7 @@ class ResultLotteryComponent extends Component {
                     </TouchableOpacity>
                     <Text style = {styles.text_title}>{this.setTitleResultWithDomain(this.props.regionSelected)}</Text>
                     <TouchableOpacity onPress = {()=>
-                        //CLICK PHONE BACK
-                        alert('click exit')
+                        exitAlert()
                     }>
                         <Image
                             style={{width:30, height: 30,tintColor:'white'}}
@@ -224,11 +222,6 @@ class ResultLotteryComponent extends Component {
                 {this.setView()}
              </View>
          );
-     }
-
-     //exit app
-     clickExitApp(){
-         AlertXoSo();
      }
 
      //HAM XU LY KHI APP THAY DOI TRANG THAI FORE GROUND->BACKGROUND VA NGUOC LAI
@@ -303,7 +296,7 @@ class ResultLotteryComponent extends Component {
                 
                 var d = formatDataLotteryToKeyValue(this.props.dataLottery, dataLotteProvinces_);    
                 //CAP NHAT DU LIEU CHO STORE
-                GlobalValue.dragLottery === '0';
+                GlobaleValue.dragLottery = '3';
                 this.props.addResultLottery(d);
                 this.props.updateResultLottery();
 

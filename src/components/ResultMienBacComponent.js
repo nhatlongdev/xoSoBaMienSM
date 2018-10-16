@@ -71,13 +71,13 @@ import {
 
     //Vuốt màn hình sang trái
     onSwipeLeft(gestureState) {
-        GlobalValue.dragLottery = '1';
+        // GlobalValue.dragLottery = '1';
         this.swipeLeftOrRight(1);
       }
     
       // on sự kiện vuốt màn hình sang phải
       onSwipeRight(gestureState) {
-        GlobalValue.dragLottery = '-1';
+        // GlobalValue.dragLottery = '-1';
         this.swipeLeftOrRight(-1);
       }
     
@@ -109,10 +109,11 @@ import {
             var key_item = getKeyItemOneProvincial(date_view,'MB', 0);
             result = getItemWithDate(this.props.regionSelected, date_view, key_item, this.props.dataLottery);
             GlobalValue.daySelected = '';
+            GlobalValue.dragLottery = '2';
         }else {
             if(GlobalValue.dragLottery === '0'){
                 //Trường hợp click chọn miền bắc từ menuleft trong khi màn hình hiện tại đang là kết quả miền bắc
-                GlobalValue.dragLottery = '2'
+                GlobalValue.dragLottery = '2';
                 const {dataLottery} = this.props;
                 if(this.props.regionSelected === '1'){
                     date_view = new Date();
@@ -126,11 +127,12 @@ import {
                         result = this.createObjLotteryNull(date_view);
                     }
                 }
-            }else if(GlobalValue.dragLottery === '2'){
+            }else if(GlobalValue.dragLottery === '3'){ //xu ly du lieu truong hop quay truc tiep
+                GlobalValue.dragLottery = '2';
                 //Cập nhật lại kết quả của chính hôm đó(trương hợp vuốt màn hình lên và trường hợp đang quay trực tiếp)
                 var key_item = getKeyItemOneProvincial(date_view,'MB', 0);
                 result = getItemWithDate(this.props.regionSelected, date_view, key_item, this.props.dataLottery);
-            }else if(GlobalValue.dragLottery === '-2'){
+            }else if(GlobalValue.dragLottery === '-2'){ //th lan dau tien vao man
                 GlobalValue.dragLottery = '2';
             }
         }
