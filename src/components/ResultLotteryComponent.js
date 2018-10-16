@@ -299,7 +299,6 @@ class ResultLotteryComponent extends Component {
                 GlobaleValue.dragLottery = '3';
                 this.props.addResultLottery(d);
                 this.props.updateResultLottery();
-
             }
         }).catch((error) =>{
 
