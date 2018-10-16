@@ -101,12 +101,12 @@ import {
      render() {
         // alert('RENDER KET QUA MIEN NAM')
         // alert('RENDER KET QUA MIEN NAM' + GlobalValue.dragLottery)
+        regionSelectedTam = this.props.regionSelected;
+        const regionSelected = this.props.regionSelected;
+        const {dataLottery} = this.props;
         if(GlobalValue.dragLottery === '0'){ //người dùng click từ menu trái vào
             GlobalValue.dragLottery = '2'
             type_swipe = 0;
-            regionSelectedTam = this.props.regionSelected;
-            const regionSelected = this.props.regionSelected;
-            const {dataLottery} = this.props;
             date_view = new Date();
             //Lay ds ket qua cac tinh quay hom do
             arr_result_lottery = getListItemWithDate(date_view, regionSelected, dataLottery, 0);
