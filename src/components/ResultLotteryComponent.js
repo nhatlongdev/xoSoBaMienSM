@@ -146,6 +146,7 @@ class ResultLotteryComponent extends Component {
             console.log("TOKEN (getFCMToken)", token);
             this.setState({ token: token || "" });
             params.token = token;
+            
             if(token !== obj_data_cake[0].token){
                 this.registryTokenToServer();
             }
@@ -154,6 +155,7 @@ class ResultLotteryComponent extends Component {
           if (Platform.OS === "ios") {
             FCM.getAPNSToken().then(token => {
               console.log("APNS TOKEN (getFCMToken)", token);
+            //   alert('ios token:1 1' + token)
             });
           }
 
@@ -164,9 +166,8 @@ class ResultLotteryComponent extends Component {
         Analytics.logEvent('view_item', {
             'item_id': 'login'
         });
-        Analytics.setScreenName('RESULT_LOTTEY');
-
-
+        Analytics.setScreenName('RESULT_LOTTEY');    
+        
         //CLICK PHONE BACK
         handleAndroidBackButton(exitAlert);
 

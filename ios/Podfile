@@ -1,0 +1,32 @@
+# Uncomment the next line to define a global platform for your project
+# platform :ios, '9.0'
+
+target 'xoso98' do
+  # Uncomment the next line if you're using Swift or would like to use dynamic frameworks
+  
+
+  # Pods for xoso98
+  pod 'Firebase'
+  pod 'Firebase/Messaging'
+
+  pod 'react-native-in-app-utils', :path => '../node_modules/react-native-in-app-utils'
+
+  target 'xoso98Tests' do
+    inherit! :search_paths
+    # Pods for testing
+  end
+
+end
+
+target 'xoso98-tvOS' do
+  # Uncomment the next line if you're using Swift or would like to use dynamic frameworks
+  # use_frameworks!
+
+  # Pods for xoso98-tvOS
+
+  target 'xoso98-tvOSTests' do
+    inherit! :search_paths
+    # Pods for testing
+  end
+
+end

@@ -7,7 +7,8 @@ import {
     Image,
     Share,
     TouchableOpacity,
-    AsyncStorage
+    AsyncStorage,
+    Platform
  } from 'react-native';
 
  //REDUX
@@ -157,42 +158,57 @@ import {
                         <Text style={styles.text_option}>Chia sẻ</Text>
                     </TouchableOpacity>
 
-                    <TouchableOpacity style={styles.touch_style}
-                        onPress={()=>
-                        this.clickOption('9')
-                    }>
-                        <Image
-                            style ={{width: 50, height: 50}}
-                            source = {require('../images/pay.png')}
-                        />
-                        <Text style={styles.text_option}>Tiện ích</Text>
-                    </TouchableOpacity>
+                    {
+                        Platform.OS === 'android'?
+                        <TouchableOpacity style={styles.touch_style}
+                            onPress={()=>
+                            this.clickOption('9')
+                        }>
+                            <Image
+                                style ={{width: 50, height: 50}}
+                                source = {require('../images/pay.png')}
+                            />
+                            <Text style={styles.text_option}>Tiện ích</Text>
+                        </TouchableOpacity>:
+                        <TouchableOpacity style={styles.touch_style}
+                            onPress={()=>
+                            this.clickOption('10')
+                        }>
+                            <Image
+                                style ={{width: 50, height: 50}}
+                                source = {require('../images/setting.png')}
+                            />
+                            <Text style={styles.text_option}>Cài đặt</Text>
+                        </TouchableOpacity>
+                    }
 
                 </View>
+                {
+                    Platform.OS === 'android'?
+                        <View style={{flexDirection:'row', marginHorizontal: 5, marginTop: 20}}>
 
-                <View style={{flexDirection:'row', marginHorizontal: 5, marginTop: 20}}>
+                            <TouchableOpacity style={styles.touch_style}
+                                onPress={()=>
+                                this.clickOption('10')
+                            }>
+                                <Image
+                                    style ={{width: 50, height: 50}}
+                                    source = {require('../images/setting.png')}
+                                />
+                                <Text style={styles.text_option}>Cài đặt</Text>
+                            </TouchableOpacity>
 
-                    <TouchableOpacity style={styles.touch_style}
-                        onPress={()=>
-                        this.clickOption('10')
-                    }>
-                        <Image
-                            style ={{width: 50, height: 50}}
-                            source = {require('../images/setting.png')}
-                        />
-                        <Text style={styles.text_option}>Cài đặt</Text>
-                    </TouchableOpacity>
+                            <TouchableOpacity style={styles.touch_style}
+                            >
+                            </TouchableOpacity>
 
-                    <TouchableOpacity style={styles.touch_style}
-                     >
-                    </TouchableOpacity>
+                            <TouchableOpacity style={styles.touch_style}
+                            >
+                            </TouchableOpacity>
 
-                    <TouchableOpacity style={styles.touch_style}
-                     >
-                    </TouchableOpacity>
-
-                </View>
-
+                        </View>:null
+                }        
+                
              </View>
          );
      }

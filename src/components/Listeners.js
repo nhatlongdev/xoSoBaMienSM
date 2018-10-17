@@ -1,11 +1,13 @@
 import { Platform, AsyncStorage, AppState } from 'react-native';
 
-import FCM, {FCMEvent, RemoteNotificationResult, WillPresentNotificationResult, NotificationType, NotificationActionType, NotificationActionOption, NotificationCategoryOption} from "react-native-fcm";
+import FCM, {FCMEvent, RemoteNotificationResult, 
+  WillPresentNotificationResult, NotificationType, 
+  NotificationActionType, NotificationActionOption, NotificationCategoryOption} from "react-native-fcm";
 
 AsyncStorage.getItem('lastNotification').then(data=>{
   if(data){
     // if notification arrives when app is killed, it should still be logged here
-    console.log('last notification', JSON.parse(data));
+    // console.log('last notification', JSON.parse(data));
     AsyncStorage.removeItem('lastNotification');
   }
 })
@@ -13,7 +15,7 @@ AsyncStorage.getItem('lastNotification').then(data=>{
 AsyncStorage.getItem('lastMessage').then(data=>{
   if(data){
     // if notification arrives when app is killed, it should still be logged here
-    console.log('last message', JSON.parse(data));
+    // console.log('last message', JSON.parse(data));
     AsyncStorage.removeItem('lastMessage');
   }
 })
@@ -27,7 +29,7 @@ export function registerKilledListener(){
       setTimeout(()=>{
         if(notif._actionIdentifier === 'reply'){
           if(AppState.currentState !== 'background'){
-            console.log('User replied '+ JSON.stringify(notif._userText))
+            // console.log('User replied '+ JSON.stringify(notif._userText))
             alert('User replied '+ JSON.stringify(notif._userText));
           } else {
             AsyncStorage.setItem('lastMessage', JSON.stringify(notif._userText));
@@ -47,7 +49,7 @@ export function registerKilledListener(){
 // these callback will be triggered only when app is foreground or background
 export function registerAppListener(navigation){
   FCM.on(FCMEvent.Notification, notif => {
-    console.log("Notification", notif);
+    // console.log("Notification", notif);
     // alert(JSON.stringify(notif))
     if(Platform.OS ==='ios' && notif._notificationType === NotificationType.WillPresent && !notif.local_notification){
       // this notification is only to decide if you want to show the notification when user if in foreground.
@@ -118,12 +120,12 @@ export function registerAppListener(navigation){
   });
 
   FCM.on(FCMEvent.RefreshToken, token => {
-    console.log("TOKEN (refreshUnsubscribe)", token);
+    // console.log("TOKEN (refreshUnsubscribe)", token);
   });
 
   FCM.enableDirectChannel();
   FCM.on(FCMEvent.DirectChannelConnectionChanged, (data) => {
-    console.log('direct channel connected' + data);
+    // console.log('direct channel connected' + data);
   });
   setTimeout(function() {
     FCM.isDirectChannelEstablished().then(d => console.log(d));
