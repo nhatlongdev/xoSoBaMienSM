@@ -101,12 +101,12 @@ import {
      render() {
         // alert('RENDER KET QUA MIEN NAM')
         // alert('RENDER KET QUA MIEN NAM' + GlobalValue.dragLottery)
+        regionSelectedTam = this.props.regionSelected;
+        const regionSelected = this.props.regionSelected;
+        const {dataLottery} = this.props;
         if(GlobalValue.dragLottery === '0'){ //người dùng click từ menu trái vào
             GlobalValue.dragLottery = '2'
             type_swipe = 0;
-            regionSelectedTam = this.props.regionSelected;
-            const regionSelected = this.props.regionSelected;
-            const {dataLottery} = this.props;
             date_view = new Date();
             //Lay ds ket qua cac tinh quay hom do
             arr_result_lottery = getListItemWithDate(date_view, regionSelected, dataLottery, 0);
@@ -1007,39 +1007,63 @@ import {
         }
      } 
 
-     //HAM SET GIAO DIEN KET QUA
-     setItemResult(index1, index2){
-         var str = '';
-         var s = '';
-        if(arr_result_lottery[index1].arr_kq!==undefined && arr_result_lottery[index1].arr_kq[index2]!==null 
-            && arr_result_lottery[index1].arr_kq[index2]!==undefined && arr_result_lottery[index1].arr_kq[index2]!==''){
-            str = arr_result_lottery[index1].arr_kq[index2];    
+     //SET TITLE THEO NGAY
+     setTitle(){
+        if(arr_result_lottery[0] !== undefined && arr_result_lottery[0] !== null && arr_result_lottery[0].title !== undefined && arr_result_lottery[0].title !== null){
+            return arr_result_lottery[0].title;
+        }else {
+            return ' ';
         }
-        if(str !== '' && str.length>2){
-            s = str.substr(0, str.length -2);
-            return s;
-        }else if(str !== '' && str.length === 2){
-            return '';
+     }
+     setComment(){ // set comment
+        if(arr_result_lottery[0] !== undefined && arr_result_lottery[0] !== null && arr_result_lottery[0].comment !== undefined && arr_result_lottery[0].comment !== null){
+            return arr_result_lottery[0].comment;
         }else {
             return ' ';
         }
      }
 
+     //HAM SET GIAO DIEN KET QUA
+     setItemResult(index1, index2){
+         if(arr_result_lottery[index1] !== undefined && arr_result_lottery[index1] !== null){
+            var str = '';
+            var s = '';
+            if(arr_result_lottery[index1].arr_kq!==undefined && arr_result_lottery[index1].arr_kq[index2]!==null 
+                && arr_result_lottery[index1].arr_kq[index2]!==undefined && arr_result_lottery[index1].arr_kq[index2]!==''){
+                str = arr_result_lottery[index1].arr_kq[index2];    
+            }
+            if(str !== '' && str.length>2){
+                s = str.substr(0, str.length -2);
+                return s;
+            }else if(str !== '' && str.length === 2){
+                return '';
+            }else {
+                return ' ';
+            }
+         }else {
+             return ' ';
+         }
+     }
+
      setItemResult_1(index1, index2){
-        var str = '';
-        var s = '';
-       if(arr_result_lottery[index1].arr_kq!==undefined && arr_result_lottery[index1].arr_kq[index2]!==null 
-           && arr_result_lottery[index1].arr_kq[index2]!==undefined && arr_result_lottery[index1].arr_kq[index2]!==''){
-           str = arr_result_lottery[index1].arr_kq[index2];    
-       }
-       if(str !== '' && str.length>2){
-            s = str.substr(str.length -2,2);
-            return s;
-       }else if(str !== '' && str.length === 2){
-            return str;
-       }else {
-            return ' ';
-       }
+        if(arr_result_lottery[index1] !== undefined && arr_result_lottery[index1] !== null){
+            var str = '';
+            var s = '';
+            if(arr_result_lottery[index1].arr_kq!==undefined && arr_result_lottery[index1].arr_kq[index2]!==null 
+                && arr_result_lottery[index1].arr_kq[index2]!==undefined && arr_result_lottery[index1].arr_kq[index2]!==''){
+                str = arr_result_lottery[index1].arr_kq[index2];    
+            }
+            if(str !== '' && str.length>2){
+                    s = str.substr(str.length -2,2);
+                    return s;
+            }else if(str !== '' && str.length === 2){
+                    return str;
+            }else {
+                    return ' ';
+            }
+         }else {
+             return ' ';
+         }
     }
 
 
