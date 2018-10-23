@@ -52,7 +52,7 @@
 		832341BD1AAA6AB300B99B32 /* libRCTText.a in Frameworks */ = {isa = PBXBuildFile; fileRef = 832341B51AAA6A8300B99B32 /* libRCTText.a */; };
 		840FC8072170412C00FEAC18 /* libRCTPushNotification.a in Frameworks */ = {isa = PBXBuildFile; fileRef = 840FC7E72170411D00FEAC18 /* libRCTPushNotification.a */; };
 		84149108216B073A00397463 /* libRCTAnimation.a in Frameworks */ = {isa = PBXBuildFile; fileRef = 5E9157331DD0AC6500FF2AA8 /* libRCTAnimation.a */; };
-		8457959E2176D3180097C529 /* GoogleService-Info.plist in Resources */ = {isa = PBXBuildFile; fileRef = 8457959D2176D3180097C529 /* GoogleService-Info.plist */; };
+		84446447217D78D900053F7E /* GoogleService-Info.plist in Resources */ = {isa = PBXBuildFile; fileRef = 84446446217D78D900053F7E /* GoogleService-Info.plist */; };
 		845795EE2176D9280097C529 /* ExternalAccessory.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 845795ED2176D9280097C529 /* ExternalAccessory.framework */; };
 		845795F02176D94F0097C529 /* GameKit.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 845795EF2176D94F0097C529 /* GameKit.framework */; };
 		84DF2B09216758A0007EA4A0 /* tin_nhan_moi.mp3 in Resources */ = {isa = PBXBuildFile; fileRef = 84DF2AE02167589F007EA4A0 /* tin_nhan_moi.mp3 */; };
@@ -534,7 +534,7 @@
 		832341B01AAA6A8300B99B32 /* RCTText.xcodeproj */ = {isa = PBXFileReference; lastKnownFileType = "wrapper.pb-project"; name = RCTText.xcodeproj; path = "../node_modules/react-native/Libraries/Text/RCTText.xcodeproj"; sourceTree = "<group>"; };
 		840FC7D52170411C00FEAC18 /* RCTPushNotification.xcodeproj */ = {isa = PBXFileReference; lastKnownFileType = "wrapper.pb-project"; name = RCTPushNotification.xcodeproj; path = "../node_modules/react-native/Libraries/PushNotificationIOS/RCTPushNotification.xcodeproj"; sourceTree = "<group>"; };
 		840FC8092170617B00FEAC18 /* xoso98.entitlements */ = {isa = PBXFileReference; lastKnownFileType = text.plist.entitlements; path = xoso98.entitlements; sourceTree = "<group>"; };
-		8457959D2176D3180097C529 /* GoogleService-Info.plist */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.plist.xml; name = "GoogleService-Info.plist"; path = "../../../GoogleService-Info.plist"; sourceTree = "<group>"; };
+		84446446217D78D900053F7E /* GoogleService-Info.plist */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.plist.xml; name = "GoogleService-Info.plist"; path = "../../../GoogleService-Info.plist"; sourceTree = "<group>"; };
 		845795ED2176D9280097C529 /* ExternalAccessory.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = ExternalAccessory.framework; path = System/Library/Frameworks/ExternalAccessory.framework; sourceTree = SDKROOT; };
 		845795EF2176D94F0097C529 /* GameKit.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = GameKit.framework; path = System/Library/Frameworks/GameKit.framework; sourceTree = SDKROOT; };
 		84DF2AE02167589F007EA4A0 /* tin_nhan_moi.mp3 */ = {isa = PBXFileReference; lastKnownFileType = audio.mp3; path = tin_nhan_moi.mp3; sourceTree = "<group>"; };
@@ -718,7 +718,7 @@
 		13B07FAE1A68108700A75B9A /* xoso98.com */ = {
 			isa = PBXGroup;
 			children = (
-				8457959D2176D3180097C529 /* GoogleService-Info.plist */,
+				84446446217D78D900053F7E /* GoogleService-Info.plist */,
 				008F07F21AC5B25A0029DE68 /* main.jsbundle */,
 				13B07FAF1A68108700A75B9A /* AppDelegate.h */,
 				13B07FB01A68108700A75B9A /* AppDelegate.m */,
@@ -1664,7 +1664,7 @@
 				B1393D8DD5D9431FAE33C645 /* Ionicons.ttf in Resources */,
 				DA67BA72479C403EBB3BEC7C /* MaterialCommunityIcons.ttf in Resources */,
 				412D97B9445D4C079813012C /* MaterialIcons.ttf in Resources */,
-				8457959E2176D3180097C529 /* GoogleService-Info.plist in Resources */,
+				84446447217D78D900053F7E /* GoogleService-Info.plist in Resources */,
 				C6A2C8482CB14BC7BCC93005 /* Octicons.ttf in Resources */,
 				FF72797332F643A89D4B782C /* Roboto_medium.ttf in Resources */,
 				2A3CF459670040C495416D89 /* Roboto.ttf in Resources */,
@@ -1967,15 +1967,17 @@
 					"eact-native-device-infoiosRNDeviceInfo",
 				);
 				INFOPLIST_FILE = xoso98.com/Info.plist;
+				IPHONEOS_DEPLOYMENT_TARGET = 8.0;
 				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks";
 				OTHER_LDFLAGS = (
 					"$(inherited)",
 					"-ObjC",
 					"-lc++",
 				);
-				PRODUCT_BUNDLE_IDENTIFIER = ios.xoso98.com;
+				PRODUCT_BUNDLE_IDENTIFIER = app.xoso98.com;
 				PRODUCT_NAME = xoso98;
 				PROVISIONING_PROFILE_SPECIFIER = "";
+				TARGETED_DEVICE_FAMILY = 1;
 				VERSIONING_SYSTEM = "apple-generic";
 			};
 			name = Debug;
@@ -2004,15 +2006,17 @@
 					"eact-native-device-infoiosRNDeviceInfo",
 				);
 				INFOPLIST_FILE = xoso98.com/Info.plist;
+				IPHONEOS_DEPLOYMENT_TARGET = 8.0;
 				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks";
 				OTHER_LDFLAGS = (
 					"$(inherited)",
 					"-ObjC",
 					"-lc++",
 				);
-				PRODUCT_BUNDLE_IDENTIFIER = ios.xoso98.com;
+				PRODUCT_BUNDLE_IDENTIFIER = app.xoso98.com;
 				PRODUCT_NAME = xoso98;
 				PROVISIONING_PROFILE_SPECIFIER = "";
+				TARGETED_DEVICE_FAMILY = 1;
 				VERSIONING_SYSTEM = "apple-generic";
 			};
 			name = Release;
