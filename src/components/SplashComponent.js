@@ -88,7 +88,7 @@ import {
 
     //CHECK STATUS NET
     handler(isConnected) {
-        if(isConnected.type === 'wifi' || isConnected.type === 'WIFI'){
+        if(isConnected.type !== 'none'){
             //TH CO MANG goi api lay ds goi dv va api lay data lottery
             this.getListProductToServer();
         }else {
