@@ -56,7 +56,6 @@ var params ={
 var Analytics = require('react-native-firebase-analytics');
 
 class ResultLotteryComponent extends Component {
-
     constructor(props){
         super(props);
         checkResultLotteryNew = '';
@@ -82,6 +81,7 @@ class ResultLotteryComponent extends Component {
                 is_sound:{ type: 'bool', default: true },
                 is_vibrate:{ type: 'bool', default: true },
                 token:'string',
+                status_net:{ type: 'bool', default: true },
               }
             }]
           });
@@ -198,7 +198,7 @@ class ResultLotteryComponent extends Component {
     }
 
      render() {
-        console.log('RENDER: ' + this.props.regionSelected)
+        // alert('RENDER: ' + GlobaleValue.dragLottery)
          return (
             <View style={[styles.container,{marginTop:Platform.OS === 'ios'?25:0}]}>
                 <View style = {styles.header_style}>

@@ -13,7 +13,7 @@ import {
  import {createArrResultDoSo} from '../functions/CreateArrResultDoSo';
  //REDUX
  import { connect } from 'react-redux';
- import {addResultLottery, addResultDoSo, selectRegion} from '../redux/actionCreators';
+ import {addResultLottery, addResultDoSo, selectRegion, updateResultLottery} from '../redux/actionCreators';
  //import data lott default
  import data_lottery_default from '../data/data_lottery_default';
 
@@ -40,6 +40,7 @@ import {
                 is_sound:{ type: 'bool', default: true },
                 is_vibrate:{ type: 'bool', default: true },
                 token:'string',
+                status_net:{ type: 'bool', default: true },
               }
             }]
           });
@@ -56,6 +57,7 @@ import {
                 is_sound:true,   //0-ko co am thanh, 1- co am thanh
                 is_vibrate:true, //0-ko rung, 1-co rung
                 token:'',
+                status_net:false,
                 });
             }); 
             obj_data_cake = realm.objects('Global_cake');  
@@ -89,6 +91,9 @@ import {
     //CHECK STATUS NET
     handler(isConnected) {
         if(isConnected.type !== 'none'){
+            realm.write(() => {
+                obj_data_cake[0].status_net = true;
+            })
             //TH CO MANG goi api lay ds goi dv va api lay data lottery
             this.getListProductToServer();
         }else {
@@ -96,6 +101,7 @@ import {
             alert('Để cập nhật kết quả mới nhất, vui lòng kiểm tra kết nối mạng!')
             if(obj_data_cake[0].data_lottery === ''){
                 realm.write(() => {
+                    obj_data_cake[0].status_net = false;
                     obj_data_cake[0].data_lottery = JSON.stringify(data_lottery_default.bodyitems);
                 })
             }
@@ -110,8 +116,8 @@ import {
             this.props.addResultDoSo(dataDoSo);
 
             //kiểm tra xem giá trị vùng miền được chọn, nếu giá trị khác null thì app đã từng đăng nhập
-             //lay duoc du lieu save REALM
-             if(obj_data_cake.length >0){
+            //lay duoc du lieu save REALM
+            if(obj_data_cake.length >0){
                 if(obj_data_cake[0].region_value === ''){
                     //lam dau dang nhap
                     //GOI LENH VAO MAN HOME
@@ -119,8 +125,8 @@ import {
                 }else {
                     //Đã từng đăng nhập vào thẳng màn kết quả
                     //GOI LENH VAO MAN KET QUA
-                        this.props.selectRegion(obj_data_cake[0].region_value);
-                        this.props.navigation.replace('ResultLotteryComponent');
+                    this.props.selectRegion(obj_data_cake[0].region_value);
+                    this.props.navigation.replace('ResultLotteryComponent');
                 }  
             }
 
@@ -137,6 +143,7 @@ import {
             //CAP NHAT DU LIEU CHO STORE
             this.props.addResultLottery(d);
             this.props.addResultDoSo(dataDoSo);
+            
             // this.props.updateResultLottery();
             //kiểm tra xem giá trị vùng miền được chọn, nếu giá trị khác null thì app đã từng đăng nhập
              //lay duoc du lieu save REALM
@@ -151,8 +158,8 @@ import {
                 }else {
                     //Đã từng đăng nhập vào thẳng màn kết quả
                     //GOI LENH VAO MAN KET QUA
-                        this.props.selectRegion(obj_data_cake[0].region_value);
-                        this.props.navigation.replace('ResultLotteryComponent');
+                    this.props.selectRegion(obj_data_cake[0].region_value);
+                    this.props.navigation.replace('ResultLotteryComponent');
                 }  
             }
         }).catch((error)=>{
@@ -178,7 +185,7 @@ import {
 
  }
 
- export default connect(null, {addResultLottery, addResultDoSo, selectRegion})(SplashComponent);
+ export default connect(null, {addResultLottery, addResultDoSo, selectRegion, updateResultLottery})(SplashComponent);
 
  const styles = StyleSheet.create({
      container:{

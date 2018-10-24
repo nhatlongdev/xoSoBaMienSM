@@ -29,6 +29,11 @@ import {
  //biến này dùng để lưu lại giá trị region được chọn khi vào màn, nếu người dùng click từ menu trái chọn miền khác thì set date về ngày có kết quả gần nhất
  var regionSelectedTam;
 
+ //REALM DATABASE
+ const Realm = require('realm');
+ let realm;
+ var obj_data_cake;
+
  class ResultMienTrungNamComponent extends Component {
 
     constructor(props){
@@ -47,7 +52,29 @@ import {
             } 
         }  
         //set gia tri global.drag = -2 de trong ham render ko xu ly nua khi khoi tao
-        GlobalValue.dragLottery = -2;     
+        GlobalValue.dragLottery = -2; 
+        
+        //REALM
+        realm = new Realm({
+            schema: [{
+              name: 'Global_cake',
+              properties:
+              {
+                emp_id: { type: 'int', default: 0 },
+                data_lottery: 'string',
+                region_value: 'string',
+                data_products: 'string',
+                is_sound:{ type: 'bool', default: true },
+                is_vibrate:{ type: 'bool', default: true },
+                token:'string',
+                status_net:{ type: 'bool', default: true },
+              }
+            }]
+          });
+        obj_data_cake = realm.objects('Global_cake');  
+        realm.write(() => {
+            obj_data_cake[0].status_net = false;
+        })
     }
 
     componentWillMount(){
@@ -99,8 +126,9 @@ import {
       }
 
      render() {
-        // alert('RENDER KET QUA MIEN NAM')
-        // alert('RENDER KET QUA MIEN NAM' + GlobalValue.dragLottery)
+        //LAY STATUS NET
+        obj_data_cake = realm.objects('Global_cake');
+
         regionSelectedTam = this.props.regionSelected;
         const regionSelected = this.props.regionSelected;
         const {dataLottery} = this.props;
@@ -125,6 +153,16 @@ import {
             } 
         }else if(GlobalValue.dragLottery === '-2'){ //gan = -2 de lan dau vao man ko xu ly o render
             GlobalValue.dragLottery = '2';
+        }
+
+        if(obj_data_cake[0].status_net === true){
+            arr_result_lottery = getListItemWithDate(date_view, regionSelected, dataLottery, 0);
+            if(arr_result_lottery.length === 0){
+                arr_result_lottery = this.createListResultNull(regionSelected);
+            } 
+            realm.write(() => {
+                obj_data_cake[0].status_net = false;
+            })
         }
 
         //Cau hinh thu vien GestureRecognizer

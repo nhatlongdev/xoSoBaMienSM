@@ -24,10 +24,15 @@ import {
  import GestureRecognizer, {swipeDirections} from 'react-native-swipe-gestures';
 
  //TOAS ANDROID , IOS
- import Toast, {DURATION} from 'react-native-easy-toast'
+ import Toast, {DURATION} from 'react-native-easy-toast';
  
  var date_view;
  var result;
+
+ //REALM DATABASE
+ const Realm = require('realm');
+ let realm;
+ var obj_data_cake;
 
  class ResultMienBacComponent extends Component {
     
@@ -50,6 +55,28 @@ import {
         }
         //set gia tri dragLottery de khi chay vao render ko xu ly du lieu nua
         GlobalValue.dragLottery = '-2';
+
+        //REALM
+        realm = new Realm({
+            schema: [{
+              name: 'Global_cake',
+              properties:
+              {
+                emp_id: { type: 'int', default: 0 },
+                data_lottery: 'string',
+                region_value: 'string',
+                data_products: 'string',
+                is_sound:{ type: 'bool', default: true },
+                is_vibrate:{ type: 'bool', default: true },
+                token:'string',
+                status_net:{ type: 'bool', default: true },
+              }
+            }]
+          });
+        obj_data_cake = realm.objects('Global_cake');  
+        realm.write(() => {
+            obj_data_cake[0].status_net = false;
+        })
     }
 
     componentWillMount(){
@@ -102,7 +129,9 @@ import {
         }
       }
 
-     render() {
+     render() {  
+         //LAY STATUS NET
+         obj_data_cake = realm.objects('Global_cake');
         //TH người dùng click từ màn xem kết quả theo ngày 
        if(GlobalValue.daySelected !== ''){
             date_view = new Date(GlobalValue.daySelected);
@@ -127,14 +156,22 @@ import {
                         result = this.createObjLotteryNull(date_view);
                     }
                 }
-            }else if(GlobalValue.dragLottery === '3'){ //xu ly du lieu truong hop quay truc tiep
-               
+            }else if(GlobalValue.dragLottery === '3'){ //xu ly du lieu truong hop quay truc tiep   
                 GlobalValue.dragLottery = '2';
                 //Cập nhật lại kết quả của chính hôm đó(trương hợp vuốt màn hình lên và trường hợp đang quay trực tiếp)
                 var key_item = getKeyItemOneProvincial(date_view,'MB', 0);
                 result = getItemWithDate(this.props.regionSelected, date_view, key_item, this.props.dataLottery);
             }else if(GlobalValue.dragLottery === '-2'){ //th lan dau tien vao man
                 GlobalValue.dragLottery = '2';
+            }else if(obj_data_cake[0].status_net === true){
+                var key_item = getKeyItemOneProvincial(date_view,'MB', 0);
+                result = getItemWithDate(this.props.regionSelected, date_view, key_item, this.props.dataLottery);
+                if(result === undefined || result === null){
+                    result = this.createObjLotteryNull(date_view);
+                }
+                realm.write(() => {
+                    obj_data_cake[0].status_net = false;
+                })
             }
         }
 
@@ -530,7 +567,7 @@ import {
         }
         
         // return result.arr_kq!==undefined?(result.arr_kq[index]!==null && result.arr_kq[index]!==undefined && result.arr_kq[index]!=='')?result.arr_kq[index]:' ':' ';
-     }
+    }
 
      //HÀM tạo obj kết quả rỗng khi ngày đó đã có kết quả nhưng data ko có dữ liệu do ko có mạng
     createObjLotteryNull(date_view){

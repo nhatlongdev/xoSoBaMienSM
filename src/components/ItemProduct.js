@@ -41,6 +41,7 @@ import {
                 is_sound:{ type: 'bool', default: true },
                 is_vibrate:{ type: 'bool', default: true },
                 token:'string',
+                status_net:{ type: 'bool', default: true },
               }
             }]
           });
