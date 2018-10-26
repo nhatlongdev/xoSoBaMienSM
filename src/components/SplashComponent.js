@@ -169,18 +169,20 @@ import {
 
     //LOAD DS GOI DV TU SERVER
     getListProductToServer(){
-        apiGetListProducts().then((data)=>{
-            //lay duoc du lieu save REALM
-            if(obj_data_cake.length >0){
-                realm.write(() => {
-                    obj_data_cake[0].data_products = JSON.stringify(data);
-                  })
-            }
-            //goi api lay data lottery
-            this.getDataLotteryToServer();
-        }).catch((error)=>{
-            console.log(error)
-        });
+        //KHOA LAI CHO API XO SO 98
+        // apiGetListProducts().then((data)=>{
+        //     //lay duoc du lieu save REALM
+        //     if(obj_data_cake.length >0){
+        //         realm.write(() => {
+        //             obj_data_cake[0].data_products = JSON.stringify(data);
+        //           })
+        //     }
+        //     //goi api lay data lottery
+        //     this.getDataLotteryToServer();
+        // }).catch((error)=>{
+        //     console.log(error)
+        // });
+        this.getDataLotteryToServer();
     }
 
  }

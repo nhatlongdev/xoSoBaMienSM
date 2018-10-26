@@ -24,6 +24,7 @@
     "react-native-fcm": "^16.2.3",
     "react-native-firebase-analytics": "^4.0.3",
     "react-native-in-app-utils": "^6.0.1",
+    "react-native-modal": "^6.5.0",
     "react-native-progress": "^3.5.0",
     "react-native-sound": "^0.10.9",
     "react-native-swipe-gestures": "^1.0.2",

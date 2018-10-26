@@ -34,10 +34,29 @@ import {
  let realm;
  var obj_data_cake;
 
+ //action creator
+ import { updateResultLottery } from '../redux/actionCreators';
+ //Modal
+ import Modal from "react-native-modal";
+ //CALENDAR
+import {Calendar,LocaleConfig} from 'react-native-calendars';
+//cấu hình ngôn ngữ hiển thị cho calendar
+LocaleConfig.locales['fr'] = {
+   monthNames: ['Tháng Một','Tháng Hai','Tháng Ba','Tháng Tư','Tháng Năm','Tháng sáu','Tháng bảy','Tháng Tám','Tháng Chín','Tháng Mười','Tháng 11','Tháng 12'],
+   monthNamesShort: ['Janv.','Févr.','Mars','Avril','Mai','Juin','Juil.','Août','Sept.','Oct.','Nov.','Déc.'],
+   dayNames: ['Dimanche','Lundi','Mardi','Mercredi','Jeudi','Vendredi','Samedi'],
+   dayNamesShort: ['CN','Hai','Ba','Tư','Năm','Sáu','Bảy']
+ };
+LocaleConfig.defaultLocale = 'fr';
+
  class ResultMienBacComponent extends Component {
     
     constructor(props){
         super(props);
+        //state
+        this.state={
+            showModel:false,
+        }
         const {dataLottery} = this.props;
         if(this.props.regionSelected === '1'){
             date_view = new Date();
@@ -188,8 +207,18 @@ import {
                 config={config}
                 style={{flex: 1,}}
             >
+                <View style={{flexDirection:'row', width:'100%',backgroundColor:'#EEEEEE', alignItems:'center', justifyContent:'center'}}>
+                    <Text style={[styles.text_title_date,{borderBottomWidth:0, marginRight:10}]}>{this.setTitle()}</Text>
+                    <TouchableOpacity onPress={()=>{
+                        this.clickCalendar()
+                    }}>
+                        <Image
+                            style={{width:30, height: 30}}
+                            source = {require('../images/icon_calendar.png')}
+                        />
+                    </TouchableOpacity>
+                </View>
                 
-                <Text style={[styles.text_title_date,{borderBottomWidth:0}]}>{this.setTitle()}</Text>
                 {
                     (result.comment !== null && result.comment !== undefined)? 
                     <Text style={[styles.text_title_date,{padding:0, paddingBottom:2, color:'red', fontWeight:'normal'}]}>{this.setComment()}</Text>:null
@@ -470,7 +499,59 @@ import {
                       </View>  
                 </View>
                 </ScrollView>
-                <Toast ref="toast"/>  
+                <Toast ref="toast"/>
+                <Modal isVisible={this.state.showModel}
+                    backdropOpacity={0.1}
+                    backdropColor='red'
+                >
+                    <View style={{backgroundColor:'grey'}}>
+                        <Text>I am the modal content!</Text>
+                        <Calendar
+                            // Specify style for calendar container element. Default = {}
+                            style={{
+                                borderWidth: 1,
+                                borderColor: 'gray',
+                                height: 350
+                            }}
+                            // Specify theme properties to override specific styles for calendar parts. Default = {}
+                            theme={{
+                                backgroundColor: '#ffffff',
+                                calendarBackground: '#ffffff',
+                                textSectionTitleColor: '#b6c1cd',
+                                selectedDayBackgroundColor: '#00adf5',
+                                selectedDayTextColor: '#ffffff',
+                                todayTextColor: '#00adf5',
+                                dayTextColor: '#2d4150',
+                                textDisabledColor: '#d9e1e8',
+                                dotColor: '#00adf5',
+                                selectedDotColor: '#ffffff',
+                                arrowColor: 'orange',
+                                monthTextColor: 'blue',
+                                textDayFontFamily: 'Roboto',
+                                textMonthFontFamily: 'Roboto',
+                                textDayHeaderFontFamily: 'Roboto',
+                                textMonthFontWeight: 'bold',
+                                textDayFontSize: 16,
+                                textMonthFontSize: 16,
+                                textDayHeaderFontSize: 16
+                            }}
+                            // onDayPress={(day) => alert()} ==>ON event user click date
+                            onDayPress={(day) => {
+                               
+                            }}
+                         />
+                         <TouchableOpacity
+                            onPress={()=>{
+                                this.setState({
+                                    showModel:false
+                                })
+                            }}
+                         >
+                            <Text>Thoát</Text>
+                         </TouchableOpacity>
+                    </View>
+                </Modal>  
+                
              </GestureRecognizer>
          );
      }
@@ -524,6 +605,12 @@ import {
         }
      }
 
+     //Click calendar
+     clickCalendar(){
+         this.setState({
+             showModel:!this.state.showModel,
+         })
+     }
 
      //HAM SET GIAO DIEN KET QUA
      setItemResult(index){
@@ -569,6 +656,7 @@ import {
         // return result.arr_kq!==undefined?(result.arr_kq[index]!==null && result.arr_kq[index]!==undefined && result.arr_kq[index]!=='')?result.arr_kq[index]:' ':' ';
     }
 
+
      //HÀM tạo obj kết quả rỗng khi ngày đó đã có kết quả nhưng data ko có dữ liệu do ko có mạng
     createObjLotteryNull(date_view){
         //Tao mo obj mau
@@ -591,7 +679,7 @@ import {
      }
  }
 
- export default connect(mapStateToProps)(ResultMienBacComponent);
+ export default connect(mapStateToProps, {updateResultLottery})(ResultMienBacComponent);
 
  const styles = StyleSheet.create({
     container:{
@@ -606,7 +694,6 @@ import {
         textAlign: 'center'
     },
     text_title_date:{
-        width:'100%',
         backgroundColor:'#EEEEEE',
         borderBottomWidth:1,
         borderBottomColor:'#DDDDDD',

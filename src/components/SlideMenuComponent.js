@@ -159,19 +159,7 @@ import {
                         <Text style={styles.text_option}>Chia sẻ</Text>
                     </TouchableOpacity>
 
-                    {
-                        Platform.OS === 'android'?
-                        <TouchableOpacity style={styles.touch_style}
-                            onPress={()=>
-                            this.clickOption('9')
-                        }>
-                            <Image
-                                style ={{width: 50, height: 50}}
-                                source = {require('../images/pay.png')}
-                            />
-                            <Text style={styles.text_option}>Tiện ích</Text>
-                        </TouchableOpacity>:
-                        <TouchableOpacity style={styles.touch_style}
+                    <TouchableOpacity style={styles.touch_style}
                             onPress={()=>
                             this.clickOption('10')
                         }>
@@ -180,12 +168,11 @@ import {
                                 source = {require('../images/setting.png')}
                             />
                             <Text style={styles.text_option}>Cài đặt</Text>
-                        </TouchableOpacity>
-                    }
+                    </TouchableOpacity>
 
                 </View>
                 {
-                    Platform.OS === 'android'?
+                    (Platform.OS !== 'android' && Platform.OS !== 'ios')?
                         <View style={{flexDirection:'row', marginHorizontal: 5, marginTop: 20}}>
 
                             <TouchableOpacity style={styles.touch_style}
@@ -303,7 +290,7 @@ import {
 
                 case '8':
                     Share.share({
-                        message:'http://dacbiet.vn'
+                        message:'http://xoso98.com'
                     })
                 break;
 

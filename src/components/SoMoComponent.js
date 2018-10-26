@@ -109,7 +109,7 @@ import {
                     style={{marginHorizontal: 5,marginBottom: 5,}}
                     onEndReachedThreshold = {0.1}
                     onEndReached = {() => {
-                    this.on_EndReached()
+                        this.on_EndReached()
                     }}
                     data={this.state.dataSearch}
                     renderItem = {({item, index})=>{
