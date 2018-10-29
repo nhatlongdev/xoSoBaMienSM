@@ -98,38 +98,7 @@ import {
             this.getListProductToServer();
         }else {
             //TH KO CO MANG kiem tra cake(neu co lay cake ra su dung)
-            alert('Để cập nhật kết quả mới nhất, vui lòng kiểm tra kết nối mạng!')
-            if(obj_data_cake[0].data_lottery === ''){
-                realm.write(() => {
-                    obj_data_cake[0].status_net = false;
-                    obj_data_cake[0].data_lottery = JSON.stringify(data_lottery_default.bodyitems);
-                })
-            }
-            
-            //CONVERT DATA TO FORMAT KEY_VALUE
-            var d_ = {};
-            var d = formatDataLotteryToKeyValue(d_, JSON.parse(obj_data_cake[0].data_lottery));  
-            var dataDoSo = createArrResultDoSo(JSON.parse(obj_data_cake[0].data_lottery));
-    
-            //CAP NHAT DU LIEU CHO STORE
-            this.props.addResultLottery(d);
-            this.props.addResultDoSo(dataDoSo);
-
-            //kiểm tra xem giá trị vùng miền được chọn, nếu giá trị khác null thì app đã từng đăng nhập
-            //lay duoc du lieu save REALM
-            if(obj_data_cake.length >0){
-                if(obj_data_cake[0].region_value === ''){
-                    //lam dau dang nhap
-                    //GOI LENH VAO MAN HOME
-                    this.props.navigation.replace('HomeComponent');   
-                }else {
-                    //Đã từng đăng nhập vào thẳng màn kết quả
-                    //GOI LENH VAO MAN KET QUA
-                    this.props.selectRegion(obj_data_cake[0].region_value);
-                    this.props.navigation.replace('ResultLotteryComponent');
-                }  
-            }
-
+            this.caseNetWeakOrDisconnect('Để cập nhật kết quả mới nhất, vui lòng kiểm tra kết nối mạng!')
         }    
      }
 
@@ -164,7 +133,44 @@ import {
             }
         }).catch((error)=>{
             console.log(error)
+            //TH KO CO MANG kiem tra cake(neu co lay cake ra su dung)
+            this.caseNetWeakOrDisconnect('Không thể tải được kết quả mới nhất, vui lòng kiểm tra kết nối mạng!')
         });
+    }
+
+    //TH KO CO MANG HOAC MANG YEU KO LAY DUOC DU LIEU
+    caseNetWeakOrDisconnect(msg){
+        //TH KO CO MANG kiem tra cake(neu co lay cake ra su dung)
+        alert(msg)
+        if(obj_data_cake[0].data_lottery === ''){
+            realm.write(() => {
+                obj_data_cake[0].status_net = false;
+                obj_data_cake[0].data_lottery = JSON.stringify(data_lottery_default.bodyitems);
+            })
+        }
+        //CONVERT DATA TO FORMAT KEY_VALUE
+        var d_ = {};
+        var d = formatDataLotteryToKeyValue(d_, JSON.parse(obj_data_cake[0].data_lottery));  
+        var dataDoSo = createArrResultDoSo(JSON.parse(obj_data_cake[0].data_lottery));
+
+        //CAP NHAT DU LIEU CHO STORE
+        this.props.addResultLottery(d);
+        this.props.addResultDoSo(dataDoSo);
+
+        //kiểm tra xem giá trị vùng miền được chọn, nếu giá trị khác null thì app đã từng đăng nhập
+        //lay duoc du lieu save REALM
+        if(obj_data_cake.length >0){
+            if(obj_data_cake[0].region_value === ''){
+                //lam dau dang nhap
+                //GOI LENH VAO MAN HOME
+                this.props.navigation.replace('HomeComponent');   
+            }else {
+                //Đã từng đăng nhập vào thẳng màn kết quả
+                //GOI LENH VAO MAN KET QUA
+                this.props.selectRegion(obj_data_cake[0].region_value);
+                this.props.navigation.replace('ResultLotteryComponent');
+            }  
+        }
     }
 
     //LOAD DS GOI DV TU SERVER
@@ -182,6 +188,7 @@ import {
         // }).catch((error)=>{
         //     console.log(error)
         // });
+
         this.getDataLotteryToServer();
     }
 

@@ -4,6 +4,8 @@ import {
     Text,
     StyleSheet,
     ScrollView,
+    TouchableOpacity,
+    Image
  } from 'react-native';
  //Lấy ds kết quả các tỉnh quay của miền trung hoặc nam
  import {getListItemWithDate} from '../functions/GetItemWithDate';
@@ -34,10 +36,27 @@ import {
  let realm;
  var obj_data_cake;
 
+ //Modal
+ import Modal from "react-native-modal";
+ //CALENDAR
+import {Calendar,LocaleConfig} from 'react-native-calendars';
+//cấu hình ngôn ngữ hiển thị cho calendar
+LocaleConfig.locales['fr'] = {
+   monthNames: ['Tháng Một','Tháng Hai','Tháng Ba','Tháng Tư','Tháng Năm','Tháng sáu','Tháng bảy','Tháng Tám','Tháng Chín','Tháng Mười','Tháng 11','Tháng 12'],
+   monthNamesShort: ['Janv.','Févr.','Mars','Avril','Mai','Juin','Juil.','Août','Sept.','Oct.','Nov.','Déc.'],
+   dayNames: ['Dimanche','Lundi','Mardi','Mercredi','Jeudi','Vendredi','Samedi'],
+   dayNamesShort: ['CN','Hai','Ba','Tư','Năm','Sáu','Bảy']
+ };
+LocaleConfig.defaultLocale = 'fr';
+
  class ResultMienTrungNamComponent extends Component {
 
     constructor(props){
         super(props);
+        //state
+        this.state={
+            showModel:false,
+        }
         type_swipe = 0;
         regionSelectedTam = this.props.regionSelected;
         const regionSelected = this.props.regionSelected;
@@ -126,6 +145,7 @@ import {
       }
 
      render() {
+         
         //LAY STATUS NET
         obj_data_cake = realm.objects('Global_cake');
 
@@ -188,7 +208,17 @@ import {
                 style={{flex: 1,}}
             >
              <View style={styles.container}>
-                <Text style={styles.text_title_date}>{arr_result_lottery[0].title}</Text>
+                <View style={{flexDirection:'row', width:'100%',backgroundColor:'#EEEEEE', alignItems:'center', justifyContent:'center'}}>
+                    <Text style={[styles.text_title_date,{borderBottomWidth:0, marginRight:10}]}>{this.setTitle()}</Text>
+                    <TouchableOpacity onPress={()=>{
+                        this.clickCalendar()
+                    }}>
+                        <Image
+                            style={{width:30, height: 30}}
+                            source = {require('../images/icon_calendar.png')}
+                        />
+                    </TouchableOpacity>
+                </View>
                 {
                     (arr_result_lottery[0].comment !== null && arr_result_lottery[0].comment !== undefined)? 
                     <Text style={[styles.text_title_date,{padding:0, paddingBottom:2, color:'red', fontWeight:'normal'}]}>{arr_result_lottery[0].comment}</Text>:null
@@ -990,6 +1020,74 @@ import {
                 </ScrollView>         
              </View>
              <Toast ref="toast"/> 
+             <Modal isVisible={this.state.showModel}
+                backdropOpacity={0.1}
+                backdropColor='red'
+                >
+                    <View style={{backgroundColor:'grey'}}>
+                        <View style={{flexDirection:'row', width:'100%', justifyContent:'center', alignItems:'center'}}>
+                            <Text style={{flex:1, textAlign:'center', fontSize:18, fontWeight:'bold', color:'white', padding:5}}>Chọn ngày xem kết quả</Text>
+                            <TouchableOpacity
+                                onPress={()=>{
+                                    this.setState({
+                                        showModel:false
+                                    })
+                                }}
+                            >
+                                <Image
+                                    style={{width:30, height: 30, tintColor:'white', marginRight:5}}
+                                    source = {require('../images/exit_calendar.png')}
+                                />
+                            </TouchableOpacity>
+                        </View>
+                        <Calendar
+                            // Specify style for calendar container element. Default = {}
+                            style={{
+                                borderWidth: 1,
+                                borderColor: 'gray',
+                                height: 350
+                            }}
+                            // Specify theme properties to override specific styles for calendar parts. Default = {}
+                            theme={{
+                                backgroundColor: '#ffffff',
+                                calendarBackground: '#ffffff',
+                                textSectionTitleColor: '#b6c1cd',
+                                selectedDayBackgroundColor: '#00adf5',
+                                selectedDayTextColor: '#ffffff',
+                                todayTextColor: '#00adf5',
+                                dayTextColor: '#2d4150',
+                                textDisabledColor: '#d9e1e8',
+                                dotColor: '#00adf5',
+                                selectedDotColor: '#ffffff',
+                                arrowColor: 'orange',
+                                monthTextColor: 'blue',
+                                textDayFontFamily: 'Roboto',
+                                textMonthFontFamily: 'Roboto',
+                                textDayHeaderFontFamily: 'Roboto',
+                                textMonthFontWeight: 'bold',
+                                textDayFontSize: 16,
+                                textMonthFontSize: 16,
+                                textDayHeaderFontSize: 16
+                            }}
+                            // onDayPress={(day) => alert()} ==>ON event user click date
+                            onDayPress={(day) => {
+                                let d = new Date(day.dateString);
+                                //Lay ds ket qua cac tinh quay hom do
+                                let arr_result_lottery_tam = getListItemWithDate(d, regionSelected, dataLottery, 0);
+                                if(arr_result_lottery_tam.length > 0){
+                                    arr_result_lottery = arr_result_lottery_tam;
+                                    date_view = new Date(day.dateString);
+                                    //reset view
+                                    this.setState({
+                                        showModel:false,
+                                    })
+                                }else {
+                                    alert('Chưa có kết quả xổ số cho ngày ' + moment(d).format('DD/MM/YYYY'))
+                                }
+                            }}
+                        />
+                    </View>
+                </Modal>  
              </GestureRecognizer>
          );
      }
@@ -1010,6 +1108,13 @@ import {
             
         }
         return arr_item;
+    }
+
+     //Click calendar
+     clickCalendar(){
+        this.setState({
+            showModel:true,
+        })
     }
 
     //HÀM XỬ LÝ KHI NGƯỜI DÙNG VUỐT TRÁI, PHẢI
@@ -1130,7 +1235,6 @@ import {
         backgroundColor:'white',
     },
     text_title_date:{
-        width:'100%',
         backgroundColor:'#EEEEEE',
         textAlign:'center',
         fontWeight:'bold',

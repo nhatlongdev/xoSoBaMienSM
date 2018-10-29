@@ -3,23 +3,44 @@ import {
     View,
     Text,
     StyleSheet,
-    ScrollView
+    ScrollView,
+    TouchableOpacity,
+    Image
  } from 'react-native';
  import GlobalValue from '../data/GlobalValue';
  import ItemRowDauDuoi from '../components/ItemRowDauDuoi';
  import moment from 'moment';
  import { getItemWithDate } from '../functions/GetItemWithDate';
  import { getKeyItemOneProvincial } from '../functions/GetKeyItemProvincial';
+ import schedule_lottery_with_provincial from '../data/schedule_lottery_with_provincial';
  //REDUX
  import { connect } from 'react-redux';
 
  var date_view;
  var result;
 
+    //Modal
+    import Modal from "react-native-modal";
+    //CALENDAR
+    import {Calendar,LocaleConfig} from 'react-native-calendars';
+    //cấu hình ngôn ngữ hiển thị cho calendar
+    LocaleConfig.locales['fr'] = {
+    monthNames: ['Tháng Một','Tháng Hai','Tháng Ba','Tháng Tư','Tháng Năm','Tháng sáu','Tháng bảy','Tháng Tám','Tháng Chín','Tháng Mười','Tháng 11','Tháng 12'],
+    monthNamesShort: ['Janv.','Févr.','Mars','Avril','Mai','Juin','Juil.','Août','Sept.','Oct.','Nov.','Déc.'],
+    dayNames: ['Dimanche','Lundi','Mardi','Mercredi','Jeudi','Vendredi','Samedi'],
+    dayNamesShort: ['CN','Hai','Ba','Tư','Năm','Sáu','Bảy']
+    };
+    LocaleConfig.defaultLocale = 'fr';
+    var check = false;
+
  class ResultWithDaySelectedComponent extends Component {
 
     constructor(props){
         super(props);
+        //state
+        this.state={
+            showModel:false,
+        }
         const {dataLottery} = this.props;
         date_view = new Date(GlobalValue.daySelected);
         var key_item = getKeyItemOneProvincial(date_view,GlobalValue.codeProvincialSelected, 0);
@@ -35,10 +56,15 @@ import {
     }
 
     componentWillUpdate(){
-        this.updateData();
+        if(check === false){
+            this.updateData();
+        }else{
+            check = false;
+        }
     }
 
      render() {
+       
         if(GlobalValue.dragLottery === '3'){//dang quay truc tiep
             GlobalValue.dragLottery = '2';
             //Lay ds ket qua cac tinh quay hom do
@@ -51,7 +77,17 @@ import {
         }
          return (
             <View style={styles.container}>
-                <Text style={[styles.text_title_date,{borderBottomWidth:(result.comment !== null && result.comment !== undefined)?0:1}]}>{this.setTitle()}</Text>
+                <View style={{flexDirection:'row', width:'100%',backgroundColor:'#EEEEEE', alignItems:'center', justifyContent:'center'}}>
+                    <Text style={[styles.text_title_date,{borderBottomWidth:0, marginRight:10}]}>{this.setTitle()}</Text>
+                    <TouchableOpacity onPress={()=>{
+                        this.clickCalendar()
+                    }}>
+                        <Image
+                            style={{width:30, height: 30}}
+                            source = {require('../images/icon_calendar.png')}
+                        />
+                    </TouchableOpacity>
+                </View>
                 {
                     (result.comment !== null && result.comment !== undefined)? 
                     <Text style={[styles.text_title_date,{padding:0, paddingBottom:2, color:'red', fontWeight:'normal'}]}>{this.setComment()}</Text>:null
@@ -281,6 +317,81 @@ import {
                       </View>  
                 </View>
                 </ScrollView>
+                <Modal isVisible={this.state.showModel}
+                    backdropOpacity={0.1}
+                    backdropColor='red'
+                >
+                    <View style={{backgroundColor:'grey'}}>
+                        <View style={{flexDirection:'row', width:'100%', justifyContent:'center', alignItems:'center'}}>
+                            <Text style={{flex:1, textAlign:'center', fontSize:18, fontWeight:'bold', color:'white', padding:5}}>Chọn ngày xem kết quả</Text>
+                            <TouchableOpacity
+                                onPress={()=>{
+                                    this.setState({
+                                        showModel:false
+                                    })
+                                }}
+                            >
+                                <Image
+                                    style={{width:30, height: 30, tintColor:'white', marginRight:5}}
+                                    source = {require('../images/exit_calendar.png')}
+                                />
+                            </TouchableOpacity>
+                        </View>
+                        <Calendar
+                            // Specify style for calendar container element. Default = {}
+                            style={{
+                                borderWidth: 1,
+                                borderColor: 'gray',
+                                height: 350
+                            }}
+                            // Specify theme properties to override specific styles for calendar parts. Default = {}
+                            theme={{
+                                backgroundColor: '#ffffff',
+                                calendarBackground: '#ffffff',
+                                textSectionTitleColor: '#b6c1cd',
+                                selectedDayBackgroundColor: '#00adf5',
+                                selectedDayTextColor: '#ffffff',
+                                todayTextColor: '#00adf5',
+                                dayTextColor: '#2d4150',
+                                textDisabledColor: '#d9e1e8',
+                                dotColor: '#00adf5',
+                                selectedDotColor: '#ffffff',
+                                arrowColor: 'orange',
+                                monthTextColor: 'blue',
+                                textDayFontFamily: 'Roboto',
+                                textMonthFontFamily: 'Roboto',
+                                textDayHeaderFontFamily: 'Roboto',
+                                textMonthFontWeight: 'bold',
+                                textDayFontSize: 16,
+                                textMonthFontSize: 16,
+                                textDayHeaderFontSize: 16
+                            }}
+                            // onDayPress={(day) => alert()} ==>ON event user click date
+                            onDayPress={(day) => {
+                                let d = new Date(day.dateString);
+                                var key_item = getKeyItemOneProvincial(d,GlobalValue.codeProvincialSelected, 0);
+                                let result_tam = getItemWithDate(this.props.regionSelected, d, key_item, this.props.dataLottery);
+                                if(result_tam !== null && result_tam !== undefined){
+                                    result = result_tam;
+                                    date_view = new Date(day.dateString);
+                                    GlobalValue.daySelected = day.dateString;
+                                    //exit modal
+                                    this.setState({
+                                        showModel:false
+                                    })
+                                    check = true;
+                                }else {
+                                    let indexDay = d.getDay() + 1;
+                                    if(schedule_lottery_with_provincial[GlobalValue.codeProvincialSelected].weekdays.indexOf(indexDay+'') === -1){
+                                        alert('Ngày ' + moment(d).format('DD/MM/YYYY') + ' xổ số ' + GlobalValue.nameProvincialSelected + ' không có lịch quay')
+                                    }else {
+                                        alert('Chưa có kết quả xổ số cho ngày ' + moment(d).format('DD/MM/YYYY'))
+                                    }   
+                                }   
+                            }}
+                         />
+                    </View>
+                </Modal>  
              </View>
          );
      }
@@ -296,6 +407,12 @@ import {
         }
      }
 
+     //Click calendar
+     clickCalendar(){
+        this.setState({
+            showModel:true,
+        })
+    }
 
      //SET TITLE THEO NGAY
      setTitle(){
@@ -379,7 +496,6 @@ export default connect(mapStateToProps)(ResultWithDaySelectedComponent);
         textAlign: 'center'
     },
     text_title_date:{
-        width:'100%',
         backgroundColor:'#EEEEEE',
         borderBottomWidth:1,
         borderBottomColor:'#DDDDDD',
