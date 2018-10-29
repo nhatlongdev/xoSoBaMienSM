@@ -13,6 +13,7 @@ import {
  import moment from 'moment';
  import GlobalValue from '../data/GlobalValue';
  import { setTitleResultLottery } from '../functions/SetTitleResultLottery';
+ import schedule_lottery_with_provincial from '../data/schedule_lottery_with_provincial';
 
  //REDUX
  import { connect } from 'react-redux';
@@ -505,7 +506,7 @@ LocaleConfig.defaultLocale = 'fr';
                     backdropColor='red'
                 >
                     <View style={{backgroundColor:'grey'}}>
-                        <Text>I am the modal content!</Text>
+                        <Text style={{width:'100%', textAlign:'center', fontSize:18, fontWeight:'bold', color:'white', padding:5}}>Chọn ngày xem kết quả</Text>
                         <Calendar
                             // Specify style for calendar container element. Default = {}
                             style={{
@@ -537,7 +538,25 @@ LocaleConfig.defaultLocale = 'fr';
                             }}
                             // onDayPress={(day) => alert()} ==>ON event user click date
                             onDayPress={(day) => {
-                               
+                                date_view = new Date(day.dateString);
+                                var key_item = getKeyItemOneProvincial(date_view,'MB', 0);
+                                result = getItemWithDate(this.props.regionSelected, date_view, key_item, this.props.dataLottery);
+                                if(result !== null && result !== undefined){
+                                    //Goi actionCreator
+                                    this.props.updateResultLottery();
+                                    //exit modal
+                                    this.setState({
+                                        showModel:false
+                                    })
+                                }else {
+                                    var d = new Date(day.dateString);
+                                    let indexDay = d.getDay() + 1;
+                                    if(schedule_lottery_with_provincial['MB'].weekdays.indexOf(indexDay+'') === -1){
+                                        alert('Ngày ' + moment(d).format('DD/MM/YYYY') + ' xổ số Miền Bắc ' + ' không có lịch quay')
+                                    }else {
+                                        alert('Chưa có kết quả xổ số cho ngày ' + moment(d).format('DD/MM/YYYY'))
+                                    }   
+                                }   
                             }}
                          />
                          <TouchableOpacity
@@ -547,13 +566,37 @@ LocaleConfig.defaultLocale = 'fr';
                                 })
                             }}
                          >
-                            <Text>Thoát</Text>
+                            <Text style={{fontSize:18, color:'red', padding:5}}>Thoát</Text>
                          </TouchableOpacity>
                     </View>
                 </Modal>  
                 
              </GestureRecognizer>
          );
+     }
+
+     //HAM XU LY KHI CLICK MODAL CHON NGAY
+     clickCalendar(day){
+         alert('chay')
+        date_view = new Date(day.dateString);
+        var key_item = getKeyItemOneProvincial(date_view,'MB', 0);
+        result = getItemWithDate(this.props.regionSelected, date_view, key_item, this.props.dataLottery);
+        if(result !== null && result !== undefined){
+            //Goi actionCreator
+            this.props.updateResultLottery();
+            //exit modal
+            this.setState({
+                showModel:false
+            })
+        }else {
+            var d = new Date(day.dateString);
+            let indexDay = d.getDay() + 1;
+            if(schedule_lottery_with_provincial['MB'].weekdays.indexOf(indexDay+'') === -1){
+                alert('Ngày ' + moment(d).format('DD/MM/YYYY') + ' xổ số Miền Bắc ' + ' không có lịch quay')
+            }else {
+                alert('Chưa có kết quả xổ số cho ngày ' + moment(d).format('DD/MM/YYYY'))
+            }   
+        }
      }
 
      //HÀM XỬ LÝ KHI NGƯỜI DÙNG VUỐT TRÁI, PHẢI
